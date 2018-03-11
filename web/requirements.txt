@@ -1,0 +1,16 @@
+# Global
+Django==2.0.1
+psycopg2-binary
+
+# Django core
+django-split-settings==0.3.0
+
+# Development
+django-debug-toolbar
+isort
+
+# App specific
+django-model-utils
+
+# For frontend
+django-bootstrap4
