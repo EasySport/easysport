@@ -9,4 +9,7 @@ INSTALLED_APPS = [
     # External libraries
     #  Bootstrap
     'bootstrap4',
+
+    # Our apps
+    'apps.games',
 ]
