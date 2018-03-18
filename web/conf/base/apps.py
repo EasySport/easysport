@@ -12,4 +12,5 @@ INSTALLED_APPS = [
 
     # Our apps
     'apps.games',
+    'apps.users',
 ]

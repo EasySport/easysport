@@ -1,7 +1,8 @@
 # Core django
-from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import User
+
+# Our apps
+from apps.users.models import User
 
 
 class Game(models.Model):
@@ -60,3 +61,44 @@ class Game(models.Model):
 
     def __str__(self):
         return u'Игра #{}'.format(self.id)
+
+
+class UserGameAction(models.Model):
+    class Meta:
+        verbose_name = 'запись на игру'
+        verbose_name_plural = 'записи на игру'
+        unique_together = ("game", "user")
+
+    SUBSCRIBED = 1
+    RESERVED = 2
+    UNSUBSCRIBED = 3
+    VISITED = 4
+    NOTVISITED = 5
+    NOTPAY = 6
+    ACTIONS = (
+        (SUBSCRIBED, 'Записался'),
+        (UNSUBSCRIBED, 'Отписался'),
+        (RESERVED, 'В резерве'),
+        (VISITED, 'Посетил'),
+        (NOTVISITED, 'Не пришел'),
+        (NOTPAY, 'Не заплатил')
+    )
+
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE
+    )
+
+    game = models.ForeignKey(
+        Game,
+        verbose_name='Игра',
+        on_delete=models.CASCADE
+    )
+
+    datetime = models.DateTimeField(verbose_name='Дата действия', auto_now=True)
+
+    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=ACTIONS)
+
+    def __str__(self):
+        return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_action_display())
