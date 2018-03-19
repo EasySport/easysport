@@ -13,6 +13,10 @@ INSTALLED_APPS = [
     # Our apps
     'apps.courts',
     'apps.games',
+    'apps.lp',
     'apps.sports',
     'apps.users',
+
+    # Utils like filters etc
+    'utils',
 ]

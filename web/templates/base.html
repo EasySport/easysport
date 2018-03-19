@@ -1,16 +1,84 @@
+{% load menu_extras %}
+
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Make EasySport Great Again</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
 
-    {% block content %}
-    {% endblock %}
-</body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Kurale|Lobster|Lora|Merriweather|Play|Roboto+Slab|Vollkorn"
+              rel="stylesheet">
+
+        <script src="https://use.fontawesome.com/14d9e3a8b7.js"></script>
+
+        <style>
+            body {
+                margin-top: 66px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a href="/" class="navbar-brand">
+                <img src="/static/images/logo_new.png" alt="brand" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">Игры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">Площадки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Игроки</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdownt">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                {{ user }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Войти</a>
+                        </li>
+                        <form class="form-inline my-2 my-lg-0">
+                            <a class="btn btn-outline-success my-2 my-sm-0" href="#">Зарегистрироваться</a>
+                        </form>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+    </body>
 </html>

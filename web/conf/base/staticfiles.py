@@ -15,7 +15,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # Если не находит, то ищет с помощью django.contrib.staticfiles.finders.AppDirectoriesFinder,
 # которая проверяет папку static каждого установленного в проекте приложения
 STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'assets'),
 )
 
 # В режиме разработки — python manage.py runserver — Django ищет статичные файлы с помощью них

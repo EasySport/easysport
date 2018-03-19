@@ -25,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Our apps
-    path('', include('apps.games.urls')),
+    path('games/', include('apps.games.urls')),
+    path('courts/', include('apps.courts.urls')),
     path('', include('apps.lp.urls')),
 
     # Login views

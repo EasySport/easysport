@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Games</h2>
+    <h2>Courts</h2>
     <ul>
-        {% for game in object_list %}
+        {% for court in object_list %}
             <li>
-                <a href="{% url 'games:detail' game.pk %}">{{ game }}</a>
+                <a href="{% url 'courts:detail' court.pk %}">{{ court }}</a>
             </li>
         {% endfor %}
     </ul>
