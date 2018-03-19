@@ -1,9 +1,10 @@
 # Global
-Django==2.0.1
+Django
 psycopg2-binary
+Pillow
 
 # Django core
-django-split-settings==0.3.0
+django-split-settings
 
 # Development
 django-debug-toolbar

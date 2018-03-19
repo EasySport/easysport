@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     # Our apps
+    'apps.courts',
     'apps.games',
     'apps.users',
 ]
