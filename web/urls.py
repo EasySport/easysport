@@ -26,6 +26,7 @@ urlpatterns = [
 
     # Our apps
     path('', include('apps.games.urls')),
+    path('', include('apps.lp.urls')),
 
     # Login views
     path('login/', auth_views.LoginView.as_view(), name='login'),
