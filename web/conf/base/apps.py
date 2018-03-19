@@ -13,5 +13,6 @@ INSTALLED_APPS = [
     # Our apps
     'apps.courts',
     'apps.games',
+    'apps.sports',
     'apps.users',
 ]
