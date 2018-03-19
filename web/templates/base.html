@@ -42,21 +42,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Игроки</a>
                     </li>
+                    <li>
+                        <span class="navbar-text ml-3">
+                            {% now "D, j M, H:i" %}
+                        </span>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdownt">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 {{ user }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                             </div>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Войти</a>
+                            <a class="nav-link" href="{% url 'login' %}">Войти</a>
                         </li>
                         <form class="form-inline my-2 my-lg-0">
                             <a class="btn btn-outline-success my-2 my-sm-0" href="#">Зарегистрироваться</a>
