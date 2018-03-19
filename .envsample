@@ -1,0 +1,9 @@
+# Database variables
+POSTGRES_USER=postgres
+POSTGRES_DB=postgres
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+PGDATA=/var/lib/postgresql/data/pgdata
+
+# Django variables
+# DJANGO_ENV=prod # for production
