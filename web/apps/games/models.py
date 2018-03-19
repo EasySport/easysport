@@ -62,6 +62,10 @@ class Game(models.Model):
     def __str__(self):
         return u'Игра #{}'.format(self.id)
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('games:detail', args=[str(self.pk)])
+
 
 class UserGameAction(models.Model):
     class Meta:

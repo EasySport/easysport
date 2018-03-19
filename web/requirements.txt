@@ -9,6 +9,7 @@ django-split-settings
 # Development
 django-debug-toolbar
 isort
+geocoder
 
 # App specific
 django-model-utils
