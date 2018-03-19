@@ -3,6 +3,7 @@ from apps.users.models import User
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView
 from django.urls import reverse
+from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView)
 
 
 class UserCreationForm(forms.ModelForm):
@@ -63,3 +64,19 @@ class RegistrationView(FormView):
         user = authenticate(email=email, password=raw_password)
         login(self.request, user)
         return super().form_valid(form)
+
+
+class ResetView(PasswordResetView):
+    template_name = 'registration/password/password_reset_form.html'
+    email_template_name = 'registration/password/password_reset_email.html'
+
+    def get_success_url(self):
+        return reverse('users:password_reset_done')
+
+
+class ResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password/password_reset_confirm.html'
+
+    def get_success_url(self):
+        return reverse('users:password_reset_complete')
+

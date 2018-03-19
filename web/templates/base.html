@@ -58,12 +58,12 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                                <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
                             </div>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
                         </li>
                         <form class="form-inline my-2 my-lg-0">
                             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'users:signup' %}">Зарегистрироваться</a>
