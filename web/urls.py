@@ -28,6 +28,7 @@ urlpatterns = [
     path('games/', include('apps.games.urls')),
     path('courts/', include('apps.courts.urls')),
     path('', include('apps.lp.urls')),
+    path('', include('apps.users.urls')),
 
     # Login views
     path('login/', auth_views.LoginView.as_view(), name='login'),
