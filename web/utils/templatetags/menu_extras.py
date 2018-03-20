@@ -7,6 +7,6 @@ register = template.Library()
 @register.simple_tag
 def is_active(request, url):
     # Main idea is to check if the url and the current path is a match
-    if request.path in reverse(url):
+    if request.path == reverse(url):
         return "active"
     return ""
