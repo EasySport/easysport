@@ -3,6 +3,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
+from django.urls import reverse
+
+# Third party
+from phonenumber_field.modelfields import PhoneNumberField
+
+# Our apps
+from apps.courts.models import City
 
 
 class UserManager(BaseUserManager):
@@ -36,12 +43,32 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('email address', unique=True)
-    first_name = models.CharField('first name', max_length=30, blank=True)
-    last_name = models.CharField('last name', max_length=30, blank=True)
-    date_joined = models.DateTimeField('date joined', auto_now_add=True)
-    is_active = models.BooleanField('active', default=True)
-    is_staff = models.BooleanField('staff status', default=False)
+    email = models.EmailField('Email', unique=True)
+    first_name = models.CharField('Имя', max_length=30)
+    last_name = models.CharField('Фамилия', max_length=30)
+    date_joined = models.DateTimeField('Дата регистрации', auto_now_add=True)
+    is_active = models.BooleanField('Активный профиль', default=True)
+    is_staff = models.BooleanField('Статус админа', default=False)
+
+    city = models.ForeignKey(
+        City,
+        verbose_name='Город',
+        on_delete=models.CASCADE,
+        null=True
+    )
+    sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
+    bdate = models.DateField(
+        'Дата рождения',
+        auto_now_add=False,
+        blank=True,
+        null=True,
+        help_text=u'В формате ДД.ММ.ГГГГ'
+    )
+    phone = PhoneNumberField(
+        verbose_name='Мобильный телефон',
+        unique=True,
+        null=True
+    )
 
     objects = UserManager()
 
@@ -51,6 +78,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+
+    def __str__(self):
+        if self.first_name != "" and self.last_name != "":
+            return u'{} {}'.format(self.first_name, self.last_name)
+        else:
+            return self.email
 
     def get_full_name(self):
         """
@@ -64,3 +97,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns the short name for the user.
         """
         return self.first_name
+
+    def get_absolute_url(self):
+        return reverse('users:detail', args=[str(self.pk)])

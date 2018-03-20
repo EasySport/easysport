@@ -7,8 +7,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # External libraries
-    #  Bootstrap
+    # - Bootstrap
     'bootstrap4',
+    # - Models
+    'phonenumber_field',
 
     # Our apps
     'apps.courts',

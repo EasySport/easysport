@@ -40,7 +40,7 @@
                         <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">Площадки</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Игроки</a>
+                        <a class="nav-link" {% is_active request 'users:list' %}" href="{% url 'users:list' %}">Игроки</a>
                     </li>
                     <li>
                         <span class="navbar-text ml-3">
@@ -57,6 +57,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
+                                <a class="dropdown-item" href="{% url 'users:update' %}">Настройки</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
                             </div>

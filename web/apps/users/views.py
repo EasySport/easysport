@@ -1,9 +1,18 @@
+# Django core
 from django import forms
-from apps.users.models import User
 from django.contrib.auth import login, authenticate
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import ListView, DetailView
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView)
+
+# Third party
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
+
+# Our apps
+from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
@@ -27,7 +36,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email",)
+        fields = ('email',)
         field_classes = {'email': forms.EmailField}
 
     def clean_password2(self):
@@ -53,7 +62,7 @@ class RegistrationView(FormView):
     form_class = UserCreationForm
 
     def get_success_url(self):
-        return reverse('games:list')
+        return reverse('users:update')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -80,3 +89,36 @@ class ResetConfirmView(PasswordResetConfirmView):
     def get_success_url(self):
         return reverse('users:password_reset_complete')
 
+
+class UsersList(ListView):
+    model = User
+
+
+class UserLDetail(DetailView):
+    model = User
+
+
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name',
+                  'city', 'sex', 'bdate', 'phone']
+
+    # def clean_bdate(self):
+    #     bdate = self.cleaned_data.get("bdate")
+    #     if bdate:
+    #         if timezone.now().date() - bdate < timezone.timedelta(days=3650):
+    #             raise forms.ValidationError("Тебе меньше 10 лет, серьезно?")
+    #         return bdate
+    #     else:
+    #         return None
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
