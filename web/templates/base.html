@@ -56,7 +56,9 @@
                                 {{ user }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
+                                {% if user.is_superuser %}
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="{% url 'users:update' %}">Настройки</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
