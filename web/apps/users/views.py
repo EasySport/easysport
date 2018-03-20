@@ -85,9 +85,11 @@ class ResetView(PasswordResetView):
 
 class ResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password/password_reset_confirm.html'
+    post_reset_login = True
+    post_reset_login_backend = 'django.contrib.auth.backends.ModelBackend'
 
     def get_success_url(self):
-        return reverse('users:password_reset_complete')
+        return reverse('users:update')
 
 
 class UsersList(ListView):
