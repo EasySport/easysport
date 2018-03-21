@@ -1,5 +1,6 @@
 # Django core
 from django import forms
+from django.forms.widgets import SelectDateWidget
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
@@ -105,7 +106,10 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name',
-                  'city', 'sex', 'bdate', 'phone']
+                  'city', 'sex', 'bdate', 'phone', 'avatar']
+        widgets = {
+            'bdate': SelectDateWidget(years=list(range(1945, 2017)))
+        }
 
     # def clean_bdate(self):
     #     bdate = self.cleaned_data.get("bdate")

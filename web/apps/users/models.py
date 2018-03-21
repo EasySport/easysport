@@ -42,6 +42,13 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+def avatar_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/...
+    return 'avatar/{0}/{1}'.format(
+        instance.pk,
+        filename)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Email', unique=True)
     first_name = models.CharField('Имя', max_length=30)
@@ -68,6 +75,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='Мобильный телефон',
         unique=True,
         null=True
+    )
+    avatar = models.ImageField(
+        verbose_name='Аватар',
+        upload_to=avatar_path,
+        null=True,
+        blank=True
     )
 
     objects = UserManager()
