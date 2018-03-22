@@ -1,6 +1,6 @@
 # Django core
 from django import forms
-from django.forms.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget, ClearableFileInput
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
@@ -8,9 +8,6 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView)
-
-# Third party
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 # Our apps
 from .models import User
@@ -108,7 +105,8 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['first_name', 'last_name',
                   'city', 'sex', 'bdate', 'phone', 'avatar']
         widgets = {
-            'bdate': SelectDateWidget(years=list(range(1945, 2017)))
+            'bdate': SelectDateWidget(years=list(range(1945, 2017))),
+            'avatar': ClearableFileInput()
         }
 
     # def clean_bdate(self):

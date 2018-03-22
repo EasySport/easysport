@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2>Редактирование профиля</h2>
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             {% buttons %}
