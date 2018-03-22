@@ -15,6 +15,18 @@ from .models import Court, Place
 class CourtsList(ListView):
     model = Court
 
+    def get_queryset(self, **kwargs):
+        q = self.request.GET.get('q', None)
+        courts = Court.objects.all()
+        if q:
+            return courts.filter(title__contains=q)
+        return courts
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CourtsList, self).get_context_data(**kwargs)
+        context['q'] = self.request.GET.get('q', None)
+        return context
+
 
 class CourtDetail(DetailView):
     model = Court

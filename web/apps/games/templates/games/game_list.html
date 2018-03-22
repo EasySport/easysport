@@ -12,4 +12,15 @@
             </li>
         {% endfor %}
     </ul>
+
+    <form action="" method="GET">
+        <label>Вид спорта
+            <select name="sports">
+                {% for sport in sports %}
+                    <option value="{{ sport.pk }}">{{sport}}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <input type="submit" value="Отфильтровать">
+    </form>
 {% endblock %}

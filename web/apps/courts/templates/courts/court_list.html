@@ -12,4 +12,11 @@
             </li>
         {% endfor %}
     </ul>
+
+    <form action="" method="GET">
+        <label>Название
+            <input type="text" name="q" value="{{ q }}">
+        </label>
+        <input type="submit" value="Поиск">
+    </form>
 {% endblock %}

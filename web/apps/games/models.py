@@ -70,7 +70,7 @@ class Game(models.Model):
         verbose_name_plural = 'игры'
 
     def __str__(self):
-        return u'Игра #{}'.format(self.id)
+        return u'{}, {}'.format(self.title, self.datetime)
 
     def get_absolute_url(self):
         from django.urls import reverse
