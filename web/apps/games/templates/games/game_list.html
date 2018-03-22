@@ -2,7 +2,9 @@
 
 {% block content %}
     <h2>Games</h2>
-    <a href="{% url 'games:create' %}">+создать игру</a>
+    {% if perms.games.can_add %}
+        <a href="{% url 'games:create' %}">+создать игру</a>
+    {% endif %}
     <ul>
         {% for game in object_list %}
             <li>
