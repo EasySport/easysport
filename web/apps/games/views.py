@@ -23,10 +23,11 @@ class GamesList(ListView):
         return q
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        sport = self.request.GET.get('sport', '')
+        sport = self.request.GET.get('sport', None)
         context = super(GamesList, self).get_context_data(**kwargs)
         context['sports'] = SportType.objects.all()
-        context['q'] = int(sport)
+        if sport:
+            context['q'] = int(sport)
         return context
 
 
