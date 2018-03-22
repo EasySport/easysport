@@ -2,7 +2,6 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.forms.widgets import SplitDateTimeWidget
 from django.utils import timezone
 
 # Third party
@@ -53,8 +52,4 @@ class GameUpdate(UpdateView):
         form = super(GameUpdate, self).get_form(form_class)
         form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
         form.fields['court'].widget.choices = form.fields['court'].choices
-        form.fields['datetime'].widget = SplitDateTimeWidget(
-            date_attrs={'placeholder': 'Дата', 'class': 'form-control col-md-6'},
-            time_attrs={'placeholder': 'Время', 'class': 'form-control col-md-6'}
-        )
         return form
