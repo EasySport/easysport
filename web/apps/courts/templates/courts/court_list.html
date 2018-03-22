@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2>Courts</h2>
+    <a href="{% url 'courts:create_place' %}">+создать площадку</a>
     <ul>
         {% for court in object_list %}
             <li>

@@ -124,12 +124,14 @@ class Court(models.Model):
 
     description = models.TextField(
         verbose_name='Описание',
-        blank=True
+        blank=True,
+        help_text='Это описание увидят все посетители сайта'
     )
 
     admin_description = models.TextField(
         verbose_name='Примечания для админов',
-        blank=True
+        blank=True,
+        help_text='Это описание только для организаторов игр'
     )
 
     place = models.ForeignKey(
