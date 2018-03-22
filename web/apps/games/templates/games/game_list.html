@@ -15,9 +15,10 @@
 
     <form action="" method="GET">
         <label>Вид спорта
-            <select name="sports">
+            <select name="sport">
                 {% for sport in sports %}
-                    <option value="{{ sport.pk }}">{{sport}}</option>
+                    <option value="{{ sport.pk }}" {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
+
                 {% endfor %}
             </select>
         </label>
