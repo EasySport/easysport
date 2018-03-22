@@ -24,7 +24,7 @@ class CourtsList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CourtsList, self).get_context_data(**kwargs)
-        context['q'] = self.request.GET.get('q', None)
+        context['q'] = self.request.GET.get('q', '')
         return context
 
 

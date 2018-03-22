@@ -94,6 +94,21 @@ class ResetConfirmView(PasswordResetConfirmView):
 class UsersList(ListView):
     model = User
 
+    def get_queryset(self, **kwargs):
+        q = self.request.GET.get('q', None)
+        users = User.objects.all()
+        if q:
+            q1 = users.filter(first_name__contains=q)
+            q2 = users.filter(last_name__contains=q)
+            q3 = users.filter(phone__contains=q)
+            return q1 | q2 | q3
+        return users
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UsersList, self).get_context_data(**kwargs)
+        context['q'] = self.request.GET.get('q', '')
+        return context
+
 
 class UserLDetail(DetailView):
     model = User

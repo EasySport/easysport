@@ -9,4 +9,11 @@
             </li>
         {% endfor %}
     </ul>
+
+    <form action="" method="GET">
+        <label>Поиск
+            <input type="text" name="q" value="{{ q }}" placeholder="Имя или номер телефона">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
 {% endblock %}
