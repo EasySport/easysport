@@ -35,10 +35,6 @@ class GameCreate(PermissionRequiredMixin, CreateView):
         form = super(GameCreate, self).get_form(form_class)
         form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
         form.fields['court'].widget.choices = form.fields['court'].choices
-        form.fields['datetime'].widget = SplitDateTimeWidget(
-            date_attrs={'placeholder': 'Дата', 'class': 'form-control col-md-6'},
-            time_attrs={'placeholder': 'Время', 'class': 'form-control col-md-6'}
-        )
         return form
 
 
