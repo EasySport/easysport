@@ -2,6 +2,7 @@
 from django import forms
 from django.forms.widgets import SelectDateWidget, ClearableFileInput
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.admin import UserAdmin
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
