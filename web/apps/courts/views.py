@@ -2,7 +2,7 @@
 from django import forms
 from django.forms.models import modelform_factory
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 
 # Third party
@@ -77,3 +77,10 @@ class CourtAutocomplete(autocomplete.Select2QuerySetView):
 
     def get_result_label(self, item):
         return u'{}, {}'.format(item.title, item.place.address)
+
+
+class CourtUpdate(UpdateView):
+    model = Court
+    fields = '__all__'
+    permission_required = 'courts.can_edit'
+    template_name = 'courts/court_edit.html'

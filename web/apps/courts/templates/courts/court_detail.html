@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if perms.courts.can_edit %}
+        <a href="{% url 'courts:update' object.pk %}">Редактировать</a>
+    {% endif %}
     <h2>Court</h2>
     <p>{{ court }}</p>
 {% endblock %}

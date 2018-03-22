@@ -152,8 +152,6 @@ class Court(models.Model):
         blank=True
     )
 
-    # sporttypes = models.ManyToManyField(SportType, verbose_name=u'Типы спорта', blank=True)
-
     views = models.IntegerField(default=0)
 
     class Meta:
@@ -163,3 +161,7 @@ class Court(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('courts:detail', args=[str(self.pk)])
