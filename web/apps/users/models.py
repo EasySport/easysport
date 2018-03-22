@@ -74,7 +74,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField(
         verbose_name='Мобильный телефон',
         unique=True,
-        null=True
+        null=True,
+        help_text=u'В формате +7**********'
     )
     avatar = models.ImageField(
         verbose_name='Аватар',

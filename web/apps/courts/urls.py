@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/', views.CourtDetail.as_view(), name='detail'),
 
     path('create/place/', views.PlaceCreate.as_view(), name='create_place'),
-
     path('create/', views.CourtCreate.as_view(), name='create'),
+
+    path('autocomplete/', views.CourtAutocomplete.as_view(), name='autocomplete'),
 ]

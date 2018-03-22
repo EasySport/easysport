@@ -29,7 +29,10 @@ class GameType(models.Model):
         verbose_name='Название типа игры'
     )
 
-    description = models.TextField(verbose_name='Описание формата')
+    description = models.TextField(
+        verbose_name='Описание формата',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Тип игры'

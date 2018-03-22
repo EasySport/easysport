@@ -1,7 +1,12 @@
 # Django core
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.forms.widgets import SplitDateTimeWidget
+from django.utils import timezone
+
+# Third party
+from dal import autocomplete
 
 # Our apps
 from .models import Game
@@ -24,4 +29,32 @@ class GameCreate(PermissionRequiredMixin, CreateView):
         initial = super(GameCreate, self).get_initial()
         initial = initial.copy()
         initial['responsible'] = self.request.user
+        initial['datetime'] = timezone.now()
         return initial
+
+    def get_form(self, form_class=None):
+        form = super(GameCreate, self).get_form(form_class)
+        form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
+        form.fields['court'].widget.choices = form.fields['court'].choices
+        form.fields['datetime'].widget = SplitDateTimeWidget(
+            date_attrs={'placeholder': 'Дата', 'class': 'form-control col-md-6'},
+            time_attrs={'placeholder': 'Время', 'class': 'form-control col-md-6'}
+        )
+        return form
+
+
+class GameUpdate(UpdateView):
+    model = Game
+    fields = '__all__'
+    permission_required = 'games.can_edit'
+    template_name = 'games/game_edit.html'
+
+    def get_form(self, form_class=None):
+        form = super(GameUpdate, self).get_form(form_class)
+        form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
+        form.fields['court'].widget.choices = form.fields['court'].choices
+        form.fields['datetime'].widget = SplitDateTimeWidget(
+            date_attrs={'placeholder': 'Дата', 'class': 'form-control col-md-6'},
+            time_attrs={'placeholder': 'Время', 'class': 'form-control col-md-6'}
+        )
+        return form

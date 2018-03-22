@@ -5,6 +5,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 
+# Third party
+from dal import autocomplete
+
 # Our apps
 from .models import Court, Place
 
@@ -33,7 +36,7 @@ class ModelFormWidgetMixin(object):
 
 class CourtCreate(ModelFormWidgetMixin, CreateView):
     model = Court
-    fields = '__all__'
+    fields = ['title', 'description', 'admin_description', 'place', 'type', 'photo']
     widgets = {
         'description': forms.Textarea(attrs={'rows': 3}),
         'admin_description': forms.Textarea(attrs={'rows': 3}),
@@ -47,3 +50,18 @@ class CourtCreate(ModelFormWidgetMixin, CreateView):
         initial = initial.copy()
         initial['place'] = Place.objects.latest('pk')
         return initial
+
+
+class CourtAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Court.objects.none()
+        qs = Court.objects.all()
+        places = Place.objects.filter(city=self.request.user.city)
+        # TODO: add address filter
+        if self.q:
+            qs = qs.filter(title__contains=self.q)
+        return qs
+
+    def get_result_label(self, item):
+        return u'{}, {}'.format(item.title, item.place.address)

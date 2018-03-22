@@ -3,6 +3,8 @@ from django.db import models
 
 # Our apps
 from apps.users.models import User
+from apps.courts.models import Court
+from apps.sports.models import GameType
 
 
 class Game(models.Model):
@@ -42,12 +44,20 @@ class Game(models.Model):
         default=0
     )
 
-    # court = models.ForeignKey(Court, verbose_name='Площадка')
+    court = models.ForeignKey(
+        Court,
+        verbose_name='Площадка',
+        on_delete=models.CASCADE
+    )
 
-    # gametype = models.ForeignKey(GameType, verbose_name='Тип игры')
-    # sporttype = models.ForeignKey(SportType, verbose_name='Вид спорта', blank=True, null=True)
+    gametype = models.ForeignKey(
+        GameType,
+        verbose_name='Тип игры',
+        on_delete=models.CASCADE
+    )
 
-    datetime = models.DateTimeField(verbose_name='Дата проведения')
+    datetime = models.DateTimeField(verbose_name='Начало')
+
     duration = models.DurationField(
         verbose_name=u'Длительность',
         help_text=u'В минутах',
@@ -55,7 +65,7 @@ class Game(models.Model):
         blank=True
     )
 
-    class Meta():
+    class Meta:
         verbose_name = 'игра'
         verbose_name_plural = 'игры'
 
