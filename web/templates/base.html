@@ -19,61 +19,67 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <a href="/" class="navbar-brand">
-                <img src="{% static 'img/logo_new.png' %}" alt="brand" height="40">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">Игры</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">Площадки</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% is_active request 'users:list' %}" href="{% url 'users:list' %}">Игроки</a>
-                    </li>
-                    <li>
-                        <span class="navbar-text ml-3">
-                            {% now "D, j M, H:i" %}
-                        </span>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                {{ user }}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                {% if user.is_superuser %}
-                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
-                                {% endif %}
-                                <a class="dropdown-item" href="{% url 'users:update' %}">Настройки</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
-                            </div>
-                        </li>
-                    {% else %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-red fixed-top">
+            <div class="container">
+                <a href="/" class="navbar-brand">
+                    <img src="{% static 'img/logo_new.png' %}" alt="brand" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                            <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">Игры</a>
                         </li>
-                        <form class="form-inline my-2 my-lg-0">
-                            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'users:signup' %}">Зарегистрироваться</a>
-                        </form>
-                    {% endif %}
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">Площадки</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% is_active request 'users:list' %}" href="{% url 'users:list' %}">Игроки</a>
+                        </li>
+                        <li>
+                            <span class="navbar-text ml-3">
+                                {% now "D, j M, H:i" %}
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    {{ user }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    {% if user.is_superuser %}
+                                        <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
+                                    {% endif %}
+                                    <a class="dropdown-item" href="{% url 'users:update' %}">Настройки</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                            </li>
+                            <form class="form-inline my-2 my-lg-0">
+                                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'users:signup' %}">Зарегистрироваться</a>
+                            </form>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
 
-        {% block content %}
-        {% endblock %}
+        <section>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
 
         <script src="{% static 'js/main.js' %}"></script>
 
