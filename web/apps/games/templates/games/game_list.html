@@ -11,11 +11,11 @@
             {% endif %}
             <div class="card mb-4">
                 <div class="card-body">
+                    <p class="lead text-center">Игры</p>
                     <form action="" method="GET">
                         <div class="form-group">
-                            <label>Вид спорта</label>
                             <select class="custom-select form-control" name="sport">
-                                <option value="all" {% if not q %}selected{% endif %}>Все виды</option>
+                                <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
                                 {% for sport in sports %}
                                     <option value="{{ sport.pk }}" {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
                                 {% endfor %}
@@ -34,9 +34,9 @@
                         <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }} | {{ game.title }}</a>
                         {% if game.responsible == user or user.is_staff %}
                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary" href="{% url 'games:update' game.pk %}">
+                                <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
                                     ред.
-                                </button>
+                                </a>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-3">
+                            <div class="col">
                                 {% if game.near_time_status == 'Today' %}
                                     <p><span class="badge badge-warning">Сегодня</span></p>
                                 {% elif game.near_time_status == 'Tomorrow' %}
@@ -67,7 +67,7 @@
                                     <i class="fa fa-clock-o"></i> {{ game.datetime|date:"H:i" }}
                                 </p>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7 text-center">
                                 <p class="card-text">{{ game.gametype.sport_type }}, {{ game.gametype.title }}</p>
                                 <p class="card-text">
                                     <a href="{{ game.court.get_absolute_url }}}">{{ game.court }}</a>
@@ -79,8 +79,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 text-right">
-                                <p class="lead">{{ game.cost }} <i class="fa fa-rub" aria-hidden="true"></i></p>
+                            <div class="col text-right">
+                                <p class="lead">{{ game.cost }} RUB</p>
                                 <p><i class="fa fa-hourglass-half" aria-hidden="true"></i> {{ game.duration|in_minutes }}</p>
                             </div>
                         </div>
