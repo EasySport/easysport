@@ -59,11 +59,11 @@
                                 </div>
                             </li>
                         {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-                            </li>
                             <form class="form-inline my-2 my-lg-0">
-                                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'users:signup' %}">Зарегистрироваться</a>
+                                <a class="btn btn-primary my-2 my-sm-0 mr-3" href="{% url 'users:login' %}">Войти</a>
+                            </form>
+                            <form class="form-inline my-2 my-lg-0">
+                                <a class="btn btn-success my-2 my-sm-0" href="{% url 'users:signup' %}">Зарегистрироваться</a>
                             </form>
                         {% endif %}
                     </ul>

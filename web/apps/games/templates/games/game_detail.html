@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>Game</h2>
-    {% if perms.games.can_edit %}
+    {% if perms.games.change_game %}
         <a href="{% url 'games:update' object.pk %}">Редактировать</a>
     {% endif %}
     <p>{{ object }}</p>

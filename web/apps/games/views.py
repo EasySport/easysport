@@ -17,8 +17,8 @@ class GamesList(ListView):
 
     def get_queryset(self, **kwargs):
         sport = self.request.GET.get('sport', None)
-        q = Game.objects.filter(datetime__gte=timezone.now())
-        if sport:
+        q = Game.objects.filter(datetime__gte=timezone.now()).order_by('datetime')
+        if sport and sport != 'all':
             return q.filter(gametype=sport)
         return q
 
@@ -26,7 +26,7 @@ class GamesList(ListView):
         sport = self.request.GET.get('sport', None)
         context = super(GamesList, self).get_context_data(**kwargs)
         context['sports'] = SportType.objects.all()
-        if sport:
+        if sport and sport != 'all':
             context['q'] = int(sport)
         return context
 

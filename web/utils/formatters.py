@@ -3,16 +3,19 @@
 
 # duration format
 def plural_rus_variant(x):
-    lasttwodigits = x % 100
-    tens = lasttwodigits / 10
-    if tens == 1:
+    if x % 1 == 0:
+        lasttwodigits = x % 100
+        tens = lasttwodigits / 10
+        if tens == 1:
+            return 2
+        ones = lasttwodigits % 10
+        if ones == 1:
+            return 0
+        if 2 <= ones <= 4:
+            return 1
         return 2
-    ones = lasttwodigits % 10
-    if ones == 1:
-        return 0
-    if 2 <= ones <= 4:
+    else:
         return 1
-    return 2
 
 
 def show_hours(hours):

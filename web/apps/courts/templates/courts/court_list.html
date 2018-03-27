@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-3">
-            {% if perms.courts.can_add %}
+            {% if perms.courts.add_court %}
                 <div class="btn btn-block btn-success">+ Создать площадку</div>
                 <hr>
             {% endif %}

@@ -16,7 +16,7 @@
             <div class="card-body">
                 <h5 class="card-title card-text">
                     {{ court.title }}
-                    {% if perms.courts.can_edit %}
+                    {% if perms.courts.change_court %}
                         <small>
                             <a href="{% url 'courts:update' object.pk %}">
                                 <i class="fa fa-pencil"></i>&nbsp;Ред.

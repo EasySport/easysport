@@ -1,5 +1,6 @@
 # Core django
 from django.db import models
+from django.utils import timezone
 
 # Our apps
 from apps.users.models import User
@@ -75,6 +76,29 @@ class Game(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('games:detail', args=[str(self.pk)])
+
+    @property
+    def near_time_status(self):
+        event_date = timezone.localtime(self.datetime).date()
+        now = timezone.localtime(timezone.now())
+        today = now.date()
+        tomorrow = today + timezone.timedelta(days=1)
+        double_tomorrow = today + timezone.timedelta(days=2)
+        if event_date == today and now < self.datetime:
+            return 'Today'
+        elif event_date == tomorrow:
+            return 'Tomorrow'
+        elif event_date == double_tomorrow:
+            return 'After Tomorrow'
+        else:
+            return False
+
+    def subscribed_count(self):
+        return UserGameAction.objects.filter(game=self).filter(action=UserGameAction.SUBSCRIBED).count()
+
+    def subscribed_list(self):
+        actions = UserGameAction.objects.filter(game=self).filter(action=UserGameAction.SUBSCRIBED)
+        return actions
 
 
 class UserGameAction(models.Model):
