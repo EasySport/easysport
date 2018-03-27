@@ -1,9 +1,79 @@
 {% extends 'base.html' %}
 
+{% block head_title %}
+{{ court.title }}
+{% endblock %}
+
+{% block head_extra %}
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+{% endblock %}
+
 {% block content %}
-    {% if perms.courts.can_edit %}
-        <a href="{% url 'courts:update' object.pk %}">Редактировать</a>
-    {% endif %}
-    <h2>Court</h2>
-    <p>{{ court }}</p>
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <img class="card-img-top" src="{{ object.photo.url }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title card-text">
+                    {{ court.title }}
+                    {% if perms.courts.can_edit %}
+                        <small>
+                            <a href="{% url 'courts:update' object.pk %}">
+                                <i class="fa fa-pencil"></i>&nbsp;Ред.
+                            </a>
+                        </small>
+                    {% endif %}
+                </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <p class="card-text">
+                        <b>Адрес:</b>
+                        <br>
+                        {{ object.place.address }}
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">
+                        <b>Описание:</b>
+                        <br>
+                        {{ object.description }}
+                    </p>
+                </li>
+            </ul>
+            <div class="card-footer">
+                <small class="text-muted">Просмотров: {{ object.views }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <div id="map" style="width: 100%; height: 600px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * Created by vitaliyharchenko on 04.01.16.
+ */
+ymaps.ready(function () {
+    var point = [parseFloat('{{ court.place.latitude }}'.replace(",", ".")),
+        parseFloat('{{ court.place.longitude }}'.replace(",", "."))];
+    var map = new ymaps.Map("map", {
+        center: point,
+        zoom: 14,
+        controls: ['zoomControl', 'fullscreenControl']
+    });
+    var myPlacemark = new ymaps.Placemark(point, {
+        balloonContentHeader: '{{ court.title }}',
+        balloonContentBody: '{{ court.place.address }}'
+    });
+    map.geoObjects.add(myPlacemark);
+    myPlacemark.balloon.open();
+});
+</script>
+
 {% endblock %}

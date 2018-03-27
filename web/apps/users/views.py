@@ -112,6 +112,7 @@ class UsersList(ListView):
 
 class UserLDetail(DetailView):
     model = User
+    context_object_name = 'object'
 
 
 class UserUpdateForm(forms.ModelForm):

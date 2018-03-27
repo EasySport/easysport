@@ -1,19 +1,51 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <h2>Users</h2>
-    <ul>
-        {% for user in object_list %}
-            <li>
-                <a href="{% url 'users:detail' user.pk %}">{{ user }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+{% load user_extras %}
+{% load staticfiles %}
 
-    <form action="" method="GET">
-        <label>Поиск
-            <input type="text" name="q" value="{{ q }}" placeholder="Имя или номер телефона">
-        </label>
-        <input type="submit" value="Найти">
-    </form>
+{% block content %}
+<div class="row">
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <p class="lead">Игроки</p>
+                <form method="GET">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Имя или номер телефона" name="q" value="{{ q }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="card-columns">
+            {% for object in object_list %}
+                <div class="card">
+                    <img class="card-img-top" alt="Avatar"
+                         src="{% if object.avatar %}
+                            {{ object.avatar.url }}
+                         {% elif object.sex == 'm' %}
+                            {% static 'img/avatars/blank_male.jpg' %}
+                         {% else %}
+                            {% static 'img/avatars/blank_female.jpg' %}
+                         {% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
+                        </h5>
+                        <p class="card-text small">
+                            {% if object.bdate %}{{ object.bdate|beauty_age }}&nbsp;&nbsp;&nbsp;{% endif %}
+                            {% if object.city %}{{ object.city }}{% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
