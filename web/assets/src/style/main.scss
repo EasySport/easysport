@@ -4,4 +4,12 @@
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+// Font awesome
+$fa-font-path:"../fonts";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+.icon-user {
+  @extend .fa;
+  @extend .fa-user;
+}
+
 @import "my";

@@ -1,22 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Courts</h2>
-    {% if perms.courts.can_add %}
-        <a href="{% url 'courts:create_place' %}">+создать площадку</a>
-    {% endif %}
-    <ul>
-        {% for court in object_list %}
-            <li>
-                <a href="{% url 'courts:detail' court.pk %}">{{ court }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <form action="" method="GET">
-        <label>Название
-            <input type="text" name="q" value="{{ q }}">
-        </label>
-        <input type="submit" value="Поиск">
-    </form>
+    <div class="row">
+        <div class="col-3">
+            {% if perms.courts.can_add %}
+                <div class="btn btn-block btn-success">+ Создать площадку</div>
+                <hr>
+            {% endif %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="lead">Площадки</p>
+                    <form method="GET">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Поиск по названию"
+                                   aria-label="Поиск по названию" name="q" value="{{ q }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="card-columns">
+                {% for court in object_list %}
+                    <div class="card">
+                        <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'courts:detail' court.pk %}">{{ court }}</a>
+                            </h5>
+                            <p class="card-text small">{{ court.place.address }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

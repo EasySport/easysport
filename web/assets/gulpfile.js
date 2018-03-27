@@ -117,6 +117,8 @@ gulp.task('js:build', function () {
 gulp.task('fonts:build', function() {
     gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts));
+    gulp.src('node_modules/font-awesome/fonts/*')
+        .pipe(gulp.dest(path.build.fonts));
 });
 
 // обработка картинок

@@ -19,7 +19,7 @@ class CourtsList(ListView):
         q = self.request.GET.get('q', None)
         courts = Court.objects.all()
         if q:
-            return courts.filter(title__contains=q)
+            return courts.filter(title__icontains=q)
         return courts
 
     def get_context_data(self, *, object_list=None, **kwargs):
