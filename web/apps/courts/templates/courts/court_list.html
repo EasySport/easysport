@@ -2,29 +2,27 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-3">
-            {% if perms.courts.add_court %}
-                <div class="btn btn-block btn-success">+ Создать площадку</div>
-                <hr>
-            {% endif %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="lead text-center">Площадки</p>
-                    <form method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Поиск по названию"
-                                   aria-label="Поиск по названию" name="q" value="{{ q }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="col-12 d-lg-none mb-4">
+            <h1 class="text-center">Площадки</h1>
         </div>
-        <div class="col-9">
+        <div class="col-lg-3">
+            <h1 class="h2 d-none d-lg-block d-xl-block">Площадки</h1>
+            {% if perms.courts.add_court %}
+                <div class="btn btn-block btn-success mb-3">+ Создать площадку</div>
+            {% endif %}
+            <form method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Поиск по названию"
+                           aria-label="Поиск по названию" name="q" value="{{ q }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-9">
             <div class="card-columns">
                 {% for court in object_list %}
                     <div class="card">

@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-4">
+    <div class="col-12 col-lg-4 pb-4">
         <div class="card">
             <img class="card-img-top" src="{{ object.photo.url }}" alt="Card image cap">
             <div class="card-body">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-12 col-lg-8">
         <div class="card">
             <div class="card-body">
                 <div id="map" style="width: 100%; height: 600px"></div>
@@ -49,25 +49,27 @@
     </div>
 </div>
 
-<script>
-/**
- * Created by vitaliyharchenko on 04.01.16.
- */
-ymaps.ready(function () {
-    var point = [parseFloat('{{ court.place.latitude }}'.replace(",", ".")),
-        parseFloat('{{ court.place.longitude }}'.replace(",", "."))];
-    var map = new ymaps.Map("map", {
-        center: point,
-        zoom: 14,
-        controls: ['zoomControl', 'fullscreenControl']
-    });
-    var myPlacemark = new ymaps.Placemark(point, {
-        balloonContentHeader: '{{ court.title }}',
-        balloonContentBody: '{{ court.place.address }}'
-    });
-    map.geoObjects.add(myPlacemark);
-    myPlacemark.balloon.open();
-});
-</script>
+{% endblock %}
 
+{% block media_last %}
+    <script>
+        /**
+         * Created by vitaliyharchenko on 04.01.16.
+         */
+        ymaps.ready(function () {
+            var point = [parseFloat('{{ court.place.latitude }}'.replace(",", ".")),
+                parseFloat('{{ court.place.longitude }}'.replace(",", "."))];
+            var map = new ymaps.Map("map", {
+                center: point,
+                zoom: 14,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            var myPlacemark = new ymaps.Placemark(point, {
+                balloonContentHeader: '{{ court.title }}',
+                balloonContentBody: '{{ court.place.address }}'
+            });
+            map.geoObjects.add(myPlacemark);
+            myPlacemark.balloon.open();
+        });
+    </script>
 {% endblock %}

@@ -2,28 +2,28 @@
     {% if action %}
         {% if action.status == 4 %}
             {# Игра прошла, посетил #}
-            <button class="btn btn-sm btn-success" disabled>
+            <button class="btn btn-success btn-block" disabled>
                 Ты играл{% ifequal user.sex 'f' %}a{% endifequal %} тут
             </button>
         {% elif action.status == 5 %}
             {# Игра прошла, прогулял #}
-            <button class="btn btn-sm btn-danger" disabled>
+            <button class="btn btn-danger btn-block" disabled>
                 Ты прогулял{% ifequal user.sex 'f' %}a{% endifequal %} игру
             </button>
         {% elif action.status != 3 %}
             {# Игра прошла, но статус еще не определен админом #}
-            <button class="btn btn-sm btn-info" disabled>
+            <button class="btn btn-info btn-block" disabled>
                 Ожидается отчет
             </button>
         {% else %}
             {# Игра прошла и игрок был отписан #}
-            <button class="btn btn-sm btn-light" disabled>
+            <button class="btn btn-light btn-block" disabled>
                 Игра прошла
             </button>
         {% endif %}
     {% else %}
         {# Игра прошла и игрок не взаимодействовал с игрой #}
-        <button class="btn btn-sm btn-light" disabled>
+        <button class="btn btn-light btn-block" disabled>
             Игра прошла
         </button>
     {% endif %}
@@ -31,12 +31,12 @@
     {# Игра идет #}
     {% if action.status == 1 %}
         {# Игра идет, игрок записан #}
-        <button class="btn btn-sm btn-info" disabled>
+        <button class="btn btn-info btn-block" disabled>
             Ты на игре
         </button>
     {% else %}
         {# Игра идет, игрок не записан #}
-        <button class="btn btn-sm btn-info" disabled>
+        <button class="btn btn-info btn-block" disabled>
             Игра идет
         </button>
     {% endif %}
@@ -48,23 +48,23 @@
             {# Игра скоро начнется, мест нет, игрок взаимодействовал с игрой #}
             {% if action.status == 1 %}
                 {# Игра скоро начнется, мест нет, игрок записан #}
-                <button type="button" class="btn btn-sm btn-warning">
+                <button type="button" class="btn btn-warning btn-block">
                     Скоро начнется
                 </button>
             {% elif action.status == 2 %}
                 {# Игра скоро начнется, мест нет, игрок в резерве #}
-                <button type="button" class="btn btn-sm btn-danger">
+                <button type="button" class="btn btn-dange btn-blockr">
                     Все еще в резерве
                 </button>
             {% elif action.status == 3 %}
                 {# Игра скоро начнется, мест нет, игрок отписался #}
-                <button type="button" class="btn btn-sm btn-light">
+                <button type="button" class="btn btn-light btn-block">
                     Мест нет
                 </button>
             {% endif %}
         {% else %}
             {# Игра скоро начнется, мест нет, игрок не взаимодействовал с игрой #}
-            <button type="button" class="btn btn-sm btn-light">
+            <button type="button" class="btn btn-light btn-block">
                 Мест нет
             </button>
         {% endif %}
@@ -74,13 +74,13 @@
             {# Игра скоро начнется, свободные места есть, игрок взаимодействовал с игрой #}
             {% if action.status == 1 %}
                 {# Игра скоро начнется, свободные места есть, игрок записан #}
-                <button type="button" class="btn btn-sm btn-warning">
+                <button type="button" class="btn btn-warning btn-block">
                     Скоро начнется
                 </button>
             {% elif action.status == 2 %}
                 {# Игра скоро начнется, свободные места есть, игрок в резерве #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-danger dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-danger dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Ты в резерве
                     </button>
@@ -91,8 +91,8 @@
                 </div>
             {% elif action.status == 3 %}
                 {# Игра скоро начнется, свободные места есть, игрок отписался #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Скоро начало!
                     </button>
@@ -104,8 +104,8 @@
         {% else %}
             {# Игра скоро начнется, свободные места есть, игрок не взаимодействовал с игрой #}
             {% if user.is_authenticated %}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Скоро начало!
                     </button>
@@ -114,8 +114,8 @@
                     </div>
                 </div>
             {% else %}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Скоро начало!
                     </button>
@@ -137,8 +137,8 @@
                     {# Игра еще будет, свободные и резервные места заполнены, игрок взаимодействовал с игрой #}
                     {% if action.status == 1 %}
                         {# Игра еще будет, свободные и резервные места заполнены, игрок записан #}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-success dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-success dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ты записан{% ifequal user.sex 'f' %}a{% endifequal %}
                             </button>
@@ -148,8 +148,8 @@
                         </div>
                     {% elif action.status == 2 %}
                         {# Игра еще будет, свободные и резервные места заполнены, игрок в резерве #}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ты в резерве
                             </button>
@@ -159,13 +159,13 @@
                         </div>
                     {% elif action.status == 3 %}
                         {# Игра еще будет, свободные и резервные места заполнены, игрок отписался #}
-                        <button class="btn btn-sm btn-light" disabled>
+                        <button class="btn btn-light btn-block" disabled>
                             Мест нет
                         </button>
                     {% endif %}
                 {% else %}
                     {# Игра еще будет, свободные и резервные места заполнены, игрок не взаимодействовал с игрой #}
-                    <button class="btn btn-sm btn-light" disabled>
+                    <button class="btn btn-light btn-block" disabled>
                         Мест нет
                     </button>
                 {% endif %}
@@ -175,8 +175,8 @@
                     {# Игра еще будет, свободные места забиты, но есть резервные места, игрок взаимодействовал с игрой #}
                     {% if action.status == 1 %}
                         {# Игра еще будет, свободные места забиты, но есть резервные места, игрок записан #}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-success dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-success dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ты записан{% ifequal user.sex 'f' %}a{% endifequal %}
                             </button>
@@ -186,8 +186,8 @@
                         </div>
                     {% elif action.status == 2 %}
                         {# Игра еще будет, свободные места забиты, но есть резервные места, игрок записан в резерв #}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ты в резерве
                             </button>
@@ -198,8 +198,8 @@
                         </div>
                     {% elif action.status == 3 %}
                         {# Игра еще будет, свободные места забиты, но есть резервные места, игрок отписался #}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-info dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-info dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Набирается резерв
                             </button>
@@ -211,8 +211,8 @@
                 {% else %}
                     {# Игра еще будет, свободные места забиты, но есть резервные места, игрок не взаимодействовал с игрой #}
                     {% if user.is_authenticated %}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-info dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-info dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Набирается резерв
                             </button>
@@ -221,8 +221,8 @@
                             </div>
                         </div>
                     {% else %}
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-info dropdown-toggle"
+                        <div class="btn-group btn-block" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-block btn-info dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Набирается резерв
                             </button>
@@ -239,8 +239,8 @@
                 {# Игра еще будет, свободные места забиты, резервные места не существуют, игрок взаимодействовал с игрой #}
                 {% if action.status == 1 %}
                     {# Игра еще будет, свободные места забиты, резервные места не существуют, игрок записан #}
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-success dropdown-toggle"
+                    <div class="btn-group btn-block" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-block btn-success dropdown-toggle"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ты записан{% ifequal user.sex 'f' %}a{% endifequal %}
                         </button>
@@ -250,8 +250,8 @@
                     </div>
                 {% elif action.status == 2 %}
                     {# Игра еще будет, свободные места забиты, резервные места не существуют, игрок в резерве #}
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                    <div class="btn-group btn-block" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ты в резерве
                         </button>
@@ -261,13 +261,13 @@
                     </div>
                 {% elif action.status == 3 %}
                     {# Игра еще будет, свободные места забиты, резервные места не существуют, игрок отписался #}
-                    <button class="btn btn-sm btn-light" disabled>
+                    <button class="btn btn-light btn-block" disabled>
                         Мест нет
                     </button>
                 {% endif %}
             {% else %}
                 {# Игра еще будет, свободные места забиты, резервные места не существуют, игрок не взаимодействовал с игрой #}
-                <button class="btn btn-sm btn-light" disabled>
+                <button class="btn btn-light btn-block" disabled>
                     Мест нет
                 </button>
             {% endif %}
@@ -278,8 +278,8 @@
             {# Игра еще будет, места еще есть, игрок взаимодействовал с игрой #}
             {% if action.status == 1 %}
                 {# Игра еще будет, места еще есть, игрок записан на игру #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-success dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-success dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Ты записан{% ifequal user.sex 'f' %}a{% endifequal %}
                     </button>
@@ -289,8 +289,8 @@
                 </div>
             {% elif action.status == 3 %}
                 {# Игра еще будет, места еще есть, игрок отписался от игры #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-primary dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Идет набор
                     </button>
@@ -300,8 +300,8 @@
                 </div>
             {% elif action.status == 2 %}
                 {# Игра еще будет, места еще есть, игрок записан в резерв #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-warning dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Ты в резерве
                     </button>
@@ -315,8 +315,8 @@
             {# Игра еще будет, места еще есть, игрок не взаимодействовал с игрой #}
             {% if user.is_authenticated %}
                 {# Игра еще будет, места еще есть, игрок не взаимодействовал с игрой, аутентифицирован #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-primary dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Идет набор
                     </button>
@@ -326,8 +326,8 @@
                 </div>
             {% else %}
                 {# Игра еще будет, места еще есть, игрок не взаимодействовал с игрой, но не аутентифицирован #}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                <div class="btn-group btn-block" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-block btn-primary dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Идет набор
                     </button>

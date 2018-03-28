@@ -35,6 +35,8 @@ def game_status_button(game, user):
         action = UserGameAction.objects.get(user=user, game=game)
     except UserGameAction.DoesNotExist:
         action = None
+    except TypeError:
+        action = None
 
     new_context = {
         'game': game,

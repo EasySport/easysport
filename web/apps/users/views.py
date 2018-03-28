@@ -93,6 +93,7 @@ class ResetConfirmView(PasswordResetConfirmView):
 
 class UsersList(ListView):
     model = User
+    paginate_by = 10
 
     def get_queryset(self, **kwargs):
         q = self.request.GET.get('q', None)

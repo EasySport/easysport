@@ -4,30 +4,36 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-3">
+        <div class="col-12 d-lg-none mb-4">
+            <h1 class="text-center">Игры</h1>
+        </div>
+        <div class="col-lg-3">
+            <h1 class="h2 d-none d-lg-block d-xl-block">Игры</h1>
             {% if perms.games.add_game %}
                 <a class="btn btn-block btn-success" href="{% url 'games:create' %}">+создать игру</a>
                 <br>
             {% endif %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <p class="lead text-center">Игры</p>
-                    <form action="" method="GET">
-                        <div class="form-group">
-                            <select class="custom-select form-control" name="sport">
-                                <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
-                                {% for sport in sports %}
-                                    <option value="{{ sport.pk }}" {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-outline-primary btn-block">Отфильтровать</button>
-                    </form>
+            <form action="" method="GET" class="mb-4">
+
+                <div class="input-group">
+                    <select class="custom-select form-control" name="sport">
+                        <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
+                        {% for sport in sports %}
+                            <option value="{{ sport.pk }}" {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <button class="btn btn-outline-info btn-block" style="white-space: normal;">Узнайте, как добавить сюда свою игру</button>
+            </form>
+            {% if not perms.games.add_game %}
+                <button class="btn btn-outline-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою игру</button>
+            {% endif %}
         </div>
-        <div class="col-9">
+        <div class="col-lg-9">
             {% for game in object_list %}
                 {% game_card game=game user=user %}
             {% endfor %}

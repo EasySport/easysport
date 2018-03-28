@@ -36,8 +36,8 @@
                         <li class="nav-item">
                             <a class="nav-link {% is_active request 'users:list' %}" href="{% url 'users:list' %}">Игроки</a>
                         </li>
-                        <li>
-                            <span class="navbar-text ml-3">
+                        <li class="d-none d-xl-block">
+                            <span class="navbar-text ml-4">
                                 {% now "D, j M, H:i" %}
                             </span>
                         </li>

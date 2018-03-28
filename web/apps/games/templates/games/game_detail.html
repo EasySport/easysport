@@ -2,53 +2,79 @@
 
 {% load game_extras %}
 
+{% block head_extra %}
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row">
-    <div class="col-3">
-        <div class="card card-body">
+    <div class="col-12 col-lg-3">
+        <div class="card card-body mb-4">
             <p class="lead">Расскажите друзьям о нас</p>
         </div>
     </div>
-    <div class="col-9">
+    <div class="col-12 col-lg-9">
         {% game_card game=object user=user %}
+        <div id="map" style="width: 100%; height: 600px"></div>
     </div>
 </div>
 {% endblock %}
 
 {% block media_last %}
-<script>
-    $(document).on('click', '.action', function (e) {
-        var arr = $(this).attr("id").split('-');
-        var game_id = arr[0], action = arr[1];
-        {#$(this).parent().parent().parent().find('.btn').attr('disabled', true);#}
-        $('#game-card-' + game_id).attr('style', 'opacity: 0.7;');
-        console.log(game_id);
-        console.log(action);
-        $.ajax({
-            url: '{% url "games:game_action" %}',
-            data: {
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                game_id: game_id,
-                action: action
-            },
-            async: true,
-            success: function (responseData, textStatus) {
-                if (responseData['error']) {
-                    alert(responseData['error']['error_description']);
-                } else {
-                    $('#game-card-' + game_id).fadeOut('slow', function () {
-                        $('#game-card-' + game_id).replaceWith(responseData);
-                    });
-                }
-            },
-            error: function (response, status, errorThrown) {
-                alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
-                console.log(response);
-            },
-            type: "POST",
-            dataType: "text"
+    <script>
+        $(document).on('click', '.action', function (e) {
+            var arr = $(this).attr("id").split('-');
+            var game_id = arr[0], action = arr[1];
+            {#$(this).parent().parent().parent().find('.btn').attr('disabled', true);#}
+            $('#game-card-' + game_id).attr('style', 'opacity: 0.7;');
+            console.log(game_id);
+            console.log(action);
+            $.ajax({
+                url: '{% url "games:game_action" %}',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    game_id: game_id,
+                    action: action
+                },
+                async: true,
+                success: function (responseData, textStatus) {
+                    if (responseData['error']) {
+                        alert(responseData['error']['error_description']);
+                    } else {
+                        $('#game-card-' + game_id).fadeOut('slow', function () {
+                            $('#game-card-' + game_id).replaceWith(responseData);
+                        });
+                    }
+                },
+                error: function (response, status, errorThrown) {
+                    alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
+                    console.log(response);
+                },
+                type: "POST",
+                dataType: "text"
+            });
+            e.preventDefault();
         });
-        e.preventDefault();
-    });
-</script>
+    </script>
+
+    <script>
+        /**
+         * Created by vitaliyharchenko on 04.01.16.
+         */
+        ymaps.ready(function () {
+            var point = [parseFloat('{{ game.court.place.latitude }}'.replace(",", ".")),
+                parseFloat('{{ game.court.place.longitude }}'.replace(",", "."))];
+            var map = new ymaps.Map("map", {
+                center: point,
+                zoom: 14,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            var myPlacemark = new ymaps.Placemark(point, {
+                balloonContentHeader: '{{ game.court.title }}',
+                balloonContentBody: '{{ game.court.place.address }}'
+            });
+            map.geoObjects.add(myPlacemark);
+            myPlacemark.balloon.open();
+        });
+    </script>
 {% endblock %}
