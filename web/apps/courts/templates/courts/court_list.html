@@ -8,7 +8,7 @@
         <div class="col-lg-3">
             <h1 class="h2 d-none d-lg-block d-xl-block">Площадки</h1>
             {% if perms.courts.add_court %}
-                <div class="btn btn-block btn-success mb-3">+ Создать площадку</div>
+                <a class="btn btn-block btn-success mb-3" href="{% url 'courts:create_place' %}">+ Создать площадку</a>
             {% endif %}
             <form method="GET" class="mb-4">
                 <div class="input-group">
@@ -26,7 +26,9 @@
             <div class="card-columns">
                 {% for court in object_list %}
                     <div class="card">
-                        <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
+                        {% if court.photo %}
+                            <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="{% url 'courts:detail' court.pk %}">{{ court }}</a>
@@ -36,6 +38,41 @@
                     </div>
                 {% endfor %}
             </div>
+            {% if is_paginated %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center pt-4">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        {% endif %}
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

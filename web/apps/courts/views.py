@@ -14,6 +14,7 @@ from .models import Court, Place
 
 class CourtsList(ListView):
     model = Court
+    paginate_by = 10
 
     def get_queryset(self, **kwargs):
         q = self.request.GET.get('q', None)

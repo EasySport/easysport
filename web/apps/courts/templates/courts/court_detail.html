@@ -12,7 +12,9 @@
 <div class="row">
     <div class="col-12 col-lg-4 pb-4">
         <div class="card">
-            <img class="card-img-top" src="{{ object.photo.url }}" alt="Card image cap">
+            {% if object.photo %}
+                <img class="card-img-top" src="{{ object.photo.url }}" alt="Card image cap">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title card-text">
                     {{ court.title }}
