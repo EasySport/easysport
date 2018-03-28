@@ -43,6 +43,7 @@
             },
             error: function (response, status, errorThrown) {
                 alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
+                console.log(response);
             },
             type: "POST",
             dataType: "text"

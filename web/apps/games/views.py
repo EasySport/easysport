@@ -82,7 +82,7 @@ def game_action(request):
     if request.is_ajax():
         status = request.POST["action"]
         game_id = request.POST["game_id"]
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             user = User.objects.get(email=request.user.email)
             game = Game.objects.get(id=game_id)
 
