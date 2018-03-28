@@ -78,26 +78,37 @@ class Game(models.Model):
         return reverse('games:detail', args=[str(self.pk)])
 
     @property
-    def near_time_status(self):
+    def time_status(self):
         event_date = timezone.localtime(self.datetime).date()
         now = timezone.localtime(timezone.now())
+        duration = self.duration
         today = now.date()
         tomorrow = today + timezone.timedelta(days=1)
         double_tomorrow = today + timezone.timedelta(days=2)
-        if event_date == today and now < self.datetime:
-            return 'Today'
-        elif event_date == tomorrow:
-            return 'Tomorrow'
-        elif event_date == double_tomorrow:
-            return 'After Tomorrow'
+
+        # Возвращаем list из флага, указывающего на то, что игра еще не прошла и статуса
+        if now < self.datetime - duration:
+            if event_date == today and now < self.datetime:
+                return 'Today'
+            elif event_date == tomorrow:
+                return 'Tomorrow'
+            elif event_date == double_tomorrow:
+                return 'After Tomorrow'
+            else:
+                return 'Will be'
         else:
-            return False
+            if now <= self.datetime:
+                return 'Coming'
+            elif now <= self.datetime + duration:
+                return 'Goes'
+            else:
+                return 'Was'
 
     def subscribed_count(self):
-        return UserGameAction.objects.filter(game=self).filter(action=UserGameAction.SUBSCRIBED).count()
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED).count()
 
     def subscribed_list(self):
-        actions = UserGameAction.objects.filter(game=self).filter(action=UserGameAction.SUBSCRIBED)
+        actions = UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED)
         return actions
 
 
@@ -112,14 +123,12 @@ class UserGameAction(models.Model):
     UNSUBSCRIBED = 3
     VISITED = 4
     NOTVISITED = 5
-    NOTPAY = 6
-    ACTIONS = (
+    STATUSES = (
         (SUBSCRIBED, 'Записался'),
         (UNSUBSCRIBED, 'Отписался'),
         (RESERVED, 'В резерве'),
         (VISITED, 'Посетил'),
-        (NOTVISITED, 'Не пришел'),
-        (NOTPAY, 'Не заплатил')
+        (NOTVISITED, 'Не пришел')
     )
 
     user = models.ForeignKey(
@@ -136,7 +145,7 @@ class UserGameAction(models.Model):
 
     datetime = models.DateTimeField(verbose_name='Дата действия', auto_now=True)
 
-    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=ACTIONS)
+    status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
 
     def __str__(self):
-        return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_action_display())
+        return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_status_display())

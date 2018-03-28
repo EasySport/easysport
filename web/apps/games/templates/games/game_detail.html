@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
+{% load game_extras %}
+
 {% block content %}
-    <h2>Game</h2>
-    {% if perms.games.change_game %}
-        <a href="{% url 'games:update' object.pk %}">Редактировать</a>
-    {% endif %}
-    <p>{{ object }}</p>
+<div class="row">
+    <div class="col-3">
+        <div class="card card-body">
+            <p class="lead">Расскажите друзьям о нас</p>
+        </div>
+    </div>
+    <div class="col-9">
+        {% game_card game=object user=user %}
+    </div>
+</div>
 {% endblock %}
