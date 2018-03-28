@@ -1,15 +1,19 @@
 # Django core
+import json
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
+from django.views.decorators.http import require_POST
+from django.shortcuts import render, HttpResponse
 
 # Third party
 from dal import autocomplete
 
 # Our apps
-from .models import Game
+from .models import Game, UserGameAction
 from apps.sports.models import SportType
+from apps.users.models import User
 
 
 class GamesList(ListView):
@@ -65,3 +69,49 @@ class GameUpdate(UpdateView):
         form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
         form.fields['court'].widget.choices = form.fields['court'].choices
         return form
+
+
+# Return error for ajax
+def error_response(description):
+    error = {'error_description': description}
+    return HttpResponse(json.dumps({'error': error}), content_type="application/json")
+
+
+@require_POST
+def game_action(request):
+    if request.is_ajax():
+        status = request.POST["action"]
+        game_id = request.POST["game_id"]
+        if request.user.is_authenticated():
+            user = User.objects.get(email=request.user.email)
+            game = Game.objects.get(id=game_id)
+
+            if status == '1':
+                set_status = UserGameAction.SUBSCRIBED
+            elif status == '3':
+                set_status = UserGameAction.UNSUBSCRIBED
+            elif status == '2':
+                set_status = UserGameAction.RESERVED
+
+            try:
+                user_game_action = UserGameAction.objects.get(game=game, user=user)
+                current_status = user_game_action.status
+                if current_status == set_status:
+                    return error_response('Action already save')
+                else:
+                    # TODO: add check of game in similar time
+                    if set_status == UserGameAction.SUBSCRIBED and not (game.capacity > game.subscribed_count()):
+                        return error_response('There is no place now')
+                    elif set_status == UserGameAction.RESERVED and not (game.reserved > game.reserved_count()):
+                        return error_response('There is no place now')
+                    user_game_action.status = set_status
+                    user_game_action.save()
+                    return render(request, 'games/game_card.html', {'game': game, 'user': user})
+            except UserGameAction.DoesNotExist:
+                UserGameAction.objects.create(game=game, user=user, status=set_status)
+                # TODO: email user
+                return render(request, 'games/game_card.html', {'game': game, 'user': user})
+        else:
+            return error_response('Not auth')
+    else:
+        return error_response('Not AJAX')

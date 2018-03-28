@@ -38,6 +38,7 @@ def game_status_button(game, user):
 
     new_context = {
         'game': game,
-        'action': action
+        'action': action,
+        'user': user
     }
     return new_context
