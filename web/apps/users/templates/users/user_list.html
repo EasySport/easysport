@@ -31,14 +31,10 @@
         <div class="card-columns">
             {% for object in object_list %}
                 <div class="card">
-                    <img class="card-img-top" alt="Avatar"
-                         src="{% if object.avatar %}
-                            {{ object.avatar.url }}
-                         {% elif object.sex == 'm' %}
-                            {% static 'img/avatars/blank_male.jpg' %}
-                         {% else %}
-                            {% static 'img/avatars/blank_female.jpg' %}
-                         {% endif %}">
+                    {% if object.avatar %}
+                        <img class="card-img-top" alt="Avatar"
+                             src="{{ object.avatar.url }}">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
