@@ -120,7 +120,7 @@
                         Скоро начало!
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="{% url 'users:login' %}">Записаться</a>
+                        <a class="dropdown-item" href="{% url 'users:login' %}?next={% url 'games:detail' game.pk %}">Записаться</a>
                     </div>
                 </div>
             {% endif %}
@@ -227,7 +227,7 @@
                                 Набирается резерв
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <a class="dropdown-item" href="{% url 'users:login' %}">Записаться в резерв</a>
+                                <a class="dropdown-item" href="{% url 'users:login' %}?next={% url 'games:detail' game.pk %}">Записаться в резерв</a>
                             </div>
                         </div>
                     {% endif %}
@@ -332,7 +332,7 @@
                         Идет набор
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="{% url 'users:login' %}">Записаться</a>
+                        <a class="dropdown-item" href="{% url 'users:login' %}?next={% url 'games:detail' game.pk %}">Записаться</a>
                     </div>
                 </div>
             {% endif %}

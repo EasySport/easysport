@@ -111,6 +111,13 @@ class Game(models.Model):
         actions = UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED)
         return actions
 
+    def reserved_count(self):
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED).count()
+
+    def reserved_list(self):
+        actions = UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED)
+        return actions
+
 
 class UserGameAction(models.Model):
     class Meta:
