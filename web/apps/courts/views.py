@@ -17,10 +17,12 @@ class CourtsList(ListView):
     paginate_by = 10
 
     def get_queryset(self, **kwargs):
-        q = self.request.GET.get('q', None)
         courts = Court.objects.all()
-        if q:
-            return courts.filter(title__icontains=q)
+        if self.request.user.is_authenticated and self.request.user.city:
+            courts = courts.filter(place__city=self.request.user.city)
+        query = self.request.GET.get('q', None)
+        if query:
+            return courts.filter(title__icontains=query)
         return courts
 
     def get_context_data(self, *, object_list=None, **kwargs):

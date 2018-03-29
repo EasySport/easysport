@@ -34,9 +34,13 @@
             {% endif %}
         </div>
         <div class="col-lg-9">
-            {% for game in object_list %}
-                {% game_card game=game user=user %}
-            {% endfor %}
+            {% if object_list %}
+                {% for game in object_list %}
+                    {% game_card game=game user=user %}
+                {% endfor %}
+            {% else %}
+                <p>Список пуст. Создайте свою или напишите администратору, чтобы узнать, как это сделать.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

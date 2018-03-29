@@ -27,6 +27,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">
+                        {% city_nav %}
                         <li class="nav-item">
                             <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">Игры</a>
                         </li>

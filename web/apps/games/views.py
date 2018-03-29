@@ -20,11 +20,13 @@ class GamesList(ListView):
     model = Game
 
     def get_queryset(self, **kwargs):
+        games = Game.objects.filter(datetime__gte=timezone.now()).order_by('datetime')
+        if self.request.user.is_authenticated and self.request.user.city:
+            games = games.filter(court__place__city=self.request.user.city)
         sport = self.request.GET.get('sport', None)
-        q = Game.objects.filter(datetime__gte=timezone.now()).order_by('datetime')
         if sport and sport != 'all':
-            return q.filter(gametype=sport)
-        return q
+            games = games.filter(gametype=sport)
+        return games
 
     def get_context_data(self, *, object_list=None, **kwargs):
         sport = self.request.GET.get('sport', None)

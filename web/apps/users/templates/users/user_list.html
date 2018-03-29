@@ -28,25 +28,30 @@
         {% endif %}
     </div>
     <div class="col-lg-9">
-        <div class="card-columns">
-            {% for object in object_list %}
-                <div class="card">
-                    {% if object.avatar %}
-                        <img class="card-img-top" alt="Avatar"
-                             src="{{ object.avatar.url }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
-                        </h5>
-                        <p class="card-text small">
-                            {% if object.bdate %}{{ object.bdate|beauty_age }}&nbsp;&nbsp;&nbsp;{% endif %}
-                            {% if object.city %}{{ object.city }}{% endif %}
-                        </p>
+        {% if object_list %}
+            <div class="card-columns">
+                {% for object in object_list %}
+                    <div class="card">
+                        {% if object.avatar %}
+                            <img class="card-img-top" alt="Avatar"
+                                 src="{{ object.avatar.url }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
+                            </h5>
+                            <p class="card-text small">
+                                {% if object.bdate %}{{ object.bdate|beauty_age }}&nbsp;&nbsp;&nbsp;{% endif %}
+                                {% if object.city %}{{ object.city }}{% endif %}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Список пуст. Станьте первым, кто зарегистрируется в городе {{ user.city }}</p>
+        {% endif %}
+
         {% if is_paginated %}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center pt-4">

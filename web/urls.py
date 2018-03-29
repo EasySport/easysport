@@ -27,14 +27,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Our apps
-    path('games/', include('apps.games.urls')),
-    path('courts/', include('apps.courts.urls')),
     path('', include('apps.lp.urls')),
     path('', include('apps.users.urls')),
+    path('games/', include('apps.games.urls')),
+    path('courts/', include('apps.courts.urls')),
 
     # Development
     path('__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-# if settings.DEBUG:
-#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -10,3 +10,13 @@ def is_active(request, url):
     if request.path == reverse(url):
         return "active"
     return ""
+
+
+@register.inclusion_tag('particles/city_nav.html', takes_context=True)
+def city_nav(context):
+    request = context['request']
+    user = request.user
+    new_context = {
+        'user': user
+    }
+    return new_context
