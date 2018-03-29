@@ -15,6 +15,7 @@ geocoder
 django-model-utils
 django-phonenumber-field
 django-autocomplete-light
+social-auth-app-django
 
 # For frontend
 django-bootstrap4

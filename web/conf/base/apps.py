@@ -15,6 +15,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     # - Models
     'phonenumber_field',
+    # - Social authorization
+    'social_django',
 
     # Our apps
     'apps.courts',

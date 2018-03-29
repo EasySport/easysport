@@ -32,6 +32,9 @@ urlpatterns = [
     path('games/', include('apps.games.urls')),
     path('courts/', include('apps.courts.urls')),
 
+    # python-social-auth
+    path('oauth/', include('social_django.urls', namespace='social')),
+
     # Development
     path('__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
