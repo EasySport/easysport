@@ -9,7 +9,7 @@ import geocoder
 class Country(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название', unique=True)
 
-    class Meta():
+    class Meta:
         verbose_name = 'страна'
         verbose_name_plural = 'страны'
 
@@ -27,6 +27,13 @@ class City(models.Model):
     country = models.ForeignKey(
         Country,
         verbose_name='Страна',
+        on_delete=models.CASCADE
+    )
+
+    responsible = models.ForeignKey(
+        'users.User',
+        verbose_name='Старший администратор',
+        related_name='city_responsible',
         on_delete=models.CASCADE
     )
 

@@ -107,7 +107,6 @@ class UsersList(ListView):
             return q1 | q2 | q3
         return users
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UsersList, self).get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q', '')
