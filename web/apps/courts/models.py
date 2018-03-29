@@ -24,12 +24,6 @@ class City(models.Model):
         unique=True
     )
 
-    slug = models.CharField(
-        max_length=5,
-        verbose_name='Slug для маршрутизации',
-        unique=True
-    )
-
     country = models.ForeignKey(
         Country,
         verbose_name='Страна',

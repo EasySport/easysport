@@ -114,7 +114,7 @@ class UsersList(ListView):
         return context
 
 
-class UserLDetail(DetailView):
+class UserDetail(DetailView):
     model = User
     context_object_name = 'object'
 

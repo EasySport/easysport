@@ -18,6 +18,6 @@ urlpatterns = [
          views.ResetConfirmView.as_view(post_reset_login=True), name='password_reset_confirm'),
 
     path('users/', views.UsersList.as_view(), name='list'),
-    path('users/<int:pk>/', views.UserLDetail.as_view(), name='detail'),
+    path('users/<int:pk>/', views.UserDetail.as_view(), name='detail'),
     path('profile/update/', views.ProfileUpdate.as_view(), name='update'),
 ]
