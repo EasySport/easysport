@@ -48,10 +48,12 @@ services:
     build: docker/nginx/.
     ports:
       - "80:80"
+      - "443:443"
     # can access to @web@ container files for serving static files
     volumes:
       - ./web/static:/static
       - ./web/media:/media
+      - ./docker/nginx/certs:/etc/nginx/ssl
     depends_on:
       - web
 

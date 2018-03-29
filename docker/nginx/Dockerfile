@@ -6,3 +6,6 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 # add new conf file from near direction
 ADD conf.d/ /etc/nginx/conf.d
+
+#COPY certs/easysport.crt /etc/nginx/ssl/easysport.crt
+#COPY certs/easysport.key /etc/nginx/ssl/easysport.key
