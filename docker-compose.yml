@@ -8,7 +8,6 @@ services:
     image: postgres
     # This container should always be up, and it will restart if it crashes
     restart: always
-    # Для переменных окружения
     env_file: .env
     # Reachable from outside by port 5432
     ports:
@@ -26,7 +25,7 @@ services:
       # starting path for all commands inside Dockerfile
       context: .
       dockerfile: docker/web/Dockerfile
-    # Для переменных окружения
+    # ??? ?????????? ?????????
     env_file: .env
     # default command
     command: python3 manage.py runserver 0.0.0.0:8000
@@ -41,19 +40,34 @@ services:
     depends_on:
       - db
 
-  # service for nginx web server
-  nginx:
-    # This container should always be up, and it will restart if it crashes
-    restart: always
-    build: docker/nginx/.
+#  # service for nginx web server
+#  nginx:
+#    # This container should always be up, and it will restart if it crashes
+#    restart: always
+#    build: docker/nginx/.
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    # can access to @web@ container files for serving static files
+#    volumes:
+#      - ./web/static:/static
+#      - ./web/media:/media
+#      - ./docker/nginx/certs:/etc/nginx/ssl
+#    depends_on:
+#      - web
+
+  caddy:
+    image: "wemakeservices/caddy-docker:0.10.11-1"
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./docker/caddy/certs:/root/.caddy  # saving certificates
+      - ./docker/caddy/Caddyfile:/etc/Caddyfile:ro  # configuration
+      - ./web/static:/static:ro
+      - ./web/media:/media:ro
     ports:
       - "80:80"
       - "443:443"
-    # can access to @web@ container files for serving static files
-    volumes:
-      - ./web/static:/static
-      - ./web/media:/media
-      - ./docker/nginx/certs:/etc/nginx/ssl
     depends_on:
       - web
 
