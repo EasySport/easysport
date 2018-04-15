@@ -40,7 +40,12 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p>Список пуст. Напишите <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, если хотите его пополнить</p>
+                <p>
+                    Список пуст.
+                    {% if user.is_authenticated %}
+                        Напишите <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, если хотите его пополнить
+                    {% endif %}
+                </p>
             {% endif %}
 
             {% if is_paginated %}
