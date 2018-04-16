@@ -2,16 +2,22 @@
 from django import forms
 from django.forms.widgets import SelectDateWidget, ClearableFileInput
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.admin import UserAdmin
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView)
+from django.contrib.auth.forms import (AdminPasswordChangeForm, PasswordChangeForm)
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import render, redirect
 
 # Our apps
 from .models import User
+
+# Third party
+from social_django.models import UserSocialAuth
 
 
 class UserCreationForm(forms.ModelForm):
@@ -146,3 +152,36 @@ class ProfileUpdate(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileUpdate, self).get_context_data(**kwargs)
+
+        try:
+            vk_login = self.request.user.social_auth.get(provider='vk-oauth2')
+        except UserSocialAuth.DoesNotExist:
+            vk_login = None
+        can_disconnect = (self.request.user.social_auth.count() > 1 or self.request.user.has_usable_password())
+
+        context.update({'vk_login': vk_login, 'can_disconnect': can_disconnect})
+        return context
+
+
+@login_required
+def password(request):
+    if request.user.has_usable_password():
+        password_form = PasswordChangeForm
+    else:
+        password_form = AdminPasswordChangeForm
+
+    if request.method == 'POST':
+        form = password_form(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('users:update')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = password_form(request.user)
+    return render(request, 'users/password.html', {'form': form})
