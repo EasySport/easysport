@@ -72,12 +72,18 @@ class CourtAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
             return Court.objects.none()
-        qs = Court.objects.all()
-        places = Place.objects.filter(city=self.request.user.city)
-        # TODO: add address filter
+        all_courts = Court.objects.all()
+        # places = Place.objects.filter(city=self.request.user.city)
+
         if self.q:
-            qs = qs.filter(title__contains=self.q)
-        return qs
+            # Search by Court.Place.address
+            _addresses = all_courts.filter(place__address__icontains=self.q)
+            # by Court.title
+            _titles = all_courts.filter(title__icontains=self.q)
+
+            return _titles | _addresses
+
+        return all_courts
 
     def get_result_label(self, item):
         return u'{}, {}'.format(item.title, item.place.address)

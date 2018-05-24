@@ -34,20 +34,20 @@
         {% endif %}
     </div>
     <div class="col-lg-9">
-        {% if object_list %}
+        {% if users_list %}
             <div class="card-columns">
-                {% for object in object_list %}
+                {% for user in users_list %}
                     <div class="card">
-                        {% if object.avatar %}
+                        {% if user.avatar %}
                             <img class="card-img-top" alt="Avatar"
-                                 src="{{ object.avatar.url }}">
+                                 src="{{ user.avatar.url }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
+                                <a href="{% url 'users:detail' user.pk %}">{{ user }}</a>
                             </h5>
                             <p class="card-text small">
-                                {% if object.city %}{{ object.city }}{% endif %}{% if object.bdate %}, {{ object.bdate|beauty_age }}{% endif %}
+                                {% if user.city %}{{ user.city }}{% endif %}{% if user.bdate %}, {{ user.bdate|beauty_age }}{% endif %}
                             </p>
                         </div>
                     </div>

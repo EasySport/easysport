@@ -100,15 +100,17 @@ class ResetConfirmView(PasswordResetConfirmView):
 class UsersList(ListView):
     model = User
     paginate_by = 10
+    context_object_name = 'users_list'
 
     def get_queryset(self, **kwargs):
-        query = self.request.GET.get('q', None)
+        query = self.request.GET.get('q', '')
         users = User.objects.all()
+
         if self.request.user.is_authenticated and self.request.user.city:
             users = users.filter(city=self.request.user.city)
         if query:
-            q1 = users.filter(first_name__contains=query)
-            q2 = users.filter(last_name__contains=query)
+            q1 = users.filter(first_name__icontains=query)
+            q2 = users.filter(last_name__icontains=query)
             q3 = users.filter(phone__contains=query)
             return q1 | q2 | q3
         return users
