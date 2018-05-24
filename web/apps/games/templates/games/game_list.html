@@ -2,6 +2,8 @@
 
 {% load game_extras %}
 
+{% block head_title %}Игры | Easysport{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-12 d-lg-none mb-4">
@@ -10,11 +12,11 @@
         <div class="col-lg-3">
             <h1 class="h2 d-none d-lg-block d-xl-block">Игры</h1>
             {% if perms.games.add_game %}
-                <a class="btn btn-block btn-success" href="{% url 'games:create' %}">+создать игру</a>
-                <br>
+                <a class="btn btn-block btn-success mb-3" href="{% url 'games:create' %}">
+                    <i class="fa fa-plus"></i> Создать игру
+                </a>
             {% endif %}
             <form action="" method="GET" class="mb-4">
-
                 <div class="input-group">
                     <select class="custom-select form-control" name="sport">
                         <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>

@@ -3,6 +3,8 @@
 {% load user_extras %}
 {% load staticfiles %}
 
+{% block head_title %}Игроки | Easysport{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-12 d-lg-none">
@@ -10,7 +12,7 @@
     </div>
     <div class="col-lg-3">
         <h1 class="h2 d-none d-lg-block d-xl-block">Игроки</h1>
-        <form method="GET" clas="mb-4">
+        <form method="GET" class="mb-4">
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Поиск" name="q" value="{{ q }}">
@@ -20,11 +22,15 @@
                         </button>
                     </div>
                 </div>
-                <small class="form-text text-muted pl-1">по имени или номеру телефона</small>
+                <small class="form-text text-muted pl-1">По имени или номеру телефона</small>
             </div>
         </form>
         {% if not user.is_authenticated %}
-            <button class="btn btn-outline-info btn-block mb-4" style="white-space: normal;">Присоединяйтесь к нашему сообществу</button>
+            <button class="btn btn-info btn-block mb-4"
+                    style="white-space: normal;"
+                    onclick="location.href = '{% url 'users:signup' %}'">
+                Присоединяйтесь к нашему сообществу
+            </button>
         {% endif %}
     </div>
     <div class="col-lg-9">
@@ -41,8 +47,7 @@
                                 <a href="{% url 'users:detail' object.pk %}">{{ object }}</a>
                             </h5>
                             <p class="card-text small">
-                                {% if object.bdate %}{{ object.bdate|beauty_age }}&nbsp;&nbsp;&nbsp;{% endif %}
-                                {% if object.city %}{{ object.city }}{% endif %}
+                                {% if object.city %}{{ object.city }}{% endif %}{% if object.bdate %}, {{ object.bdate|beauty_age }}{% endif %}
                             </p>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">
                         {% if user.is_authenticated %}
-                            <li class="nav-item dropdown">
+                            <!--<li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     {{ user.city }}
@@ -36,16 +36,22 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="{% url 'users:update' %}">Сменить город</a>
                                 </div>
-                            </li>
+                            </li>-->
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">Игры</a>
+                            <a class="nav-link {% is_active request 'games:list' %}" href="{% url 'games:list' %}">
+                                <i class="fa fa-trophy"></i> Игры
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">Площадки</a>
+                            <a class="nav-link {% is_active request 'courts:list' %}" href="{% url 'courts:list' %}">
+                                <i class="fa fa-globe"></i> Площадки
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% is_active request 'users:list' %}" href="{% url 'users:list' %}">Игроки</a>
+                            <a class="nav-link {% is_active request 'users:list' %}" href="{% url 'users:list' %}">
+                                <i class="fa fa-users"></i> Игроки
+                            </a>
                         </li>
                         <li class="d-none d-xl-block">
                             <span class="navbar-text ml-4">
@@ -64,6 +70,7 @@
                                     {% if user.is_superuser %}
                                         <a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a>
                                     {% endif %}
+                                    <a href="{% url 'users:detail' pk=user.pk %}" class="dropdown-item">Мой профиль</a>
                                     <a class="dropdown-item" href="{% url 'users:update' %}">Настройки</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{% url 'users:logout' %}?next={{request.path}}">Выйти</a>

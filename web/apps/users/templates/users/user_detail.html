@@ -3,6 +3,8 @@
 {% load user_extras %}
 {% load staticfiles %}
 
+{% block head_title %}{{ object }} | Easysport{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-6">
@@ -49,7 +51,6 @@
         {% else %}
             <p>Телефон не указан</p>
         {% endif %}
-
     </div>
 </div>
 {% endblock %}

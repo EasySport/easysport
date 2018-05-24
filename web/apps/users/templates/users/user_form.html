@@ -2,7 +2,7 @@
 
 {% load bootstrap4 %}
 
-{% block title %}Профиль{% endblock %}
+{% block head_title %}Редактирование профиля | Easysport{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -17,6 +17,7 @@
                             {% buttons %}
                                 <input type="submit" value="Сохранить" class="btn btn-outline-primary">
                             {% endbuttons %}
+                            <a href="{% url 'users:password' %}">Смена пароля</a>
                         </form>
                     </div>
                 </div>
