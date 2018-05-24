@@ -55,7 +55,7 @@
                 <hr class="d-md-none">
                 <p class="card-text mb-1">{{ game.gametype.sport_type }}, {{ game.gametype.title }}</p>
                 <p class="card-text">
-                    <a href="{{ game.court.get_absolute_url }}}">{{ game.court }}</a>
+                    <a href="{{ game.court.get_absolute_url }}">{{ game.court }}</a>
                 </p>
                 <div class="progress mb-2" style="height: 25px;">
                     <div class="progress-bar {% if game.subscribed_count == game.capacity %}bg-success{% else %}.progress-bar-animated{% endif %}" role="progressbar" aria-valuenow="0" aria-valuemin="0"

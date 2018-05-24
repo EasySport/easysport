@@ -2,6 +2,8 @@
 
 {% load game_extras %}
 
+{% block head_title %}{{ object.title }} | {{ object.gametype }}{% endblock %}
+
 {% block head_extra %}
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 {% endblock %}

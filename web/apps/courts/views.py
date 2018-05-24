@@ -33,6 +33,7 @@ class CourtsList(ListView):
 
 class CourtDetail(DetailView):
     model = Court
+    context_object_name = 'court'
 
 
 class PlaceCreate(CreateView):

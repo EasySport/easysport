@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block head_title %}Площадки | Easysport{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-12 d-lg-none mb-4">
@@ -8,7 +10,9 @@
         <div class="col-lg-3">
             <h1 class="h2 d-none d-lg-block d-xl-block">Площадки</h1>
             {% if perms.courts.add_court %}
-                <a class="btn btn-block btn-success mb-3" href="{% url 'courts:create_place' %}">+ Создать площадку</a>
+                <a class="btn btn-block btn-success mb-3" href="{% url 'courts:create_place' %}">
+                    <i class="fa fa-plus"></i> Создать площадку
+                </a>
             {% endif %}
             <form method="GET" class="mb-4">
                 <div class="input-group">
