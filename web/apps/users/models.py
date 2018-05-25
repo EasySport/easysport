@@ -61,7 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.ForeignKey(
         City,
         verbose_name='Город',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=None
     )
     sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
     bdate = models.DateField(
@@ -71,12 +72,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         help_text=u'В формате ДД.ММ.ГГГГ'
     )
+    # bdate_privacy = models.BooleanField(verbose_name='Скрыть дату рождения', default=False)
+
     phone = PhoneNumberField(
         verbose_name='Мобильный телефон',
         unique=True,
         null=True,
         help_text=u'В формате +7**********'
     )
+    phone_privacy = models.BooleanField(verbose_name='Скрыть номер телефона',
+                                        default=False)
     avatar = models.ImageField(
         verbose_name='Аватар',
         upload_to=avatar_path,
