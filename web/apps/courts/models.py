@@ -159,6 +159,10 @@ class Court(models.Model):
         blank=True
     )
 
+    price = models.IntegerField(
+        verbose_name='Цена за 60 минут',
+        default=0,
+        blank=True)
     views = models.IntegerField(default=0)
 
     class Meta:

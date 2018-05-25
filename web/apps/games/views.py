@@ -14,6 +14,7 @@ from dal import autocomplete
 from .models import Game, UserGameAction
 from apps.sports.models import SportType
 from apps.users.models import User
+from apps.courts.models import Court
 
 
 class GamesList(ListView):
@@ -117,3 +118,23 @@ def game_action(request):
             return error_response('Not auth')
     else:
         return error_response('Not AJAX')
+
+
+def get_recommended_price(request):
+    price = 0
+    params = request.GET
+
+    try:
+        court = int(params.get('court', ''))
+        duration = int(params.get('duration', ''))
+        game_capacity = int(params.get('game_capacity', ''))
+
+        c = Court.objects.get(pk=court)
+    except Court.DoesNotExist:
+        error_response('Court does not exists')
+    except (ValueError, ZeroDivisionError):
+        pass
+    else:
+        price = (c.price * (duration / 60)) * 1.3 / game_capacity
+
+    return HttpResponse(round(price / 10) * 10)

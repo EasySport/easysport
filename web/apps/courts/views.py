@@ -52,7 +52,7 @@ class ModelFormWidgetMixin(object):
 
 class CourtCreate(ModelFormWidgetMixin, CreateView):
     model = Court
-    fields = ['title', 'description', 'admin_description', 'place', 'type', 'photo']
+    fields = ['title', 'description', 'admin_description', 'place', 'type', 'price', 'photo']
     widgets = {
         'description': forms.Textarea(attrs={'rows': 3}),
         'admin_description': forms.Textarea(attrs={'rows': 3}),

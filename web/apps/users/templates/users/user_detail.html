@@ -6,51 +6,55 @@
 {% block head_title %}{{ object }} | Easysport{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-6">
-        <img class="img-fluid img-thumbnail" alt="Avatar"
-             src="{% if object.avatar %}
-                {{ object.avatar.url }}
-             {% elif object.sex == 'm' %}
-                {% static 'img/avatars/blank_male.jpg' %}
-             {% else %}
-                {% static 'img/avatars/blank_female.jpg' %}
-             {% endif %}">
+    <div class="row">
+        <div class="col-4">
+            <img class="img-fluid img-thumbnail" alt="Avatar"
+                 src="{% if object.avatar %}{{ object.avatar.url }}
+                 {% elif object.sex == 'm' %}
+                    {% static 'img/avatars/blank_male.jpg' %}
+                 {% else %}
+                    {% static 'img/avatars/blank_female.jpg' %}
+                 {% endif %}">
+        </div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1>{{ object }}</h1>
+                    {% for group in object.groups.all %}
+                        <!--TODO: add link for description about responsible-->
+                        <a href="" class="badge badge-success badge-pill">{{ group }}</a>
+                    {% endfor %}
+
+                    {% if not user == object %}
+                        <p>
+                            <small>
+                                Последний раз заходил{% ifequal object.sex 'f' %}a{% endifequal %}
+                                : {{ object.last_login }}
+                            </small>
+                        </p>
+                    {% else %}
+                        <p>
+                            <a href="{% url 'users:update' %}">
+                                <i class="fa fa-pencil"></i>&nbsp;Ред.
+                            </a>
+                        </p>
+                    {% endif %}
+
+                    <p>
+                        {% if object.bdate %}
+                            {{ object.bdate|beauty_age }}
+                        {% endif %}
+                        {% if user.city and user.bdate %}, {% endif %}
+                        {% if user.city %}{{ user.city }}{% endif %}
+                    </p>
+
+                    {% if user.phone %}
+                        <p>Телефон: {{ user.phone }}</p>
+                    {% else %}
+                        <p>Телефон не указан</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-6">
-        <h1>{{ object }}</h1>
-        {% for group in object.groups.all %}
-            <!--TODO: add link for description about responsible-->
-            <a href="" class="badge badge-success badge-pill">{{ group }}</a>
-        {% endfor %}
-
-        {% if not user == object %}
-            <p>
-                <small>
-                    Последний раз заходил{% ifequal object.sex 'f' %}a{% endifequal %}: {{ object.last_login }}
-                </small>
-            </p>
-        {% else %}
-            <p>
-                <a href="{% url 'users:update' %}">
-                    <i class="fa fa-pencil"></i>&nbsp;Ред.
-                </a>
-            </p>
-        {% endif %}
-
-        <p>
-            {% if object.bdate %}
-                {{ object.bdate|beauty_age }}
-            {% endif %}
-            {% if user.city and user.bdate %}, {% endif %}
-            {% if user.city %}{{ user.city }}{% endif %}
-        </p>
-
-        {% if user.phone %}
-            <p>Телефон: {{ user.phone }}</p>
-        {% else %}
-            <p>Телефон не указан</p>
-        {% endif %}
-    </div>
-</div>
 {% endblock %}

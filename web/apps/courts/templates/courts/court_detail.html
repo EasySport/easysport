@@ -3,53 +3,60 @@
 {% block head_title %}{{ court.title }} | Easysport{% endblock %}
 
 {% block head_extra %}
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12 col-lg-4 pb-4">
-        <div class="card">
-            {% if court.photo %}
-                <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title card-text">
-                    {{ court.title }}
-                    {% if perms.courts.change_court %}
-                        <small>
-                            <a href="{% url 'courts:update' court.pk %}">
-                                <i class="fa fa-pencil"></i>&nbsp;Ред.
-                            </a>
-                        </small>
-                    {% endif %}
-                </h5>
-                <p class="card-text pt-4">
-                    <b>Адрес:</b>
-                    <br>
-                    {{ court.place.address }}
-                </p>
-                {% if court.description %}
-                    <p class="card-text pt-4">
-                        <b>Описание:</b>
-                        <br>
-                        {{ court.description }}
-                    </p>
+    <div class="row">
+        <div class="col-12 col-lg-4 pb-4">
+            <div class="card">
+                {% if court.photo %}
+                    <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
                 {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title card-text">
+                        {{ court.title }}
+                        {% if perms.courts.change_court %}
+                            <small>
+                                <a href="{% url 'courts:update' court.pk %}">
+                                    <i class="fa fa-pencil"></i>&nbsp;Ред.
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h5>
+                    <p class="card-text pt-4">
+                        <b>Адрес:</b>
+                        <br>
+                        {{ court.place.address }}
+                    </p>
+                    {% if court.description %}
+                        <p class="card-text pt-4">
+                            <b>Описание:</b>
+                            <br>
+                            {{ court.description }}
+                        </p>
+                    {% endif %}
+                    {% if court.price %}
+                        <p class="card-text pt-4">
+                            <b>Стоимость:</b>
+                            <br>
+                            {{ court.price }} рублей/час
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Просмотров: {{ court.views }}</small>
+                </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted">Просмотров: {{ court.views }}</small>
+        </div>
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div id="map" style="width: 100%; height: 600px"></div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <div id="map" style="width: 100%; height: 600px"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% endblock %}
 
