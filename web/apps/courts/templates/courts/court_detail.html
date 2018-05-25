@@ -29,11 +29,13 @@
                     <br>
                     {{ court.place.address }}
                 </p>
-                <p class="card-text pt-4">
-                    <b>Описание:</b>
-                    <br>
-                    {{ court.description }}
-                </p>
+                {% if court.description %}
+                    <p class="card-text pt-4">
+                        <b>Описание:</b>
+                        <br>
+                        {{ court.description }}
+                    </p>
+                {% endif %}
             </div>
             <div class="card-footer">
                 <small class="text-muted">Просмотров: {{ court.views }}</small>

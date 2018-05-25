@@ -6,12 +6,12 @@
         {% if game.responsible == user or user.is_staff %}
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
-                ред.
+                Редактировать
             </a>
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary dropdown-toggle"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    рассылка
+                    Рассылка
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Почта</a>
@@ -79,7 +79,7 @@
     <div class="card-footer">
         <div class="d-flex">
             {% if game.subscribed_count > 0 %}
-                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                <a data-toggle="collapse" href="#collapse{{ game.pk }}" role="button" aria-expanded="false"
                    aria-controls="collapseExample" class="mr-auto">
                     Cписок участников
                     <i class="fa fa-angle-down"></i>
@@ -92,7 +92,7 @@
             </span>
         </div>
         {% if game.subscribed_count > 0 %}
-            <div class="collapse my-2" id="collapseExample">
+            <div class="collapse my-2" id="collapse{{ game.pk }}">
                 <ol class="card-text">
                     {% for action in game.subscribed_list %}
                     <li>

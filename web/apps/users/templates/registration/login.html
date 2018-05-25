@@ -2,7 +2,7 @@
 
 {% load bootstrap4 %}
 
-{% block title %}Login{% endblock %}
+{% block head_title %}Вход | Easysport{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -19,7 +19,7 @@
                             {% endbuttons %}
                             <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
                             <br>
-                            <a href="{% url 'social:begin' 'vk-oauth2' %}">Login with VK</a>
+                            <a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через VK</a>
                         </form>
                     </div>
                 </div>
