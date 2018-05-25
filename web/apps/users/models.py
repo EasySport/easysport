@@ -61,8 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.ForeignKey(
         City,
         verbose_name='Город',
-        on_delete=models.CASCADE,
-        null=True
+        on_delete=models.CASCADE
     )
     sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
     bdate = models.DateField(

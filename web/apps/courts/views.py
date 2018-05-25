@@ -35,6 +35,14 @@ class CourtDetail(DetailView):
     model = Court
     context_object_name = 'court'
 
+    def get_context_data(self, **kwargs):
+        context = super(CourtDetail, self).get_context_data(**kwargs)
+        
+        # Increment court views
+        context['court'].views += 1
+        context['court'].save()
+        return context
+
 
 class PlaceCreate(CreateView):
     model = Place
