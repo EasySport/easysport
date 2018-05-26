@@ -17,9 +17,12 @@ def beauty_age(value):
 @register.filter
 def can_see_phone(user):
     visibility = False
+    
+    # List of groups that can see user phone
+    groups = ['responsible', 'admin']
 
     # TODO: more perms (?). Visibility for players user crossed with
-    if user.has_perm('games.add_game'):
+    if user.groups.filter(name__in=groups).exists():
         visibility = True
 
     return visibility
