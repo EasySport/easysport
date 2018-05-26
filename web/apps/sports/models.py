@@ -9,7 +9,7 @@ class SportType(models.Model):
         verbose_name='Название вида спорта'
     )
 
-    class Meta():
+    class Meta:
         verbose_name = 'Вид спорта'
         verbose_name_plural = 'Виды спорта'
 
