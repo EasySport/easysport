@@ -3,14 +3,14 @@
 {% load user_extras %}
 {% load staticfiles %}
 
-{% block head_title %}{{ object }} | Easysport{% endblock %}
+{% block head_title %}{{ current_user }} | Easysport{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-4">
             <img class="img-fluid img-thumbnail" alt="Avatar"
-                 src="{% if object.avatar %}{{ object.avatar.url }}
-                 {% elif object.sex == 'm' %}
+                 src="{% if current_user.avatar %}{{ current_user.avatar.url }}
+                 {% elif current_user.sex == 'm' %}
                     {% static 'img/avatars/blank_male.jpg' %}
                  {% else %}
                     {% static 'img/avatars/blank_female.jpg' %}
@@ -19,17 +19,17 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h1>{{ object }}</h1>
-                    {% for group in object.groups.all %}
+                    <h1>{{ current_user }}</h1>
+                    {% for group in current_user.groups.all %}
                         <!--TODO: add link for description about responsible-->
                         <a href="" class="badge badge-success badge-pill">{{ group }}</a>
                     {% endfor %}
 
-                    {% if not user == object %}
+                    {% if not user == current_user %}
                         <p>
                             <small>
-                                Последний раз заходил{% ifequal object.sex 'f' %}a{% endifequal %}
-                                : {{ object.last_login }}
+                                Последний раз заходил{% ifequal current_user.sex 'f' %}a{% endifequal %}
+                                : {{ current_user.last_login }}
                             </small>
                         </p>
                     {% else %}
@@ -41,15 +41,15 @@
                     {% endif %}
 
                     <p>
-                        {% if object.bdate %}
-                            {{ object.bdate|beauty_age }}
+                        {% if current_user.bdate %}
+                            {{ current_user.bdate|beauty_age }}
                         {% endif %}
-                        {% if user.city and user.bdate %}, {% endif %}
-                        {% if user.city %}{{ user.city }}{% endif %}
+                        {% if current_user.city and current_user.bdate %}, {% endif %}
+                        {% if current_user.city %}{{ current_user.city }}{% endif %}
                     </p>
 
-                    {% if user.phone %}
-                        <p>Телефон: {{ user.phone }}</p>
+                    {% if not current_user.phone_privacy and request.user.pk or request.user|can_see_phone %}
+                        <p>Телефон: {{ current_user.phone }}</p>
                     {% else %}
                         <p>Телефон не указан</p>
                     {% endif %}

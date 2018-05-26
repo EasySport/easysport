@@ -1,6 +1,4 @@
 # Django core
-from django import forms
-from django.forms.widgets import SelectDateWidget, ClearableFileInput
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
@@ -12,54 +10,16 @@ from django.contrib.auth.forms import (AdminPasswordChangeForm, PasswordChangeFo
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
 # Our apps
 from .models import User
+from .forms import UserCreationForm, UserUpdateForm
+
+#from apps.
 
 # Third party
 from social_django.models import UserSocialAuth
-
-
-class UserCreationForm(forms.ModelForm):
-    """
-    A form that creates a user, with no privileges, from the given email and
-    password.
-    """
-    error_messages = {
-        'password_mismatch': "Пароли не совпадают.",
-    }
-    password1 = forms.CharField(
-        label="Пароль",
-        strip=False,
-        widget=forms.PasswordInput,
-    )
-    password2 = forms.CharField(
-        label="Повторите",
-        widget=forms.PasswordInput,
-        strip=False,
-    )
-
-    class Meta:
-        model = User
-        fields = ('email',)
-        field_classes = {'email': forms.EmailField}
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError(
-                self.error_messages['password_mismatch'],
-                code='password_mismatch',
-            )
-        return password2
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
 
 
 class RegistrationView(FormView):
@@ -108,10 +68,11 @@ class UsersList(ListView):
 
         if self.request.user.is_authenticated and self.request.user.city:
             users = users.filter(city=self.request.user.city)
+
         if query:
             q1 = users.filter(first_name__icontains=query)
             q2 = users.filter(last_name__icontains=query)
-            q3 = users.filter(phone__contains=query)
+            q3 = users.filter(Q(phone__contains=query) & Q(phone_privacy=False))
             return q1 | q2 | q3
         return users
 
@@ -123,28 +84,7 @@ class UsersList(ListView):
 
 class UserDetail(DetailView):
     model = User
-    context_object_name = 'object'
-
-
-class UserUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name',
-                  'city', 'sex', 'bdate', 'phone', 'avatar']
-        widgets = {
-            'bdate': SelectDateWidget(years=list(range(1945, 2017))),
-            'avatar': ClearableFileInput()
-        }
-
-    # def clean_bdate(self):
-    #     bdate = self.cleaned_data.get("bdate")
-    #     if bdate:
-    #         if timezone.now().date() - bdate < timezone.timedelta(days=3650):
-    #             raise forms.ValidationError("Тебе меньше 10 лет, серьезно?")
-    #         return bdate
-    #     else:
-    #         return None
+    context_object_name = 'current_user'
 
 
 @method_decorator(login_required, name='dispatch')
