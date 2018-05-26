@@ -14,4 +14,5 @@ urlpatterns = [
     path('create/', views.GameCreate.as_view(), name='create'),
 
     path('action/', views.game_action, name='game_action'),
+    path('get_recommended_price/', views.get_recommended_price, name='get_recommended_price')
 ]
