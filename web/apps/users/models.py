@@ -10,6 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 # Our apps
 from apps.courts.models import City
+from apps.sports.models import SportType, Amplua
 
 
 class UserManager(BaseUserManager):
@@ -31,6 +32,7 @@ class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_staff', False)
+        extra_fields.pop('username')
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
@@ -58,13 +60,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('Активный профиль', default=True)
     is_staff = models.BooleanField('Статус админа', default=False)
 
+    weight = models.IntegerField('Вес', help_text='В кг.', null=True, blank=True)
+    height = models.IntegerField('Рост', help_text='В см.', null=True, blank=True)
+
+    sport_types = models.ManyToManyField(SportType, blank=True)
+    amplua = models.ManyToManyField(Amplua, blank=True)
+
     city = models.ForeignKey(
         City,
         verbose_name='Город',
         on_delete=models.CASCADE,
-        default=None
+        default=None,
+        null=True
     )
-    sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
+
+    sex = models.CharField(
+        max_length=1,
+        choices=(('m', 'мужской'),
+                 ('f', 'женский')),
+        verbose_name='Пол'
+    )
+
     bdate = models.DateField(
         'Дата рождения',
         auto_now_add=False,
@@ -80,8 +96,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         help_text=u'В формате +7**********'
     )
-    phone_privacy = models.BooleanField(verbose_name='Скрыть номер телефона',
-                                        default=False)
+
+    phone_privacy = models.BooleanField(verbose_name='Скрыть номер телефона', default=False)
+
     avatar = models.ImageField(
         verbose_name='Аватар',
         upload_to=avatar_path,
