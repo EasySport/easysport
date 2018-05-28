@@ -4,21 +4,21 @@
     <div class="card-header d-flex align-items-center">
         <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }} | {{ game.title }}</a>
         {% if game.responsible == user or user.is_staff %}
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-            <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
-                Редактировать
-            </a>
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-secondary dropdown-toggle"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Рассылка
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Почта</a>
-                    <a class="dropdown-item" href="#">СМС</a>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
+                    Редактировать
+                </a>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Рассылка
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Почта</a>
+                        <a class="dropdown-item" href="#">СМС</a>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endif %}
     </div>
     <div class="card-body">
@@ -41,6 +41,12 @@
                         <span class="badge badge-info">Послезавтра</span>
                     </p>
                 {% endif %}
+
+                {% if not game.visibility %}
+                    <p class="mb-1 lead">
+                        <span class="badge badge-danger">Приватная</span>
+                    </p>
+                {% endif %}
                 <p class="card-text mb-0">
                     <i class="fa fa-calendar"></i> {{ game.datetime|date:"j E" }}
                 </p>
@@ -58,7 +64,8 @@
                     <a href="{{ game.court.get_absolute_url }}">{{ game.court }}</a>
                 </p>
                 <div class="progress mb-2" style="height: 25px;">
-                    <div class="progress-bar {% if game.subscribed_count == game.capacity %}bg-success{% else %}.progress-bar-animated{% endif %}" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                    <div class="progress-bar {% if game.subscribed_count == game.capacity %}bg-success{% else %}.progress-bar-animated{% endif %}"
+                         role="progressbar" aria-valuenow="0" aria-valuemin="0"
                          aria-valuemax="100" style="width: {% widthratio game.subscribed_count game.capacity 100 %}%;">
                         {{ game.subscribed_count }}/{{ game.capacity }}
                     </div>
@@ -95,9 +102,9 @@
             <div class="collapse my-2" id="collapse{{ game.pk }}">
                 <ol class="card-text">
                     {% for action in game.subscribed_list %}
-                    <li>
-                        <a href="{% url 'users:detail' action.user.pk %}" target="_blank">{{ action.user }}</a>
-                    </li>
+                        <li>
+                            <a href="{% url 'users:detail' action.user.pk %}" target="_blank">{{ action.user }}</a>
+                        </li>
                     {% endfor %}
                 </ol>
             </div>
