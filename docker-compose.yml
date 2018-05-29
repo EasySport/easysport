@@ -35,8 +35,8 @@ services:
     volumes:
       - ./web/:/code
     # we should use no ports for access only with nginx server
-    # ports:
-    #   - '8000:8000'
+    ports:
+      - '8000:8000'
     depends_on:
       - db
 
