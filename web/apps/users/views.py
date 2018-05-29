@@ -16,8 +16,6 @@ from django.db.models import Q
 from .models import User
 from .forms import UserCreationForm, UserUpdateForm
 
-#from apps.
-
 # Third party
 from social_django.models import UserSocialAuth
 

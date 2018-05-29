@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 # Third party
 from dal import autocomplete
@@ -24,6 +24,10 @@ class GamesList(ListView):
         games = Game.objects.filter(datetime__gte=timezone.now()).order_by('datetime')
         if self.request.user.is_authenticated and self.request.user.city:
             games = games.filter(court__place__city=self.request.user.city)
+        else:
+            # TODO: No template names provided fix (redirect('users:update'))
+            # return redirect('users:update')
+            pass
         sport = self.request.GET.get('sport', None)
         if sport and sport != 'all':
             games = games.filter(gametype=sport)

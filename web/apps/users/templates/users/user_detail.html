@@ -46,12 +46,30 @@
                         {% endif %}
                         {% if current_user.city and current_user.bdate %}, {% endif %}
                         {% if current_user.city %}{{ current_user.city }}{% endif %}
+
+                    {% if current_user.weight %}<p>Вес: {{ current_user.weight }} кг</p>{% endif %}
+                    {% if current_user.height %}<p>Рост: {{ current_user.height }} см</p>{% endif %}
                     </p>
 
                     {% if not current_user.phone_privacy and request.user.pk or request.user|can_see_phone %}
                         <p>Телефон: {{ current_user.phone }}</p>
                     {% else %}
                         <p>Телефон не указан</p>
+                    {% endif %}
+
+                    {% if current_user.sport_types.all %}
+                        <b>Виды спорта:</b> <br>
+                        {% for type in current_user.sport_types.all %}
+                            {{ type }}<br>
+                        {% endfor %}
+                        <br>
+                    {% endif %}
+
+                    {% if current_user.amplua.all %}
+                        <b>Амплуа:</b> <br>
+                        {% for amplua in current_user.amplua.all %}
+                            {{ amplua }}<br>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
