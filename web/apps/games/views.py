@@ -16,14 +16,28 @@ from apps.sports.models import SportType
 from apps.users.models import User
 from apps.courts.models import Court
 
+from utils.templatetags.user_extras import can_see_game
+
 
 class GamesList(ListView):
     model = Game
 
     def get_queryset(self, **kwargs):
         games = Game.objects.filter(datetime__gte=timezone.now()).order_by('datetime')
+
+        # Hide private games
+        if not can_see_game(self.request.user):
+            games = games.filter(visibility=True)
+
+        # Show games only from user's city
         if self.request.user.is_authenticated and self.request.user.city:
             games = games.filter(court__place__city=self.request.user.city)
+        else:
+            # If User.city is None
+            # TODO: No template names provided fix (redirect('users:update'))
+            # return redirect('users:update')
+            pass
+
         sport = self.request.GET.get('sport', None)
         if sport and sport != 'all':
             games = games.filter(gametype=sport)
@@ -40,12 +54,16 @@ class GamesList(ListView):
 
 class GameDetail(DetailView):
     model = Game
+    context_object_name = 'game'
 
 
 class GameCreate(PermissionRequiredMixin, CreateView):
     model = Game
-    fields = '__all__'
     permission_required = 'games.can_create'
+
+    fields = ('title', 'visibility', 'responsible',
+              'coach', 'gametype', 'capacity', 'reserved',
+              'court', 'datetime', 'duration', 'cost')
 
     def get_initial(self):
         initial = super(GameCreate, self).get_initial()
@@ -63,9 +81,13 @@ class GameCreate(PermissionRequiredMixin, CreateView):
 
 class GameUpdate(UpdateView):
     model = Game
-    fields = '__all__'
     permission_required = 'games.can_edit'
     template_name = 'games/game_edit.html'
+
+    fields = ('title', 'visibility', 'responsible',
+              'coach', 'gametype', 'capacity', 'reserved',
+              'court', 'datetime', 'duration', 'cost')
+
 
     def get_form(self, form_class=None):
         form = super(GameUpdate, self).get_form(form_class)

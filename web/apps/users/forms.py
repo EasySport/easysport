@@ -47,11 +47,12 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ['first_name', 'last_name',
-                  'city', 'sex', 'bdate', 'phone', 'phone_privacy', 'avatar']
+                  'city', 'sex', 'bdate', 'weight',
+                  'height', 'sport_types', 'amplua',
+                  'phone', 'phone_privacy', 'avatar']
         widgets = {
             'bdate': SelectDateWidget(years=list(range(1945, 2017))),
             'avatar': ClearableFileInput()

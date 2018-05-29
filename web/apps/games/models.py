@@ -10,8 +10,9 @@ from apps.sports.models import GameType
 
 class Game(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
+    visibility = models.BooleanField(verbose_name='Публичная игра',
+                                     default=True)
 
-    # creator = models.ForeignKey('users.User', blank=True, null=True)
     responsible = models.ForeignKey(
         User,
         verbose_name=u'Ответственный',
@@ -108,15 +109,13 @@ class Game(models.Model):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED).count()
 
     def subscribed_list(self):
-        actions = UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED)
-        return actions
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED)
 
     def reserved_count(self):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED).count()
 
     def reserved_list(self):
-        actions = UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED)
-        return actions
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED)
 
 
 class UserGameAction(models.Model):
