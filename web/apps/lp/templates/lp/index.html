@@ -4,12 +4,12 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row bg-dark">
-            <div class="col-12">
+        <div class="row bg-dark text-center text-white">
+            <div class="col-12 py-5">
                 <div class="content-block-first">
-                    <img src="{% static 'img/logo_new_big.png' %}" class="logo"/>
+                    <img src="{% static 'img/logo_new_big.png' %}" class="logo pb-4"/>
                     <h2 class="h3">Ваш проводник в мире любительского спорта.</h2>
-                    <p class="h3">Играй вместе с нами!</p>
+                    <p class="h3 pb-4">Играй вместе с нами!</p>
                     {% if not loggedin %}
                         <p><a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a></p>
                         <p>или</p>
@@ -27,57 +27,45 @@
                 </div>
             </div>
         </div>
-        <div class="row bigrow">
-            <div class="bigrow-content">
-                <div class="content-block-second">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <h2 class="text-center">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал! От
-                                желания до игры за 5 минут!</h2><br/><br/><br/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-3 hidden-xs">
-                            <div style="float:right;" class="text-left">
-                                <h3 class="h2">Просто</h3>
-                                <ul style="margin-left: -24px;" class="promo-ul">
-                                    <li class="promo-li">регистрируйся в системе</li>
-                                    <li class="promo-li">выбирай подходящую игру</li>
-                                    <li class="promo-li">получай удовольствие!</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 hidden-sm"><img src="{% static 'images/index/site_preview.png' %}"
-                                                             style="width:100%;"
-                                                             alt="EasySport - это удобное приложение для любителей спорта."/>
-                        </div>
-                        <div class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0 text-left hidden-xs">
-                            <h3 class="h2">Удобно</h3>
+        <div class="row py-4">
+            <div class="col-md-10 offset-md-1 text-center">
+                <h2 class="text-center">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал! От
+                    желания до игры за 5 минут!</h2>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-5 col-md-3 hidden-xs">
+                        <div style="float:right;" class="text-left">
+                            <h3 class="h2">Просто</h3>
                             <ul style="margin-left: -24px;" class="promo-ul">
-                                <li class="promo-li">пользуйся с любого устройства</li>
-                                <li class="promo-li">задавай вопросы организаторам</li>
-                                <li class="promo-li">меняй свои планы одним кликом!</li>
+                                <li class="promo-li">регистрируйся в системе</li>
+                                <li class="promo-li">выбирай подходящую игру</li>
+                                <li class="promo-li">получай удовольствие!</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row bigrow">
-            <div class="bigrow-background"><img src="{% static 'images/index/main_2.jpg' %}"
-                                                alt="EasySport решает все острые проблемы в организации любительских игр"/>
-            </div>
-            <div class="bigrow-content content-white">
-                <div class="content-block-third">
-                    <h3 class="h2">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше
-                        не
-                        будет.</h3><br class="hidden-xs"/>
-                    <h3 class="h2 hidden-xs">Мы провели уже более 600 игр!</h3>
+                    <div class="col-md-6 hidden-sm">
+                        <img src="{% static 'img/index/site_preview.png' %}" alt="EasySport - это удобное приложение для любителей спорта."/>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0 text-left hidden-xs">
+                        <h3 class="h2">Удобно</h3>
+                        <ul style="margin-left: -24px;" class="promo-ul">
+                            <li class="promo-li">пользуйся с любого устройства</li>
+                            <li class="promo-li">задавай вопросы организаторам</li>
+                            <li class="promo-li">меняй свои планы одним кликом!</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12 text-center">
+                <h3 class="h2">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше не будет.</h3>
+                <h3 class="h2 hidden-xs">Мы провели уже более 600 игр!</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
                 <img src="{% static 'img/index/1.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/2.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/3.png' %}" style="width:100px;"/>
@@ -88,11 +76,11 @@
                 <img src="{% static 'img/index/8.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/9.png' %}" style="width:100px;"/>
             </div>
-            <div class="col-md-12">
+            <div class="col-12 text-center">
                 <h3 class="h2">Найди свое место в мире любительского спорта!</h3>
                 <p>Пройди весь путь от интереса к игре, через тренировки, поиск команды, участие в турнирах к получению необходимой игровой практики, достижению собственных целей.</p>
             </div>
-            <div class="col-md-12">
+            <div class="col-12 text-center">
                 <img src="{% static 'img/index/10.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/11.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/12.png' %}" style="width:100px;"/>
@@ -104,34 +92,26 @@
                 <img src="{% static 'img/index/18.png' %}" style="width:100px;"/>
             </div>
         </div>
-        <div class="row bigrow">
-            <div class="bigrow-background"><img src="{% static 'images/index/main_3.jpg' %}"
-                                                alt="EasySport - это развивающееся спортивное сообщество"/></div>
-            <div class="bigrow-content content-white">
-                <div class="content-block-fifth">
-                    <p class="h2">Мы мечтаем построить в России динамичное и здоровое спортивное сообщество</p>
-                </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="h2">Мы мечтаем построить в России динамичное и здоровое спортивное сообщество</p>
             </div>
         </div>
-        <div class="row bigrow">
-            <div class="bigrow-content">
-                <div class="content-block-sixth">
-                    <p class="h2">Не можешь играть каждую неделю? Отвлекает семья и работа?</p><br/><img
-                        src="{% static 'images/index/main_4.png' %}" alt="" height="300"/><br/>
-                    <p class="h2">С EasySport это не помеха. Планируй свое время удобным образом!</p>
-                </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="h2">Не можешь играть каждую неделю? Отвлекает семья и работа?</p>
+                <img src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
+                <p class="h2">С EasySport это не помеха. Планируй свое время удобным образом!</p>
             </div>
         </div>
-        <div class="row bigrow">
-            <div class="bigrow-background"><img src="{% static 'images/index/main_5.jpg' %}" alt="EasySport. Будь в игре!"/>
-            </div>
-            <div class="bigrow-content content-white">
-                <div class="content-block-seventh">
-                    <h1>Будь в игре!</h1><br/><br/>
-                    <p>{% if not loggedin %}
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Будь в игре!</h1>
+                {% if not loggedin %}
+                    <p>
                         <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
-                    {% endif %}</p>
-                </div>
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

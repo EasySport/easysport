@@ -90,11 +90,15 @@
         </nav>
 
         {% block content_wrapper %}
-            <div class="container">
+            <div class="container pt-4">
                 {% block content %}
                 {% endblock %}
             </div>
         {% endblock %}
+
+        <footer class="footer">
+            Footer
+        </footer>
 
         <script src="{% static 'js/main.js' %}"></script>
 
