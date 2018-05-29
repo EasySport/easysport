@@ -7,6 +7,19 @@ from utils import formatters
 register = template.Library()
 
 
+def check_permissions(user, groups=None):
+    if groups is None:
+        groups = []
+    groups.append('admin')
+
+    visibility = False
+
+    if user.groups.filter(name__in=groups).exists():
+        visibility = True
+
+    return visibility
+
+
 @register.filter(name='beauty_age')
 def beauty_age(value):
     today = timezone.now()
@@ -16,13 +29,9 @@ def beauty_age(value):
 
 @register.filter
 def can_see_phone(user):
-    visibility = False
-    
-    # List of groups that can see user phone
-    groups = ['responsible', 'admin']
+    return check_permissions(user, ['responsible'])
 
-    # TODO: more perms (?). Visibility for players user crossed with
-    if user.groups.filter(name__in=groups).exists():
-        visibility = True
 
-    return visibility
+@register.filter
+def can_see_game(user):
+    return check_permissions(user, ['responsible'])
