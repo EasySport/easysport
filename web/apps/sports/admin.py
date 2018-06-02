@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # Models
-from .models import (SportType, GameType, Amplua)
+from .models import Amplua, GameType, SportType
 
 # Core django admin site register
 admin.site.register(SportType)

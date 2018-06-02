@@ -1,14 +1,12 @@
-# Django core
 from django import forms
 from django.forms.models import modelform_factory
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 
-# Third party
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, UpdateView
+
 from dal import autocomplete
 
-# Our apps
 from .models import Court, Place
 
 
@@ -81,7 +79,6 @@ class CourtAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Court.objects.none()
         all_courts = Court.objects.all()
-        # places = Place.objects.filter(city=self.request.user.city)
 
         if self.q:
             # Search by Court.Place.address

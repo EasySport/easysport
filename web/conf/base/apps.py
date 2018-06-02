@@ -18,6 +18,8 @@ INSTALLED_APPS = [
     # - Social authorization
     'social_django',
 
+    'extra_views',
+
     # Our apps
     'apps.courts',
     'apps.games',
