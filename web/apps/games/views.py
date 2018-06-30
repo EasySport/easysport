@@ -156,6 +156,9 @@ def get_recommended_price(request):
         error_response('Court does not exists')
     except (ValueError, ZeroDivisionError):
         pass
+
+    if game_capacity == 0:
+        pass
     else:
         price = (c.price * (duration / 60)) * 1.3 / game_capacity
 
