@@ -4,7 +4,8 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row bg-dark text-center text-white">
+        <div class="row bg-dark text-center text-white black-overlay index-row"
+             style="background: url({% static 'img/index/main_1.jpg' %}) no-repeat center center fixed; ">
             <div class="col-12 py-5">
                 <div class="content-block-first">
                     <img src="{% static 'img/logo_new_big.png' %}" class="logo pb-4"/>
@@ -27,13 +28,15 @@
                 </div>
             </div>
         </div>
-        <div class="row py-4">
-            <div class="col-md-10 offset-md-1 text-center">
+        <div class="row bg-red text-white">
+            <div class="col-md-10 offset-md-1 text-center py-5">
                 <h2 class="text-center">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал! От
                     желания до игры за 5 минут!</h2>
             </div>
-            <div class="col-12">
-                <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-12 py-5">
+                <div class="row align-items-center">
                     <div class="col-sm-5 col-md-3 hidden-xs">
                         <div style="float:right;" class="text-left">
                             <h3 class="h2">Просто</h3>
@@ -58,13 +61,13 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-center">
+        <div class="row py-5 bg-red text-white justify-content-center">
+            <div class="col-10 text-center">
                 <h3 class="h2">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше не будет.</h3>
                 <h3 class="h2 hidden-xs">Мы провели уже более 600 игр!</h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row py-5">
             <div class="col-12 text-center">
                 <img src="{% static 'img/index/1.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/2.png' %}" style="width:100px;"/>
@@ -76,7 +79,7 @@
                 <img src="{% static 'img/index/8.png' %}" style="width:100px;"/>
                 <img src="{% static 'img/index/9.png' %}" style="width:100px;"/>
             </div>
-            <div class="col-12 text-center">
+            <div class="col-12 text-center py-3">
                 <h3 class="h2">Найди свое место в мире любительского спорта!</h3>
                 <p>Пройди весь путь от интереса к игре, через тренировки, поиск команды, участие в турнирах к получению необходимой игровой практики, достижению собственных целей.</p>
             </div>
@@ -92,25 +95,18 @@
                 <img src="{% static 'img/index/18.png' %}" style="width:100px;"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-center">
-                <p class="h2">Мы мечтаем построить в России динамичное и здоровое спортивное сообщество</p>
-            </div>
-        </div>
-        <div class="row">
+        <div class="row py-5 bg-red text-white">
             <div class="col-12 text-center">
                 <p class="h2">Не можешь играть каждую неделю? Отвлекает семья и работа?</p>
-                <img src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
+                <img class="py-3" src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
                 <p class="h2">С EasySport это не помеха. Планируй свое время удобным образом!</p>
             </div>
         </div>
-        <div class="row">
+        <div class="row py-5">
             <div class="col-12 text-center">
                 <h1>Будь в игре!</h1>
                 {% if not loggedin %}
-                    <p>
-                        <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
-                    </p>
+                    <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
                 {% endif %}
             </div>
         </div>
