@@ -1,23 +1,23 @@
 # Django core
-from django.contrib.auth import login, authenticate
-from django.views.generic.edit import FormView, UpdateView
-from django.views.generic import ListView, DetailView
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView)
-from django.contrib.auth.forms import (AdminPasswordChangeForm, PasswordChangeForm)
-from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import (AdminPasswordChangeForm,
+                                       PasswordChangeForm)
+from django.contrib.auth.views import (PasswordResetConfirmView,
+                                       PasswordResetView)
 from django.db.models import Q
-
-# Our apps
-from .models import User
-from .forms import UserCreationForm, UserUpdateForm
-
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormView, UpdateView
 # Third party
 from social_django.models import UserSocialAuth
+
+from .forms import UserCreationForm, UserUpdateForm
+# Our apps
+from .models import User
 
 
 class RegistrationView(FormView):

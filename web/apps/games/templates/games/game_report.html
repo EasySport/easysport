@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block head_title %}Отправить отчет | Easysport{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Отчет об игре #{{ object_list.0.game.pk }} {{ object_list.0.game.title }}</h2>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% bootstrap_formset formset layout='horizontal' %}
+                            {% buttons %}
+                                <input type="submit" value="Сохранить" class="btn btn-outline-primary">
+                            {% endbuttons %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block media_last %}
+    {{ form.media }}
+{% endblock %}

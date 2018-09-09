@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # Models
-from .models import (Game, UserGameAction)
+from .models import Game, UserGameAction
 
 
 class ActionsInline(admin.TabularInline):

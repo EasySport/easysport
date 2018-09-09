@@ -1,4 +1,5 @@
 {% if game.time_status == 'Was' %}
+
     {% if action %}
         {% if action.status == 4 %}
             {# Игра прошла, посетил #}
@@ -10,11 +11,6 @@
             <button class="btn btn-danger btn-block" disabled>
                 Ты прогулял{% ifequal user.sex 'f' %}a{% endifequal %} игру
             </button>
-        {% elif action.status != 3 %}
-            {# Игра прошла, но статус еще не определен админом #}
-            <button class="btn btn-info btn-block" disabled>
-                Ожидается отчет
-            </button>
         {% else %}
             {# Игра прошла и игрок был отписан #}
             <button class="btn btn-light btn-block" disabled>
@@ -22,10 +18,25 @@
             </button>
         {% endif %}
     {% else %}
-        {# Игра прошла и игрок не взаимодействовал с игрой #}
-        <button class="btn btn-light btn-block" disabled>
-            Игра прошла
-        </button>
+        {% if not game.is_reported %}
+            {# Игра прошла, но статус еще не определен админом #}
+
+            {% if game.responsible != user %}
+                <button class="btn btn-info btn-block" disabled>
+                    Ожидается отчет
+                </button>
+            {% else %}
+                <a href="{% url 'games:report' game.pk %}" class="btn btn-info btn-block">
+                    Ожидается отчет
+                </a>
+            {% endif %}
+
+        {% else %}
+            {# Игра прошла и игрок не взаимодействовал с игрой #}
+            <button class="btn btn-light btn-block" disabled>
+                Игра прошла
+            </button>
+        {% endif %}
     {% endif %}
 {% elif game.time_status == 'Goes' %}
     {# Игра идет #}
@@ -227,7 +238,9 @@
                                 Набирается резерв
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <a class="dropdown-item" href="{% url 'users:login' %}?next={% url 'games:detail' game.pk %}">Записаться в резерв</a>
+                                <a class="dropdown-item"
+                                   href="{% url 'users:login' %}?next={% url 'games:detail' game.pk %}">Записаться в
+                                    резерв</a>
                             </div>
                         </div>
                     {% endif %}

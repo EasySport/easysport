@@ -3,15 +3,15 @@ from django.db import models
 from django.utils import timezone
 
 # Our apps
-from apps.users.models import User
 from apps.courts.models import Court
 from apps.sports.models import GameType
+from apps.users.models import User
 
 
 class Game(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
-    visibility = models.BooleanField(verbose_name='Публичная игра',
-                                     default=True)
+    visibility = models.BooleanField(verbose_name='Публичная игра', default=True)
+    is_reported = models.BooleanField(verbose_name='Создан отчет', default=False)
 
     responsible = models.ForeignKey(
         User,

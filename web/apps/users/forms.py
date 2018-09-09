@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import SelectDateWidget, ClearableFileInput
+from django.forms.widgets import ClearableFileInput, SelectDateWidget
 
 from .models import User
 

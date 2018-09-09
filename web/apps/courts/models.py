@@ -1,9 +1,8 @@
 # Django core
-from django.db import models
-from django.contrib.postgres.fields import JSONField
-
 # Third party
 import geocoder
+from django.contrib.postgres.fields import JSONField
+from django.db import models
 
 
 class Country(models.Model):

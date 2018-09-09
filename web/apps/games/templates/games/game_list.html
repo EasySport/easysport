@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load game_extras %}
+{% load user_extras %}
 
 {% block head_title %}Игры | Easysport{% endblock %}
 
@@ -20,8 +21,17 @@
                 <div class="input-group">
                     <select class="custom-select form-control" name="sport">
                         <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
+
+                        {% if user.is_authenticated and user|can_see_game %}
+                            <option value="my" {% if q == 'my' %}selected{% endif %}>Мои игры</option>
+                            <option value="need_report" {% if q == 'need_report' %}selected{% endif %}>
+                            Требующие отчета
+                            </option>
+                        {% endif %}
+
                         {% for sport in sports %}
-                            <option value="{{ sport.pk }}" {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
+                            <option value="{{ sport.pk }}"
+                                    {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
                         {% endfor %}
                     </select>
                     <div class="input-group-append">
@@ -32,7 +42,9 @@
                 </div>
             </form>
             {% if not perms.games.add_game %}
-                <button class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою игру</button>
+                <button class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою
+                    игру
+                </button>
             {% endif %}
         </div>
         <div class="col-lg-9">
@@ -44,7 +56,9 @@
                 <p>
                     Список пуст.
                     {% if user.is_authenticated %}
-                        Создайте свою или напишите <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, чтобы узнать, как это сделать.
+                        Создайте свою или напишите
+                        <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, чтобы узнать,
+                        как это сделать.
                     {% endif %}
                 </p>
             {% endif %}
@@ -53,39 +67,39 @@
 {% endblock %}
 
 {% block media_last %}
-<script>
-    $(document).on('click', '.action', function (e) {
-        var arr = $(this).attr("id").split('-');
-        var game_id = arr[0], action = arr[1];
-        {#$(this).parent().parent().parent().find('.btn').attr('disabled', true);#}
-        $('#game-card-' + game_id).attr('style', 'opacity: 0.7;');
-        console.log(game_id);
-        console.log(action);
-        $.ajax({
-            url: '{% url "games:game_action" %}',
-            data: {
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                game_id: game_id,
-                action: action
-            },
-            async: true,
-            success: function (responseData, textStatus) {
-                if (responseData['error']) {
-                    alert(responseData['error']['error_description']);
-                } else {
-                    $('#game-card-' + game_id).fadeOut('slow', function () {
-                        $('#game-card-' + game_id).replaceWith(responseData);
-                    });
-                }
-            },
-            error: function (response, status, errorThrown) {
-                alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
-                console.log(response);
-            },
-            type: "POST",
-            dataType: "text"
+    <script>
+        $(document).on('click', '.action', function (e) {
+            var arr = $(this).attr("id").split('-');
+            var game_id = arr[0], action = arr[1];
+            {#$(this).parent().parent().parent().find('.btn').attr('disabled', true);#}
+            $('#game-card-' + game_id).attr('style', 'opacity: 0.7;');
+            console.log(game_id);
+            console.log(action);
+            $.ajax({
+                url: '{% url "games:game_action" %}',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    game_id: game_id,
+                    action: action
+                },
+                async: true,
+                success: function (responseData, textStatus) {
+                    if (responseData['error']) {
+                        alert(responseData['error']['error_description']);
+                    } else {
+                        $('#game-card-' + game_id).fadeOut('slow', function () {
+                            $('#game-card-' + game_id).replaceWith(responseData);
+                        });
+                    }
+                },
+                error: function (response, status, errorThrown) {
+                    alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
+                    console.log(response);
+                },
+                type: "POST",
+                dataType: "text"
+            });
+            e.preventDefault();
         });
-        e.preventDefault();
-    });
-</script>
+    </script>
 {% endblock %}
