@@ -7,7 +7,7 @@
 {% block content %}
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <h2>Создание игры</h2>
@@ -46,7 +46,10 @@
                 if (this.readyState !== 4) return;
                 document.getElementById("recommended_price").innerHTML = "Рекомендуемая цена: " + this.responseText;
             };
-            xhr.send();
+
+            if (court && duration && game_capacity) {
+                xhr.send();
+            }
         }
 
         id_duration.onkeyup = get_price;

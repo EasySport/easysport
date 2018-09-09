@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <img class="img-fluid img-thumbnail" alt="Avatar"
                  src="{% if current_user.avatar %}{{ current_user.avatar.url }}
                  {% elif current_user.sex == 'm' %}
@@ -16,7 +16,7 @@
                     {% static 'img/avatars/blank_female.jpg' %}
                  {% endif %}">
         </div>
-        <div class="col-8">
+        <div class="col-12 col-md-8">
             <div class="card">
                 <div class="card-body">
                     <h1>{{ current_user }}</h1>
