@@ -35,7 +35,7 @@
                     {% else %}
                         <p>
                             <a href="{% url 'users:update' %}">
-                                <i class="fa fa-pencil"></i>&nbsp;Ред.
+                                <i class="fa fa-pencil"></i>Редактировать
                             </a>
                         </p>
                     {% endif %}
@@ -54,7 +54,7 @@
                     {% if not current_user.phone_privacy and request.user.pk or request.user|can_see_phone %}
                         <p>Телефон: {{ current_user.phone }}</p>
                     {% else %}
-                        <p>Телефон не указан</p>
+                        <p>Телефон скрыт</p>
                     {% endif %}
 
                     {% if current_user.sport_types.all %}

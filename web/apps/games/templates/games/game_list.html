@@ -42,9 +42,9 @@
                 </div>
             </form>
             {% if not perms.games.add_game %}
-                <button class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою
+                <a href="{% url 'users:obtain' %}" class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою
                     игру
-                </button>
+                </a>
             {% endif %}
         </div>
         <div class="col-lg-9">

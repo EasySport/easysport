@@ -21,4 +21,6 @@ urlpatterns = [
     path('users/<int:pk>/', views.UserDetail.as_view(), name='detail'),
     path('profile/update/', views.ProfileUpdate.as_view(), name='update'),
     path('profile/password/', views.password, name='password'),
+
+    path('organizers/obtain/', views.ObtainView.as_view(), name='obtain'),
 ]

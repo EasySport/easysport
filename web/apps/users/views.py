@@ -10,8 +10,9 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import FormView, UpdateView
+
 # Third party
 from social_django.models import UserSocialAuth
 
@@ -125,3 +126,7 @@ def password(request):
     else:
         form = password_form(request.user)
     return render(request, 'users/password.html', {'form': form})
+
+
+class ObtainView(TemplateView):
+    template_name = 'users/obtain_rights.html'
