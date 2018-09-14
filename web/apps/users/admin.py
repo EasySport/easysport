@@ -6,7 +6,7 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
     readonly_fields = ['email', 'password', 'last_login', 'phone']
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'last_login',)}),
+        (None, {'fields': ('password', 'last_login',)}),
         ('Персональная информация', {'fields': ('first_name', 'last_name', 'email',
                                                 'city', 'sex', 'bdate', 'phone',
                                                 'avatar',)}),

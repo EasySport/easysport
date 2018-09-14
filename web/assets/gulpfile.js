@@ -7,6 +7,7 @@ var path = {
         js:    'build/js/',
         css:   'build/css/',
         img:   'build/img/',
+        docs:  'build/docs/',
         fonts: 'build/fonts/'
     },
     src: {
@@ -14,10 +15,13 @@ var path = {
         js:    'src/js/main.js',
         style: 'src/style/main.scss',
         img:   'src/img/**/*.*',
-        fonts: 'src/fonts/**/*.*'
+        docs:  'src/docs/**/*.*',
+        fonts: 'src/fonts/**/*.*',
+        fa:    'node_modules/@fortawesome/fontawesome-free/webfonts/*.*'
     },
     watch: {
-        html:  'src/**/*.html',
+        build: 'build/**/*.*',
+        html:  '../apps/lp/templates/lp/**/*.*',
         js:    'src/js/**/*.js',
         css:   'src/style/**/*.scss',
         img:   'src/img/**/*.*',
@@ -48,7 +52,7 @@ var gulp = require('gulp'),  // подключаем Gulp
     jpegrecompress = require('imagemin-jpeg-recompress'), // плагин для сжатия jpeg
     pngquant = require('imagemin-pngquant'), // плагин для сжатия png
     del = require('del'), // плагин для удаления файлов и каталогов
-    webserver = require('browser-sync'); // сервер для работы и автоматического обновления страниц
+    browserSync = require('browser-sync').create();; // сервер для работы и автоматического обновления страниц
 
 /* задачи */
 
@@ -66,15 +70,15 @@ var autoprefixerList = [
 
 /* настройки сервера */
 var config = {
-    server: {
-        baseDir: './build'
-    },
+    proxy: "0.0.0.0:8000",
     notify: false
 };
 
 // запуск сервера
 gulp.task('server', function () {
-    webserver(config);
+    browserSync.init(config);
+    gulp.watch(path.watch.build).on('change', browserSync.reload);
+    gulp.watch(path.watch.html).on('change', browserSync.reload);
 });
 
 // сбор html
@@ -83,7 +87,13 @@ gulp.task('html:build', function () {
         .pipe(plumber()) // отслеживание ошибок
         .pipe(rigger()) // импорт вложений
         .pipe(gulp.dest(path.build.html)) // выкладывание готовых файлов
-        .pipe(webserver.reload({stream: true})); // перезагрузим сервер
+        .pipe(browserSync.reload({stream: true})); // перезагрузим сервер
+});
+
+// сбор документов
+gulp.task('docs:build', function () {
+    gulp.src(path.src.docs) // выбор всех html файлов по указанному пути
+        .pipe(gulp.dest(path.build.docs)); // выкладывание готовых файлов
 });
 
 // сбор стилей
@@ -98,7 +108,7 @@ gulp.task('css:build', function () {
         .pipe(cleanCSS()) // минимизируем CSS
         .pipe(sourcemaps.write('./')) // записываем sourcemap
         .pipe(gulp.dest(path.build.css)) // выгружаем в build
-        .pipe(webserver.reload({stream: true})); // перезагрузим сервер
+        .pipe(browserSync.reload({stream: true})); // перезагрузим сервер
 });
 
 // сбор js
@@ -110,14 +120,14 @@ gulp.task('js:build', function () {
         .pipe(uglify()) // минимизируем js
         .pipe(sourcemaps.write('./')) //  записываем sourcemap
         .pipe(gulp.dest(path.build.js)) // положим готовый файл
-        .pipe(webserver.reload({stream: true})); // перезагрузим сервер
+        .pipe(browserSync.reload({stream: true})); // перезагрузим сервер
 });
 
 // перенос шрифтов
 gulp.task('fonts:build', function() {
     gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts));
-    gulp.src('node_modules/font-awesome/fonts/*')
+    gulp.src(path.src.fa)
         .pipe(gulp.dest(path.build.fonts));
 });
 
@@ -154,6 +164,7 @@ gulp.task('build', [
     'css:build',
     'js:build',
     'fonts:build',
+    'docs:build',
     'image:build'
 ]);
 

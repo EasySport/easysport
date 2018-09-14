@@ -1,0 +1,21 @@
+www.{$DOMAIN_NAME} {
+    redir https://{$DOMAIN_NAME}
+}
+
+{$DOMAIN_NAME} {
+    root /
+
+    proxy / web:5000 {
+        transparent
+
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+
+        except /media /static
+    }
+
+    log stdout
+    errors stdout
+    gzip
+}

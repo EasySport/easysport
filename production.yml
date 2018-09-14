@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_caddy: {}
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/production/web/Dockerfile
+    image: easysport_web
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - ./.envs/.production/.web
+      - ./.envs/.production/.postgres
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./docker/production/postgres/Dockerfile
+    image: easysport_postgres
+    restart: always
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+
+  caddy:
+    build:
+      context: .
+      dockerfile: docker/production/caddy/Dockerfile
+    image: easysport_caddy
+    restart: always
+    depends_on:
+      - web
+    volumes:
+      - production_caddy:/root/.caddy
+      - ./web/static:/static:ro
+      - ./web/media:/media:ro
+    env_file:
+      - ./.envs/.production/.caddy
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"

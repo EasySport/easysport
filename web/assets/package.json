@@ -1,12 +1,12 @@
 {
-  "name": "assets",
+  "name": "Easysport",
   "version": "1.0.0",
-  "description": "EasySport Django assets",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vitaliy Harchenko",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.0.0",
@@ -15,6 +15,7 @@
     "popper.js": "^1.14.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.1.0",
     "browser-sync": "^2.23.6",
     "del": "^3.0.0",
     "gulp": "^3.9.1",

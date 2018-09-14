@@ -4,67 +4,73 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row bg-dark text-center text-white black-overlay index-row"
-             style="background: url({% static 'img/index/main_1.jpg' %}) no-repeat center center fixed; ">
-            <div class="col-12 py-5">
-                <div class="content-block-first">
-                    <img src="{% static 'img/logo_new_big.png' %}" class="logo pb-4"/>
-                    <h2 class="h3">Ваш проводник в мире любительского спорта.</h2>
-                    <p class="h3 pb-4">Играй вместе с нами!</p>
-                    {% if not loggedin %}
-                        <p><a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a></p>
-                        <p>или</p>
-                        <p><a href="#" data-toggle="modal" data-target="#loginModal" role="button" class="btn btn-main btn-lg btn-primary">Войти</a></p>
-                    {% else %}
-                        <p class="h3">Расскажи о нас друзьям!</p><br/>
-                        <div class="social-likes social-likes_notext social-likes_big">
-                            <div class="facebook"></div>
-                            <div class="twitter"></div>
-                            <div class="vkontakte"></div>
-                            <div class="odnoklassniki"></div>
-                        </div>
-                    {% endif %}
-                    <!--TODO: buttons for share or invite friends in service-->
+        <div class="row bg-dark text-center text-white black-overlay index-row" style="background: url({% static 'img/index/main_1.jpg' %}) no-repeat center center fixed;">
+            <div class="col-12 col-md-8 offset-md-2 py-5">
+                <img src="{% static 'img/logo_new_big.png' %}" class="logo pb-4 mw-100 pt-4"/>
+                <h2 class="h3">Ваш проводник в мире любительского спорта.</h2>
+                <p class="display-3 py-4">Играй вместе с нами!</p>
+                <div class="text-center pb-5">
+                    <img src="http://easysport.online/media/avatars/avatar1_MlzvH3k" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar14_ncybuFa" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar28_1TMpbCc" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar29_dGH6GHt" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar41_I7AKbMI" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar90_mYkSiAy" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/static/images/blank_male.jpg" width="80" height="80" class="m-w-100 rounded-circle">
+                    <img src="http://easysport.online/media/avatars/avatar842_I024Xgt" width="80" height="80" class="m-w-100 rounded-circle">
                 </div>
+                {% if not loggedin %}
+                    <p><a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a></p>
+                    <p>или</p>
+                    <p><a href="{% url 'users:login' %}?next={{request.path}}" role="button" class="btn btn-main btn-lg btn-primary">Войти</a></p>
+                {% else %}
+                    <p class="h3">Расскажи о нас друзьям!</p><br/>
+                    <div class="social-likes social-likes_notext social-likes_big">
+                        <div class="facebook"></div>
+                        <div class="twitter"></div>
+                        <div class="vkontakte"></div>
+                        <div class="odnoklassniki"></div>
+                    </div>
+                {% endif %}
+                <!--TODO: buttons for share or invite friends in service-->
             </div>
         </div>
-        <div class="row bg-red text-white">
+        <div class="row bg-red text-white py-5">
             <div class="col-md-10 offset-md-1 text-center py-5">
-                <h2 class="text-center">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал! От
-                    желания до игры за 5 минут!</h2>
+                <h2 class="display-4 pb-5">От желания до игры <br> за 5 минут!</h2>
+                <p class="lead">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал!</p>
             </div>
         </div>
         <div class="row">
             <div class="col-12 py-5">
                 <div class="row align-items-center">
-                    <div class="col-sm-5 col-md-3 hidden-xs">
-                        <div style="float:right;" class="text-left">
+                    <div class="col order-md-1">
+                        <div class="text-left float-right">
                             <h3 class="h2">Просто</h3>
-                            <ul style="margin-left: -24px;" class="promo-ul">
+                            <ul>
                                 <li class="promo-li">регистрируйся в системе</li>
                                 <li class="promo-li">выбирай подходящую игру</li>
-                                <li class="promo-li">получай удовольствие!</li>
+                                <li class="promo-li">получай удовольствие от спорта!</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-6 hidden-sm">
-                        <img src="{% static 'img/index/site_preview.png' %}" alt="EasySport - это удобное приложение для любителей спорта."/>
-                    </div>
-                    <div class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0 text-left hidden-xs">
+                    <div class="col text-left order-md-3">
                         <h3 class="h2">Удобно</h3>
-                        <ul style="margin-left: -24px;" class="promo-ul">
+                        <ul>
                             <li class="promo-li">пользуйся с любого устройства</li>
                             <li class="promo-li">задавай вопросы организаторам</li>
                             <li class="promo-li">меняй свои планы одним кликом!</li>
                         </ul>
+                    </div>
+                    <div class="col-12 col-md order-md-2">
+                        <img class="mw-100" src="{% static 'img/index/site_preview.png' %}" alt="EasySport - это удобное приложение для любителей спорта."/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row py-5 bg-red text-white justify-content-center">
             <div class="col-10 text-center">
-                <h3 class="h2">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше не будет.</h3>
-                <h3 class="h2 hidden-xs">Мы провели уже более 600 игр!</h3>
+                <h4 class="py-5">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше не будет. <br><br>Мы провели уже более 600 игр!</h4>
             </div>
         </div>
         <div class="row py-5">
@@ -80,8 +86,8 @@
                 <img src="{% static 'img/index/9.png' %}" style="width:100px;"/>
             </div>
             <div class="col-12 text-center py-3">
-                <h3 class="h2">Найди свое место в мире любительского спорта!</h3>
-                <p>Пройди весь путь от интереса к игре, через тренировки, поиск команды, участие в турнирах к получению необходимой игровой практики, достижению собственных целей.</p>
+                <h2 class="py-5">Найди свое место в мире любительского спорта!</h2>
+                <p class="lead pb-5">Пройди весь путь от интереса к игре, через тренировки, поиск команды, участие в турнирах к получению необходимой игровой практики, достижению собственных целей.</p>
             </div>
             <div class="col-12 text-center">
                 <img src="{% static 'img/index/10.png' %}" style="width:100px;"/>
@@ -96,15 +102,15 @@
             </div>
         </div>
         <div class="row py-5 bg-red text-white">
-            <div class="col-12 text-center">
-                <p class="h2">Не можешь играть каждую неделю? Отвлекает семья и работа?</p>
-                <img class="py-3" src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
-                <p class="h2">С EasySport это не помеха. Планируй свое время удобным образом!</p>
+            <div class="col-12 text-center py-5">
+                <p class="lead">Не можешь играть каждую неделю? Отвлекает семья и работа?</p>
+                <img class="py-5" src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
+                <p class="lead">С EasySport это не помеха. Планируй свое время удобным образом!</p>
             </div>
         </div>
         <div class="row py-5">
-            <div class="col-12 text-center">
-                <h1>Будь в игре!</h1>
+            <div class="col-12 text-center py-5">
+                <h1 class="display-4 pb-5">Будь в игре!</h1>
                 {% if not loggedin %}
                     <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
                 {% endif %}

@@ -68,6 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         City,
         verbose_name='Город',
         on_delete=models.CASCADE,
+        related_name='user_city',
         default=None,
         null=True
     )
