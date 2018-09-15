@@ -41,8 +41,8 @@ scp -r root@easysport.online:/opt/sportcourts2/fixtures ~/Dev
 
 3. Loaddata
 
-Zero - users
-First - places. Rename places app to courts, но нужно перебить адреса и площадки
-Secons - sporttypes
+Zero - new? 
+First - users. 
+Second - places
 Third - courts
 Fourth - games/ Only renew existing games
