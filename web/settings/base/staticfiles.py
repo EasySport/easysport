@@ -7,23 +7,32 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
 
-# Сюда упадут все файлы на production после collectstatic
-# Важно не использовать STATICFILES_FINDERS на production, а например nginx
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+if os.getenv('DJANGO_ENV') == 'development':
+    # Сюда упадут все файлы на production после collectstatic
+    # Важно не использовать STATICFILES_FINDERS на production, а например nginx
+    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
-# В этих директориях django ищет статические файлы.
-# Если не находит, то ищет с помощью django.contrib.staticfiles.finders.AppDirectoriesFinder,
-# которая проверяет папку static каждого установленного в проекте приложения
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets/build'),
-)
+    # В этих директориях django ищет статические файлы.
+    # Если не находит, то ищет с помощью django.contrib.staticfiles.finders.AppDirectoriesFinder,
+    # которая проверяет папку static каждого установленного в проекте приложения
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'assets/build'),
+    )
 
-# В режиме разработки — python manage.py runserver — Django ищет статичные файлы с помощью них
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+    # В режиме разработки — python manage.py runserver — Django ищет статичные файлы с помощью них
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
+else:
+    # Сюда упадут все файлы на production после collectstatic
+    # Важно не использовать STATICFILES_FINDERS на production, а например nginx
+    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'assets/build'),
+    )
 
 # Сюда упадут все файлы загруженные динамически
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
