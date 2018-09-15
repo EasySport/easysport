@@ -1,8 +1,12 @@
 # Django core
-# Third party
-import geocoder
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+
+# Third party
+import geocoder
+from phonenumber_field.modelfields import PhoneNumberField
+
+# Our Apps
 
 
 class Country(models.Model):
@@ -162,7 +166,18 @@ class Court(models.Model):
         verbose_name='Цена за 60 минут',
         default=0,
         blank=True)
+
+    phone = PhoneNumberField(
+        verbose_name='Мобильный телефон',
+        blank=True,
+        help_text=u'В формате +7**********')
+
     views = models.IntegerField(default=0)
+
+    # TODO: remove after migration
+    max_players = models.IntegerField(verbose_name='Максимальное количество игроков', default=0)
+    cost = models.IntegerField(verbose_name='Стоимость аренды, RUB/час', default=0)
+    sporttypes = models.ManyToManyField('sports.SportType', verbose_name=u'Типы спорта', blank=True)
 
     class Meta:
         verbose_name = 'площадка'

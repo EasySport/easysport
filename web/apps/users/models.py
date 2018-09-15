@@ -62,7 +62,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     height = models.IntegerField('Рост', help_text='В см.', null=True, blank=True)
 
     sport_types = models.ManyToManyField(SportType, blank=True)
-    amplua = models.ManyToManyField(Amplua, blank=True)
+
+    # TODO: return ManyToMany after migration
+    # amplua = models.ManyToManyField(Amplua, blank=True, null=True)
+    amplua = models.ForeignKey(Amplua, verbose_name=u'Амплуа', blank=True, null=True, on_delete=models.CASCADE)
 
     city = models.ForeignKey(
         City,
@@ -104,6 +107,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True
     )
+
+    # TODO: delete unused fields
+    is_referee = models.BooleanField('Судья', default=False,
+                                     help_text="Может судить игры")
+    is_coach = models.BooleanField('Тренер', default=False,
+                                   help_text="Может вести тренеровки")
+    is_responsible = models.BooleanField('Ответственный', default=False,
+                                         help_text="Заполняет отчеты, редактирует игры")
+    is_organizer = models.BooleanField('Организатор', default=False,
+                                       help_text="Создает игры, назначает ответственных")
+    is_admin = models.BooleanField('Админ', default=False,
+                                   help_text="Работает с пользователями, площадками и финансами")
+    banned = models.BooleanField('Забанен', default=False,
+                                 help_text="Сделать активным для бана")
+    vkuserid = models.BigIntegerField(unique=True, null=True, blank=True)
+    fbuserid = models.BigIntegerField(unique=True, null=True, blank=True)
+    referer = models.BigIntegerField(unique=True, null=True, blank=True)
 
     objects = UserManager()
 

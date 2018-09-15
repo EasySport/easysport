@@ -1,0 +1,439 @@
+[
+  {
+    "model": "courts.country",
+    "pk": 1,
+    "fields": {
+      "title": "\u0420\u043e\u0441\u0441\u0438\u044f"
+    }
+  },
+  {
+    "model": "courts.courttype",
+    "pk": 1,
+    "fields": {
+      "title": "\u041a\u0440\u044b\u0442\u0430\u044f"
+    }
+  },
+  {
+    "model": "courts.courttype",
+    "pk": 2,
+    "fields": {
+      "title": "\u0423\u043b\u0438\u0447\u043d\u0430\u044f"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 1,
+    "fields": {
+      "title": "\u0411\u0430\u0441\u043a\u0435\u0442\u0431\u043e\u043b"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 2,
+    "fields": {
+      "title": "\u0412\u043e\u043b\u0435\u0439\u0431\u043e\u043b"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 3,
+    "fields": {
+      "title": "\u0424\u0443\u0442\u0431\u043e\u043b"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 4,
+    "fields": {
+      "title": "\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u0438\u0439 \u0444\u0443\u0442\u0431\u043e\u043b"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 5,
+    "fields": {
+      "title": "\u0425\u043e\u043a\u043a\u0435\u0439"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 6,
+    "fields": {
+      "title": "\u041f\u043e\u043b\u0438\u043b\u043e\u043f"
+    }
+  },
+  {
+    "model": "sports.sporttype",
+    "pk": 7,
+    "fields": {
+      "title": "\u0424\u043b\u0430\u0433-\u0444\u0443\u0442\u0431\u043e\u043b"
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 1,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0438\u0433\u0440\u0430 5\u04455",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 2,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u0421\u0442\u0440\u0438\u0442\u0431\u043e\u043b 3\u04453",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 3,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0438\u0433\u0440\u0430 6*6",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 4,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u041f\u043b\u044f\u0436\u043d\u044b\u0439 \u0432\u043e\u043b\u0435\u0439\u0431\u043e\u043b",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 5,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u0422\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 6,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u041c\u0438\u043d\u0438-\u0444\u0443\u0442\u0431\u043e\u043b",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 7,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u0422\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0430 \u0441 \u0442\u0440\u0435\u043d\u0435\u0440\u043e\u043c",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 8,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0442\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 9,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u0422\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 10,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0442\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 11,
+    "fields": {
+      "sport_type": 6,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0438\u0433\u0440\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.gametype",
+    "pk": 12,
+    "fields": {
+      "sport_type": 7,
+      "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0438\u0433\u0440\u0430",
+      "description": ""
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 1,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u0426\u0435\u043d\u0442\u0440\u043e\u0432\u043e\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 2,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u041c\u043e\u0449\u043d\u044b\u0439 \u0444\u043e\u0440\u0432\u0430\u0440\u0434"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 3,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u041b\u0435\u0433\u043a\u0438\u0439 \u0444\u043e\u0440\u0432\u0430\u0440\u0434"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 4,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u0410\u0442\u0430\u043a\u0443\u044e\u0449\u0438\u0439 \u0437\u0430\u0449\u0438\u0442\u043d\u0438\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 5,
+    "fields": {
+      "sport_type": 1,
+      "title": "\u0420\u0430\u0437\u044b\u0433\u0440\u044b\u0432\u0430\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 6,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u0414\u043e\u0438\u0433\u0440\u043e\u0432\u0449\u0438\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 7,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u0414\u0438\u0430\u0433\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 8,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0431\u043b\u043e\u043a\u0438\u0440\u0443\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 9,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u0421\u0432\u044f\u0437\u0443\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 10,
+    "fields": {
+      "sport_type": 2,
+      "title": "\u041b\u0438\u0431\u0435\u0440\u043e"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 11,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u0412\u0440\u0430\u0442\u0430\u0440\u044c"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 12,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 13,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u041f\u043e\u043b\u0443\u0437\u0430\u0449\u0438\u0442\u043d\u0438\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 14,
+    "fields": {
+      "sport_type": 3,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0430\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 15,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435, \u043b\u0438\u043d\u0435\u0439\u043d\u044b\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 16,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435, \u0431\u0435\u0433\u0443\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 17,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435, \u043f\u0440\u0438\u043d\u0438\u043c\u0430\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 18,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435, \u0442\u0430\u0439\u0442\u044d\u043d\u0434"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 19,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435, \u043a\u0432\u043e\u0442\u0435\u0440\u0431\u0435\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 20,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u0417\u0430\u0449\u0438\u0442\u0430, \u043b\u0438\u043d\u0435\u0439\u043d\u044b\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 21,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u0417\u0430\u0449\u0438\u0442\u0430, \u043b\u0430\u0439\u043d\u0431\u0435\u043a\u0435\u0440"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 22,
+    "fields": {
+      "sport_type": 4,
+      "title": "\u0417\u0430\u0449\u0438\u0442\u0430, \u0434\u0438\u0431\u044d\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 23,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u0412\u0440\u0430\u0442\u0430\u0440\u044c"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 24,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 25,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u041d\u0430\u043f\u0430\u0434\u0430\u044e\u0449\u0438\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 26,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u0422\u0430\u0444\u0433\u0430\u0439"
+    }
+  },
+  {
+    "model": "sports.amplua",
+    "pk": 27,
+    "fields": {
+      "sport_type": 5,
+      "title": "\u0422\u0435\u043b\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u0435\u043b\u044c"
+    }
+  },
+  {
+    "model": "courts.city",
+    "pk": 1,
+    "fields": {
+      "title": "\u0415\u043a\u0430\u0442\u0435\u0440\u0438\u043d\u0431\u0443\u0440\u0433",
+      "country": 1,
+      "responsible": 1
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$24000$ESNy5cGcGftD$Uz390lPPbpWprBkM7QB6+2U1s4DV3aM/YjHFkjD9RYA=",
+      "last_login": "2018-09-14T13:06:40.346Z",
+      "is_superuser": true,
+      "email": "harchenko.grape@gmail.com",
+      "is_active": true,
+      "is_referee": false,
+      "is_coach": false,
+      "is_responsible": true,
+      "is_organizer": true,
+      "is_admin": true,
+      "is_staff": true,
+      "banned": false,
+      "city": 1,
+      "avatar": "avatars/avatar1_MlzvH3k",
+      "date_joined": "2014-09-29T18:00:00Z",
+      "bdate": "1992-12-21",
+      "first_name": "\u0412\u0438\u0442\u0430\u043b\u0438\u0439",
+      "last_name": "\u0425\u0430\u0440\u0447\u0435\u043d\u043a\u043e",
+      "vkuserid": 17610278,
+      "fbuserid": 1121858284626040,
+      "sex": "m",
+      "phone": "+79826469454",
+      "amplua": 3,
+      "weight": 75,
+      "height": 190,
+      "referer": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

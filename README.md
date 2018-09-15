@@ -24,3 +24,25 @@ IP-адрес: 188.127.231.216
 Пользователь: root
 Пароль: 9jFLO8w9oSW4
 ```
+
+## Migration from 2.0
+
+1. Make fixtures
+
+```
+python manage.py dumpdata users -o fixtures/users.json
+```
+
+2. Load locally
+
+```angular2html
+scp -r root@easysport.online:/opt/sportcourts2/fixtures ~/Dev
+```
+
+3. Loaddata
+
+Zero - users
+First - places. Rename places app to courts, но нужно перебить адреса и площадки
+Secons - sporttypes
+Third - courts
+Fourth - games/ Only renew existing games

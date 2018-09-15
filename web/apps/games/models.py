@@ -67,6 +67,15 @@ class Game(models.Model):
         blank=True
     )
 
+    # TODO: remove after migration
+    description = models.CharField(max_length=300, verbose_name='Описание', blank=True, null=True)
+    is_public = models.BooleanField('Публичный статус', default=True,
+                                    help_text="Делает видимым в потоке")
+    created_by = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
+    sporttype = models.ForeignKey('sports.SportType', verbose_name='Вид спорта', blank=True, null=True, on_delete=models.CASCADE)
+    datetime_to = models.DateTimeField(verbose_name='Дата окончания', blank=True, auto_now=True)
+    deleted = models.BooleanField(default=False, verbose_name='Игра удалена')
+
     class Meta:
         verbose_name = 'игра'
         verbose_name_plural = 'игры'
@@ -125,10 +134,10 @@ class UserGameAction(models.Model):
         unique_together = ("game", "user")
 
     SUBSCRIBED = 1
-    RESERVED = 2
-    UNSUBSCRIBED = 3
-    VISITED = 4
-    NOTVISITED = 5
+    RESERVED = 3
+    UNSUBSCRIBED = 2
+    VISITED = 5
+    NOTVISITED = 6
     STATUSES = (
         (SUBSCRIBED, 'Записался'),
         (UNSUBSCRIBED, 'Отписался'),
@@ -151,7 +160,9 @@ class UserGameAction(models.Model):
 
     datetime = models.DateTimeField(verbose_name='Дата действия', auto_now=True)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
+    # rename action to status after migration
+    #status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
+    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
 
     def __str__(self):
         return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_status_display())

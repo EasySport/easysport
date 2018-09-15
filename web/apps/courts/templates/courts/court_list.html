@@ -32,7 +32,7 @@
                     {% for court in object_list %}
                         <div class="card">
                             {% if court.photo %}
-                                <img class="card-img-top" src="{{ court.photo.url }}" alt="Card image cap">
+                                <img class="card-img-top" src="{{ court.photo.url }}" alt="Фото площадки {{ court }}">
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -44,12 +44,15 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p>
-                    Список пуст.
-                    {% if user.is_authenticated %}
-                        Напишите <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, если хотите его пополнить
-                    {% endif %}
-                </p>
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Список пуст.</h5>
+                        <p class="card-text">
+                            Создайте свою, если уже получили право создания площадок или пройдите по
+                            <a href="{% url 'users:obtain' %}">ссылке</a>, чтобы узнать, как стать организатором
+                        </p>
+                    </div>
+                </div>
             {% endif %}
 
             {% if is_paginated %}

@@ -48,19 +48,29 @@
             {% endif %}
         </div>
         <div class="col-lg-9">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Внимание!</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+
             {% if object_list %}
                 {% for game in object_list %}
                     {% game_card game=game user=user %}
                 {% endfor %}
             {% else %}
-                <p>
-                    Список пуст.
-                    {% if user.is_authenticated %}
-                        Создайте свою или напишите
-                        <a href="{% url 'users:detail' user.city.responsible.pk %}">администратору</a>, чтобы узнать,
-                        как это сделать.
-                    {% endif %}
-                </p>
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Список пуст.</h5>
+                        <p class="card-text">
+                            Создайте свою, если уже получили право создания игр или пройдите по
+                            <a href="{% url 'users:obtain' %}">ссылке</a>, чтобы узнать, как стать организатором
+                        </p>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>

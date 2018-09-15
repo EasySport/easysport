@@ -4,6 +4,8 @@ from datetime import timedelta
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
+from django.contrib import messages
+
 from django.db.models import F, Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
@@ -44,10 +46,7 @@ class GamesList(ListView):
         if user.is_authenticated and user.city:
             games = games.filter(court__place__city=user.city)
         else:
-            # If User.city is None
-            # TODO: No template names provided fix (redirect('users:update'))
-            # return redirect('users:update')
-            pass
+            messages.error(self.request, 'Вы не указали свой город в профиле', extra_tags='city')
 
         sport = self.request.GET.get('sport', None)
 
