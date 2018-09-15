@@ -31,7 +31,7 @@
 
                         {% for sport in sports %}
                             <option value="{{ sport.pk }}"
-                                    {% if q == sport.id %}selected{% endif %}>{{ sport }}</option>
+                                    {% if q == sport.pk|slugify %}selected{% endif %}>{{ sport }}</option>
                         {% endfor %}
                     </select>
                     <div class="input-group-append">

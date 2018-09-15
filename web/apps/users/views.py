@@ -63,7 +63,7 @@ class UsersList(ListView):
 
     def get_queryset(self, **kwargs):
         query = self.request.GET.get('q', '')
-        users = User.objects.all()
+        users = User.objects.all().order_by('-last_login')
 
         if self.request.user.is_authenticated and self.request.user.city:
             users = users.filter(city=self.request.user.city)

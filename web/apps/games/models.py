@@ -134,16 +134,33 @@ class UserGameAction(models.Model):
         unique_together = ("game", "user")
 
     SUBSCRIBED = 1
-    RESERVED = 3
-    UNSUBSCRIBED = 2
-    VISITED = 5
-    NOTVISITED = 6
+    RESERVED = 2
+    UNSUBSCRIBED = 3
+    VISITED = 4
+    NOTVISITED = 5
     STATUSES = (
         (SUBSCRIBED, 'Записался'),
         (UNSUBSCRIBED, 'Отписался'),
         (RESERVED, 'В резерве'),
         (VISITED, 'Посетил'),
         (NOTVISITED, 'Не пришел')
+    )
+
+    SUBSCRIBED = 1
+    UNSUBSCRIBED = 2
+    RESERVED = 3
+    UNRESERVED = 4
+    VISITED = 5
+    NOTVISITED = 6
+    NOTPAY = 7
+    ACTIONS = (
+        (SUBSCRIBED, 'Записался'),
+        (UNSUBSCRIBED, 'Отписался'),
+        (RESERVED, 'В резерве'),
+        (UNRESERVED, 'Вышел из резерва'),
+        (VISITED, 'Посетил'),
+        (NOTVISITED, 'Не пришел'),
+        (NOTPAY, 'Не заплатил')
     )
 
     user = models.ForeignKey(
@@ -160,9 +177,9 @@ class UserGameAction(models.Model):
 
     datetime = models.DateTimeField(verbose_name='Дата действия', auto_now=True)
 
-    # rename action to status after migration
-    #status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
-    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES)
+    # TODO: rename action to status after migration and reload action to statuses
+    status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES, null=True)
+    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=ACTIONS)
 
     def __str__(self):
         return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_status_display())
