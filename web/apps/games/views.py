@@ -45,8 +45,10 @@ class GamesList(ListView):
         # Show games only from user's city
         if user.is_authenticated and user.city:
             games = games.filter(court__place__city=user.city)
-        else:
+        elif user.is_authenticated:
             messages.error(self.request, 'Вы не указали свой город в профиле', extra_tags='city')
+        else:
+            messages.error(self.request, 'Зарегистрируйтесь, чтобы принимать участие в играх', extra_tags='registration')
 
         sport = self.request.GET.get('sport', None)
 

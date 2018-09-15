@@ -25,6 +25,8 @@ IP-адрес: 188.127.231.216
 Пароль: 9jFLO8w9oSW4
 ```
 
+1. Clone project from GitHub
+
 ## Migration from 2.0
 
 1. Make fixtures
@@ -45,4 +47,8 @@ Zero - new?
 First - users. 
 Second - places
 Third - courts
-Fourth - games/ Only renew existing games
+Fourth - games
+
+Migrate old usergameaction.action to usergameaction.status
+
+python manage.py dumpdata --exclude=auth --exclude=contenttypes --exclude=sessions --exclude=notifications --exclude=admin -o fixtures/all.json

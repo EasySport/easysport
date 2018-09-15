@@ -146,21 +146,21 @@ class UserGameAction(models.Model):
         (NOTVISITED, 'Не пришел')
     )
 
-    SUBSCRIBED = 1
-    UNSUBSCRIBED = 2
-    RESERVED = 3
-    UNRESERVED = 4
-    VISITED = 5
-    NOTVISITED = 6
-    NOTPAY = 7
+    _SUBSCRIBED = 1
+    _UNSUBSCRIBED = 2
+    _RESERVED = 3
+    _UNRESERVED = 4
+    _VISITED = 5
+    _NOTVISITED = 6
+    _NOTPAY = 7
     ACTIONS = (
-        (SUBSCRIBED, 'Записался'),
-        (UNSUBSCRIBED, 'Отписался'),
-        (RESERVED, 'В резерве'),
-        (UNRESERVED, 'Вышел из резерва'),
-        (VISITED, 'Посетил'),
-        (NOTVISITED, 'Не пришел'),
-        (NOTPAY, 'Не заплатил')
+        (_SUBSCRIBED, 'Записался'),
+        (_UNSUBSCRIBED, 'Отписался'),
+        (_RESERVED, 'В резерве'),
+        (_UNRESERVED, 'Вышел из резерва'),
+        (_VISITED, 'Посетил'),
+        (_NOTVISITED, 'Не пришел'),
+        (_NOTPAY, 'Не заплатил')
     )
 
     user = models.ForeignKey(
@@ -179,7 +179,7 @@ class UserGameAction(models.Model):
 
     # TODO: rename action to status after migration and reload action to statuses
     status = models.PositiveSmallIntegerField(verbose_name='Действие', choices=STATUSES, null=True)
-    action = models.PositiveSmallIntegerField(verbose_name='Действие', choices=ACTIONS)
+    action = models.PositiveSmallIntegerField(verbose_name='Action (old)', choices=ACTIONS, null=True)
 
     def __str__(self):
         return u'{} {} | {} | {}'.format(self.game.id, self.game, self.user, self.get_status_display())
