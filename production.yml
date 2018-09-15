@@ -41,8 +41,8 @@ services:
       - web
     volumes:
       - production_caddy:/root/.caddy
-      - ./web/static:/static:ro
-      - ./web/media:/media:ro
+      - ./web/static:/static
+      - ./web/media:/media
     env_file:
       - ./.envs/.production/.caddy
     ports:
