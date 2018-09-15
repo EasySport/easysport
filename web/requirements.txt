@@ -20,3 +20,6 @@ django-extra-views
 
 # For frontend
 django-bootstrap4
+
+# Deployment
+gunicorn  # https://github.com/benoitc/gunicorn

@@ -25,7 +25,40 @@ IP-адрес: 188.127.231.216
 Пароль: 9jFLO8w9oSW4
 ```
 
-1. Clone project from GitHub
+### Initial setup for Ubuntu
+
+1. Create non-root user:
+```
+adduser easysport (pass:easysport)
+```
+
+2. Give root priveleges
+```
+usermod -aG sudo easysport
+```
+
+3. Login as user @easysport
+```
+su - easysport
+```
+
+TODO: [add nopassword authentication](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04)
+
+### Install docker
+
+[Docker.com](https://docs.docker.com/install/linux/docker-ce/ubuntu/#supported-storage-drivers)
+```
+sudo usermod -a -G docker $USER
+```
+then logout and login
+
+### Install docker-compose
+[Docs](https://docs.docker.com/compose/django/#connect-the-database)
+
+### Grant priveleges to opt dir
+```
+sudo chmod 777 /opt  
+```
 
 ## Migration from 2.0
 
