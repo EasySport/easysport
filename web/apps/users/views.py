@@ -58,7 +58,7 @@ class ResetConfirmView(PasswordResetConfirmView):
 
 class UsersList(ListView):
     model = User
-    paginate_by = 10
+    paginate_by = 20
     context_object_name = 'users_list'
 
     def get_queryset(self, **kwargs):
