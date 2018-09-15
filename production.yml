@@ -18,6 +18,9 @@ services:
       - ./.envs/.production/.web
       - ./.envs/.production/.postgres
     command: /start
+    volumes:
+      - static:/web/static
+      - media:/web/media
 
   postgres:
     build:
@@ -41,10 +44,14 @@ services:
       - web
     volumes:
       - production_caddy:/root/.caddy
-      - ./web/static:/static
-      - ./web/media:/media
+      - static:/var/www/static
+      - media:/var/www/media
     env_file:
       - ./.envs/.production/.caddy
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
+
+volumes:
+  static:
+  media:
