@@ -15,8 +15,6 @@ services:
     command: /start
     volumes:
       - static:/code/static
-      - media:/code/media
-      - ./web/media:/code/media
 
   postgres:
     build:
@@ -41,7 +39,7 @@ services:
     volumes:
       - production_caddy:/root/.caddy
       - static:/var/www/static
-      - media:/var/www/media
+      - ./web/media:/var/www/media
     env_file:
       - ./.envs/.production/.caddy
     ports:
@@ -50,7 +48,6 @@ services:
 
 volumes:
   static:
-  media:
   production_postgres_data: {}
   production_postgres_data_backups: {}
   production_caddy: {}
