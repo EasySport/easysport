@@ -24,8 +24,6 @@ from apps.courts.models import Court
 from apps.sports.models import SportType
 from apps.users.models import User
 
-from utils.templatetags.user_extras import can_see_game
-
 from .models import Game, UserGameAction
 
 
@@ -39,8 +37,7 @@ class GamesList(ListView):
         user = self.request.user
 
         # Hide private games
-        if not can_see_game(user):
-            games = games.filter(visibility=True)
+        games = games.filter(visibility=True)
 
         # Show games only from user's city
         if user.is_authenticated and user.city:
@@ -54,15 +51,22 @@ class GamesList(ListView):
 
         if q:
             # Sort games by gametype
-            if q not in ['all', 'my', 'need_report']:
+            if q not in ['all', 'my', 'need_report', 'created']:
                 games = games.filter(gametype=q)
 
             # Show user's games
-            if q == 'my' and can_see_game(user):
+            if q == 'created':
                 games = Game.objects.filter(responsible=user)
 
+            if q == 'my':
+                games_ids = UserGameAction.objects.filter(
+                    user=user,
+                    status__in=[1, 2]
+                ).values_list('game', flat=True)
+                games = games.filter(pk__in=games_ids)
+
             # Show games waiting for a report
-            if q == 'need_report' and can_see_game(user):
+            if q == 'need_report':
                 games = Game.objects.filter(
                     Q(is_reported=False)
                     & Q(responsible=user)
@@ -75,13 +79,13 @@ class GamesList(ListView):
         context = super(GamesList, self).get_context_data(**kwargs)
         context['sports'] = SportType.objects.all()
 
-        sport = self.request.GET.get('sport', None)
+        q = self.request.GET.get('q', None)
 
-        if sport == 'need_report':
+        if q == 'need_report':
             context.update({'need_report': True})
 
-        if sport and sport != 'all':
-            context['q'] = sport
+        if q and q != 'all':
+            context['q'] = q
         return context
 
 

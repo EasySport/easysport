@@ -4,7 +4,7 @@
 {% load user_extras %}
 
 {% block head_title %}
-    {% if game.visibility or request.user|can_see_game %}
+    {% if game.visibility %}
         {{ game.title }} | {{ game.gametype }}
     {% else %}
         Ошибка! | Easysport
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-12 col-lg-9">
-            {% if game.visibility or request.user|can_see_game %}
+            {% if game.visibility %}
                 {% game_card game=game user=user %}
                 <div id="map" style="width: 100%; height: 400px"></div>
             {% else %}

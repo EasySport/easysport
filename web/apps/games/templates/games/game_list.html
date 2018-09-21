@@ -3,7 +3,7 @@
 {% load game_extras %}
 {% load user_extras %}
 
-{% block head_title %}Игры | Easysport{% endblock %}
+{% block head_title %}Игры{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -19,7 +19,7 @@
             {% endif %}
             <form action="" method="GET" class="mb-4">
                 <div class="input-group">
-                    <select class="custom-select form-control" name="q">
+                    <select class="custom-select form-control" name="q" id="q">
                         <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
 
                         {% if user.is_authenticated %}
@@ -29,6 +29,7 @@
                             <option value="need_report" {% if q == 'need_report' %}selected{% endif %}>
                             Требующие отчета
                             </option>
+                            <option value="created" {% if q == 'created' %}selected{% endif %}>Созданные мной</option>
                         {% endif %}
 
                         {% for sport in sports %}
@@ -36,11 +37,6 @@
                                     {% if q == sport.pk|slugify %}selected{% endif %}>{{ sport }}</option>
                         {% endfor %}
                     </select>
-                    <div class="input-group-append">
-                        <button class="btn btn-info" type="submit">
-                            <i class="fa fa-filter" aria-hidden="true"></i>
-                        </button>
-                    </div>
                 </div>
             </form>
             {% if not perms.games.add_game %}
@@ -121,6 +117,16 @@
                 dataType: "text"
             });
             e.preventDefault();
+        });
+
+        $(document).on('change', '#q', function () {
+            var value = $('#q').val();
+            if (value == 'all') {
+                location.href = '/games';
+            }
+            else {
+                location.href = '/games?q=' + value;
+            }
         });
     </script>
 {% endblock %}
