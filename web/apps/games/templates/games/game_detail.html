@@ -18,8 +18,16 @@
 {% block content %}
     <div class="row">
         <div class="col-12 col-lg-3">
-            <div class="card card-body mb-4">
-                <p class="lead">Расскажите друзьям о нас</p>
+            <div class="card card-body mb-4 d-none d-sm-block">
+                <p class="lead">Пригласите друзей на игру</p>
+                <div class="likely likely-big" data-title="Easysport - сообщество для любителей игровых видов спорта!">
+                    <div class="facebook">Share</div>
+                    <div class="twitter">Tweet</div>
+                    <div class="vkontakte" data-description="Easysport - сообщество для любителей игровых видов спорта!">Share</div>
+                    <div class="odnoklassniki">Like</div>
+                    <div class="telegram" data-text="Easysport - сообщество для любителей игровых видов спорта!">Send</div>
+                    <div class="whatsapp">Send</div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-lg-9">
@@ -44,8 +52,6 @@
             var game_id = arr[0], action = arr[1];
             {#$(this).parent().parent().parent().find('.btn').attr('disabled', true);#}
             $('#game-card-' + game_id).attr('style', 'opacity: 0.7;');
-            console.log(game_id);
-            console.log(action);
             $.ajax({
                 url: '{% url "games:game_action" %}',
                 data: {

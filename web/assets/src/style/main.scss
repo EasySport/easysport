@@ -18,4 +18,7 @@ $fa-font-path:"../fonts";
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+// Likely by Birman
+@import "../../node_modules/ilyabirman-likely/release/likely.css";
+
 @import "my";

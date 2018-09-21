@@ -17,5 +17,8 @@
 //= ../../node_modules/bootstrap/js/dist/tooltip.js
 //= ../../node_modules/bootstrap/js/dist/popover.js
 
+// Импортируем социальные кнопки
+//= ../../node_modules/ilyabirman-likely/release/likely.js
+
 // Импортируем другие js-файлы
 //= my.js

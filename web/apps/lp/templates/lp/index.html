@@ -1,6 +1,7 @@
 {% extends 'base_fat.html' %}
 {% load staticfiles %}
-{% block title %}Будь в игре! {% endblock %}
+{% block head_title %}Будь в игре! {% endblock %}
+{% block og_title %}Easysport - сообщество для любителей игровых видов спорта!{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -19,20 +20,24 @@
                     <img src="http://easysport.online/static/images/blank_male.jpg" width="80" height="80" class="m-w-100 rounded-circle">
                     <img src="http://easysport.online/media/avatars/avatar842_I024Xgt" width="80" height="80" class="m-w-100 rounded-circle">
                 </div>
-                {% if not loggedin %}
+                {% if not user.is_authenticated %}
                     <p><a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a></p>
                     <p>или</p>
                     <p><a href="{% url 'users:login' %}?next={{request.path}}" role="button" class="btn btn-main btn-lg btn-primary">Войти</a></p>
                 {% else %}
-                    <p class="h3">Расскажи о нас друзьям!</p><br/>
-                    <div class="social-likes social-likes_notext social-likes_big">
-                        <div class="facebook"></div>
-                        <div class="twitter"></div>
-                        <div class="vkontakte"></div>
-                        <div class="odnoklassniki"></div>
+                    <p class="h3 pt-5">Расскажи о нас друзьям!</p>
+                    <div class="likely likely-big likely-light pb-5" data-title="Easysport - сообщество для любителей игровых видов спорта!">
+                        <div class="facebook">Share</div>
+                        <div class="twitter">Tweet</div>
+                        <div class="vkontakte"
+                             data-description="Easysport - сообщество для любителей игровых видов спорта!">Share
+                        </div>
+                        <div class="odnoklassniki">Like</div>
+                        <div class="telegram" data-text="Easysport - сообщество для любителей игровых видов спорта!">Send
+                        </div>
+                        <div class="whatsapp">Send</div>
                     </div>
                 {% endif %}
-                <!--TODO: buttons for share or invite friends in service-->
             </div>
         </div>
         <div class="row bg-red text-white py-5">

@@ -8,7 +8,11 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>{% block head_title %}{% endblock %}</title>
+        <title>{% block head_title %}{% endblock %} | EasySport</title>
+
+        <meta property="og:title" content="{% block og_title %}{% endblock %}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="{% static 'img/index/site_preview.png' %}" />
 
         <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
 
