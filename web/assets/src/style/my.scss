@@ -27,3 +27,8 @@
     overflow-x: hidden; /* add padding to account for vertical scrollbar */
     z-index:1000 !important;
 }
+
+// Autoselect
+.select2-selection {
+    height: calc(2.25rem + 5px) !important;
+}
