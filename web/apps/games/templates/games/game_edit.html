@@ -15,6 +15,7 @@
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             {% buttons %}
+                                <div id="recommended_price"></div><br>
                                 <input type="submit" value="Сохранить" class="btn btn-outline-primary">
                             {% endbuttons %}
                         </form>
@@ -26,5 +27,35 @@
 {% endblock %}
 
 {% block media_last %}
+    <script>
+        function get_price() {
+            var xhr = new XMLHttpRequest();
+
+            // Last option.value of input #id_court it's id of court
+            var options = id_court.getElementsByTagName('option');
+            var court = options[options.length - 1].value;
+
+            var duration = document.getElementById('id_duration').value;
+            var game_capacity = document.getElementById('id_capacity').value;
+
+            var args = "?court=" + court + "&duration=" + duration + "&game_capacity=" + game_capacity;
+
+            xhr.open("GET", "{% url 'games:get_recommended_price' %}" + args, true);
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState !== 4) return;
+                document.getElementById("recommended_price").innerHTML = "Рекомендуемая цена: " + this.responseText;
+            };
+
+            if (court && duration && game_capacity) {
+                xhr.send();
+            }
+        }
+
+        id_duration.onkeyup = get_price;
+        id_capacity.onkeyup = get_price;
+        id_court.onchange = get_price;
+    </script>
+
     {{ form.media }}
 {% endblock %}

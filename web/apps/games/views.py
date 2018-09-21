@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.db.models import F, Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
+from django.forms.widgets import NumberInput
 
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -216,7 +217,9 @@ def get_recommended_price(request):
 
     try:
         court = int(params.get('court', ''))
-        duration = int(params.get('duration', ''))
+        duration_string = params.get('duration', '')
+        minutes = duration_string.split(':')[-1]
+        duration = int(minutes)
         game_capacity = int(params.get('game_capacity', ''))
 
         c = Court.objects.get(pk=court)
