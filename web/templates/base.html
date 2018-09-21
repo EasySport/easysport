@@ -16,6 +16,8 @@
 
         <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
 
+        <script type="text/javascript" src="https://vk.com/js/api/openapi.js?159"></script>
+
         {% block head_extra %}
         {% endblock %}
     </head>
@@ -109,6 +111,12 @@
         </footer>
 
         <script src="{% static 'js/main.js' %}"></script>
+
+        <!-- VK Widget -->
+        <div id="vk_community_messages"></div>
+        <script type="text/javascript">
+        VK.Widgets.CommunityMessages("vk_community_messages", 77725732, {disableExpandChatSound: "1",disableNewMessagesSound: "1"});
+        </script>
 
         {% block media_last %}
         {% endblock %}
