@@ -50,19 +50,19 @@ class GamesList(ListView):
         else:
             messages.error(self.request, 'Зарегистрируйтесь, чтобы принимать участие в играх', extra_tags='registration')
 
-        sport = self.request.GET.get('sport', None)
+        q = self.request.GET.get('q', None)
 
-        if sport:
+        if q:
             # Sort games by gametype
-            if sport not in ['all', 'my', 'need_report']:
-                games = games.filter(gametype=sport)
+            if q not in ['all', 'my', 'need_report']:
+                games = games.filter(gametype=q)
 
             # Show user's games
-            if sport == 'my' and can_see_game(user):
+            if q == 'my' and can_see_game(user):
                 games = Game.objects.filter(responsible=user)
 
             # Show games waiting for a report
-            if sport == 'need_report' and can_see_game(user):
+            if q == 'need_report' and can_see_game(user):
                 games = Game.objects.filter(
                     Q(is_reported=False)
                     & Q(responsible=user)

@@ -19,11 +19,13 @@
             {% endif %}
             <form action="" method="GET" class="mb-4">
                 <div class="input-group">
-                    <select class="custom-select form-control" name="sport">
+                    <select class="custom-select form-control" name="q">
                         <option value="all" {% if not q %}selected{% endif %}>Все виды спорта</option>
 
-                        {% if user.is_authenticated and user|can_see_game %}
+                        {% if user.is_authenticated %}
                             <option value="my" {% if q == 'my' %}selected{% endif %}>Мои игры</option>
+                        {% endif %}
+                        {% if user.is_authenticated and perms.games.change_game %}
                             <option value="need_report" {% if q == 'need_report' %}selected{% endif %}>
                             Требующие отчета
                             </option>
