@@ -118,7 +118,7 @@
     "model": "sports.gametype",
     "pk": 6,
     "fields": {
-      "sport_type": 3,
+      "sport_type": 2,
       "title": "\u041c\u0438\u043d\u0438-\u0444\u0443\u0442\u0431\u043e\u043b",
       "description": ""
     }
