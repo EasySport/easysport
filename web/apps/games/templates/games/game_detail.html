@@ -10,6 +10,7 @@
         Ошибка! | Easysport
     {% endif %}
 {% endblock %}
+{% block og_title %}Игра #{{ game.pk }}. {{ game.title }}{% endblock %}
 
 {% block head_extra %}
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>

@@ -2,7 +2,7 @@
 
 <div id="game-card-{{ game.pk }}" class="card mb-4">
     <div class="card-header d-flex align-items-center">
-        <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }} | {{ game.title }}</a>
+        <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }}. {{ game.title }}</a>
         {% if game.responsible == user or user.is_staff %}
             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                 <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
