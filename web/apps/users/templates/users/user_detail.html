@@ -51,10 +51,10 @@
                     {% if current_user.height %}<p>Рост: {{ current_user.height }} см</p>{% endif %}
                     </p>
 
-                    {% if not current_user.phone_privacy and request.user.pk or request.user|can_see_phone %}
+                    {% if not current_user.phone_privacy and user.is_authenticated %}
                         <p>Телефон: {{ current_user.phone }}</p>
                     {% else %}
-                        <p>Телефон скрыт</p>
+                        <p>Телефон: скрыт</p>
                     {% endif %}
 
                     {% if current_user.sport_types.all %}
