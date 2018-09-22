@@ -142,7 +142,7 @@ gulp.task('image:build', function () {
                 min: 80
             }),
             pngquant(),
-            imagemin.svgo({plugins: [{removeViewBox: false}]})
+            imagemin.svgo()
         ])))
         .pipe(gulp.dest(path.build.img)); // выгрузка готовых файлов
 });
