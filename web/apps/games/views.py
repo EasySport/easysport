@@ -69,9 +69,9 @@ class GamesList(ListView):
             # Show games waiting for a report
             if q == 'need_report':
                 games = Game.objects.filter(
-                    Q(is_reported=False)
-                    & Q(responsible=user)
-                    & Q(datetime__lte=timezone.now() - F('duration'))
+                    is_reported=False,
+                    responsible=user,
+                    datetime__lte=timezone.now() + F('duration')
                 )
 
         return games
