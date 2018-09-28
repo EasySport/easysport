@@ -2,7 +2,7 @@
 
 <div id="game-card-{{ game.pk }}" class="card mb-4">
     <div class="card-header d-flex align-items-center">
-        <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }}. {{ game.title }}</a>
+        <a class="mr-auto" href="{% url 'games:detail' game.pk %}">#{{ game.pk }}. {{ game.title }}.</a>
         {% if game.responsible == user or user.is_staff %}
             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                 <a class="btn btn-primary" role="button" href="{% url 'games:update' game.pk %}">
@@ -68,13 +68,30 @@
                         Тренер: <a href="{% url 'users:detail' pk=game.coach.pk %}">{{ game.coach }}</a>
                     </p>
                 {% endif %}
+
                 <div class="progress mb-2" style="height: 25px;">
-                    <div class="progress-bar {% if game.subscribed_count == game.capacity %}bg-success{% else %}.progress-bar-animated{% endif %}"
-                         role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                         aria-valuemax="100" style="width: {% widthratio game.subscribed_count game.capacity 100 %}%;">
-                        {{ game.subscribed_count }}/{{ game.capacity }}
-                    </div>
+                    {% if not game.is_reported %}
+                        <div class="progress-bar {% if game.subscribed_count == game.capacity %}bg-success{% else %}.progress-bar-animated{% endif %}"
+                             role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                             aria-valuemax="100" style="width: {% widthratio game.subscribed_count game.capacity 100 %}%;">
+                            {{ game.subscribed_count }}/{{ game.capacity }}
+                        </div>
+                    {% else %}
+                        <div class="progress-bar bg-success"
+                             role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                             aria-valuemax="100" style="width: {% widthratio game.visited_count game.capacity 100 %}%;">
+                            {{ game.visited_count }}/{{ game.capacity }}
+                        </div>
+                    {% endif %}
                 </div>
+
+                {% if game.need_report %}
+                    {% if game.responsible == user or user.is_staff %}
+                        <a href="{% url 'games:detail' game.id %}" class="btn btn-lg btn-warning">Заполнить отчет</a>
+                    {% endif %}
+                {% endif %}
+                <!--<a href="{% url 'games:detail' game.id %}" class="btn btn-success">Создать новую игру через неделю</a>-->
+
                 {% game_status_button game=game user=user %}
                 <hr class="d-md-none">
             </div>
@@ -90,7 +107,7 @@
     </div>
     <div class="card-footer">
         <div class="d-flex">
-            {% if game.subscribed_count > 0 %}
+            {% if not game.is_reported and game.subscribed_count > 0 or game.is_reported and game.visited_count > 0 %}
                 <a data-toggle="collapse" href="#collapse{{ game.pk }}" role="button" aria-expanded="false"
                    aria-controls="collapseExample" class="mr-auto">
                     Cписок участников
@@ -103,10 +120,20 @@
                    target="_blank">{{ game.responsible }}</a>
             </span>
         </div>
-        {% if game.subscribed_count > 0 %}
+        {% if not game.is_reported and game.subscribed_count > 0 %}
             <div class="collapse my-2" id="collapse{{ game.pk }}">
                 <ol class="card-text">
                     {% for action in game.subscribed_list %}
+                        <li>
+                            <a href="{% url 'users:detail' action.user.pk %}" target="_blank">{{ action.user }}</a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% elif game.is_reported and game.visited_count > 0 %}
+            <div class="collapse my-2" id="collapse{{ game.pk }}">
+                <ol class="card-text">
+                    {% for action in game.visited_list %}
                         <li>
                             <a href="{% url 'users:detail' action.user.pk %}" target="_blank">{{ action.user }}</a>
                         </li>
