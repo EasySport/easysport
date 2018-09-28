@@ -72,7 +72,8 @@ class Game(models.Model):
     is_public = models.BooleanField('Публичный статус', default=True,
                                     help_text="Делает видимым в потоке")
     created_by = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
-    sporttype = models.ForeignKey('sports.SportType', verbose_name='Вид спорта', blank=True, null=True, on_delete=models.CASCADE)
+    sporttype = models.ForeignKey('sports.SportType', verbose_name='Вид спорта', blank=True, null=True,
+                                  on_delete=models.CASCADE)
     datetime_to = models.DateTimeField(verbose_name='Дата окончания', blank=True, auto_now=True)
     deleted = models.BooleanField(default=False, verbose_name='Игра удалена')
 
@@ -114,6 +115,12 @@ class Game(models.Model):
             else:
                 return 'Was'
 
+    def need_report(self):
+        if not self.is_reported and self.time_status() == 'Was':
+            return True
+        else:
+            return False
+
     def subscribed_count(self):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED).count()
 
@@ -125,6 +132,12 @@ class Game(models.Model):
 
     def reserved_list(self):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED)
+
+    def visited_count(self):
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.VISITED).count()
+
+    def visited_list(self):
+        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.VISITED)
 
 
 class UserGameAction(models.Model):
