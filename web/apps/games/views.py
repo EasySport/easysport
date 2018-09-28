@@ -79,12 +79,7 @@ class GamesList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(GamesList, self).get_context_data(**kwargs)
         context['sports'] = SportType.objects.all()
-
         q = self.request.GET.get('q', None)
-
-        if q == 'need_report':
-            context.update({'need_report': True})
-
         if q and q != 'all':
             context['q'] = q
         return context
