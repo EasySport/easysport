@@ -87,22 +87,22 @@ class Game(models.Model):
         from django.urls import reverse
         return reverse('games:detail', args=[str(self.pk)])
 
-    @property
     def time_status(self):
-        event_date = timezone.localtime(self.datetime).date()
+        datetime = timezone.localtime(self.datetime)
         now = timezone.localtime(timezone.now())
-        duration = self.duration
-        today = now.date()
-        tomorrow = today + timezone.timedelta(days=1)
-        double_tomorrow = today + timezone.timedelta(days=2)
+        duration = timezone.timedelta(minutes=self.duration.seconds)
 
         # Возвращаем list из флага, указывающего на то, что игра еще не прошла и статуса
-        if now < self.datetime - duration:
-            if event_date == today and now < self.datetime:
+        if now < datetime - duration:
+            today = now.date()
+            tomorrow = today + timezone.timedelta(days=1)
+            double_tomorrow = today + timezone.timedelta(days=2)
+
+            if datetime.date() == today and now < self.datetime:
                 return 'Today'
-            elif event_date == tomorrow:
+            elif datetime.date() == tomorrow:
                 return 'Tomorrow'
-            elif event_date == double_tomorrow:
+            elif datetime.date() == double_tomorrow:
                 return 'After Tomorrow'
             else:
                 return 'Will be'
