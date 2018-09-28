@@ -85,14 +85,14 @@
                     {% endif %}
                 </div>
 
+                {% game_status_button game=game user=user %}
+
                 {% if game.need_report %}
                     {% if game.responsible == user or user.is_staff %}
-                        <a href="{% url 'games:detail' game.id %}" class="btn btn-lg btn-warning">Заполнить отчет</a>
+                        <a href="{% url 'games:report' game.id %}" class="btn btn-lg btn-warning mt-3">Заполнить отчет</a>
                     {% endif %}
                 {% endif %}
-                <!--<a href="{% url 'games:detail' game.id %}" class="btn btn-success">Создать новую игру через неделю</a>-->
 
-                {% game_status_button game=game user=user %}
                 <hr class="d-md-none">
             </div>
             <div class="col text-center text-md-right">

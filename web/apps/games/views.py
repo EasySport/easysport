@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.db.models import F, Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
-from django.forms.widgets import NumberInput
 
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -142,10 +141,9 @@ class GameReport(ModelFormSetView):
 
 
 @method_decorator(permission_required('games.can_edit'), 'dispatch')
-class GameReportDone(UpdateView):
+class GameReportDone(DetailView):
     model = Game
     context_object_name = 'game'
-    fields = '__all__'
     template_name = 'games/game_report_done.html'
 
     def get_context_data(self, **kwargs):
@@ -231,7 +229,7 @@ def get_recommended_price(request):
     return HttpResponse(round(price / 10) * 10)
 
 
-@method_decorator(permission_required('games.can_edit'), 'dispatch')
+@permission_required('games.can_edit')
 def copy_game(request, pk):
     game = Game.objects.get(pk=pk)
     new_date = game.datetime + timedelta(days=7)

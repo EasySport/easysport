@@ -5,26 +5,53 @@
 {% block head_title %}Отправить отчет | Easysport{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h2>Отчет об игре #{{ object_list.0.game.pk }} {{ object_list.0.game.title }}</h2>
-                        <form method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% bootstrap_formset formset layout='horizontal' %}
-                            {% buttons %}
-                                <input type="submit" value="Сохранить" class="btn btn-outline-primary">
-                            {% endbuttons %}
-                        </form>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Отчет об игре #{{ object_list.0.game.pk }}. {{ object_list.0.game.title }}.</h2>
+                    <hr>
+
+                    <form method="post">{% csrf_token %}
+                        <table id="formset" class="table table-hover">
+                            {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                                {% if forloop.first %}
+                                    <thead  class="thead-light">
+                                        <tr class="success">
+                                            <th>№</th>
+                                            {% for field in form.visible_fields %}
+                                                <th>{{ field.label|capfirst }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                {% endif %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    {% for field in form.visible_fields %}
+                                        <td>
+                                            {% if forloop.first %}
+                                                {% for hidden in form.hidden_fields %}
+                                                    {{ hidden }}
+                                                {% endfor %}
+                                            {% endif %}
+                                            {{ field.errors.as_ul }}
+                                            {% bootstrap_field field show_label=False %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <button type="submit" class="btn btn-primary btn-block">Отправить отчет</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block media_last %}
-    {{ form.media }}
+{{ form.media }}
 {% endblock %}

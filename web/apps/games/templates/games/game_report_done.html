@@ -9,9 +9,15 @@
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card">
-                    <div class="card-body">
-                        <h2>#{{ game.pk }} {{ game }}</h2>
-                        <a href="{% url 'games:copy_game' game.pk %}" class="btn btn-block btn-success">
+                    <div class="card-body text-center">
+                        <h2>#{{ game.pk }}. {{ game.title }}.</h2>
+                        <hr>
+                        <p class="lead">
+                            <i class="fas fa-check-circle fa-10x text-success"></i>
+                            <br>
+                            Отчет успешно отправлен
+                        </p>
+                        <a href="{% url 'games:copy_game' game.pk %}" class="btn btn-block btn-info">
                             Создать игру через 7 дней
                         </a>
                     </div>
