@@ -14,7 +14,7 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     volumes:
-      - ./:/code
+      - ./web:/code
 
   postgres:
     build:
