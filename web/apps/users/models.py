@@ -66,8 +66,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     sport_types = models.ManyToManyField(SportType, blank=True)
 
     # TODO: return ManyToMany after migration
-    amplua = models.ManyToManyField(Amplua, blank=True, null=True)
-    # amplua = models.ForeignKey(Amplua, verbose_name=u'Амплуа', blank=True, null=True, on_delete=models.CASCADE)
+    # amplua = models.ManyToManyField(Amplua, blank=True, null=True)
+    amplua = models.ForeignKey(Amplua, verbose_name=u'Амплуа', blank=True, null=True, on_delete=models.CASCADE)
 
     city = models.ForeignKey(
         City,
