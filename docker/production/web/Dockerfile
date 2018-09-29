@@ -34,12 +34,10 @@ RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 RUN chown django /start
 
-RUN chmod +x /code
-RUN chown django /code
+# - copy all other files to /code/ directory
+COPY ./web/ /code/
 
-#COPY web/logs /code/logs
-#RUN chmod -R 777 /code/logs
-#RUN chown django /code/logs
+RUN chown -R django /code
 
 USER django
 
