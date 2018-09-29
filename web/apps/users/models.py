@@ -3,8 +3,10 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.urls import reverse
+
 # Third party
 from phonenumber_field.modelfields import PhoneNumberField
+from social_django.models import UserSocialAuth
 
 # Our apps
 from apps.courts.models import City
@@ -152,6 +154,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns the short name for the user.
         """
         return self.first_name
+
+    def get_vk_login(self):
+        try:
+            vk_login = self.social_auth.get(provider='vk-oauth2')
+        except UserSocialAuth.DoesNotExist:
+            vk_login = None
+        return vk_login
 
     def get_absolute_url(self):
         return reverse('users:detail', args=[str(self.pk)])

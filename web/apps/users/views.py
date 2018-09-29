@@ -1,3 +1,5 @@
+import requests
+
 # Django core
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, update_session_auth_hash
@@ -6,6 +8,8 @@ from django.contrib.auth.forms import (AdminPasswordChangeForm,
                                        PasswordChangeForm)
 from django.contrib.auth.views import (PasswordResetConfirmView,
                                        PasswordResetView)
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -19,6 +23,7 @@ from social_django.models import UserSocialAuth
 from .forms import UserCreationForm, UserUpdateForm
 # Our apps
 from .models import User
+from apps.courts.models import City
 
 
 class RegistrationView(FormView):
@@ -89,21 +94,42 @@ class UserDetail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
     model = User
+    context_object_name = 'current_user'
     form_class = UserUpdateForm
 
     def get_object(self, queryset=None):
-        return self.request.user
+        user = self.request.user
+        new_user = self.request.GET.get('new_user', None)
+        # May be first social auth
+        if new_user:
+            vk_login = user.get_vk_login()
+
+            # avatar preload
+            avatar_url = vk_login.extra_data['photo_200_orig']
+            if avatar_url:
+                r = requests.get(avatar_url)
+                if r.status_code == requests.codes.ok:
+                    img_temp = NamedTemporaryFile(delete=True)
+                    img_temp.write(r.content)
+                    img_temp.flush()
+
+                    user.avatar.save('avatar', File(img_temp), save=True)
+
+            user.sex = 'm' if vk_login.extra_data['sex'] == 2 else 'f'
+            user.bdate = vk_login.extra_data['bdate']
+            try:
+                city = City.objects.get(title=vk_login.extra_data['city']['title'])
+                user.city = city
+            except City.DoesNotExist:
+                pass
+        return user
 
     def get_context_data(self, **kwargs):
         context = super(ProfileUpdate, self).get_context_data(**kwargs)
 
-        try:
-            vk_login = self.request.user.social_auth.get(provider='vk-oauth2')
-        except UserSocialAuth.DoesNotExist:
-            vk_login = None
         can_disconnect = (self.request.user.social_auth.count() > 1 or self.request.user.has_usable_password())
 
-        context.update({'vk_login': vk_login, 'can_disconnect': can_disconnect})
+        context.update({'vk_login': self.request.user.get_vk_login(), 'can_disconnect': can_disconnect})
         return context
 
 

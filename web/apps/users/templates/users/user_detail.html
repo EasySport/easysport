@@ -58,6 +58,19 @@
                         <p>Телефон: скрыт</p>
                     {% endif %}
 
+                    {% if current_user.get_vk_login %}
+                        <p>
+                            <a href="https://vk.com/id{{ current_user.get_vk_login.uid }}" target="_blank">
+                                <i class="fab fa-vk"></i>
+                                {% if current_user.get_vk_login.extra_data.screen_name %}
+                                    {{ current_user.get_vk_login.extra_data.screen_name }}
+                                {% else %}
+                                    id{{ current_user.get_vk_login.uid }}
+                                {% endif %}
+                            </a>
+                        </p>
+                    {% endif %}
+
                     {% if current_user.sport_types.all %}
                         <b>Виды спорта:</b> <br>
                         {% for type in current_user.sport_types.all %}
