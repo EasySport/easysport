@@ -28,54 +28,49 @@
                 </div>
                 <div class="card my-3">
                     <div class="card-body">
-                        <h2>Социальные сети</h2>
-
-                        <p class="card-text">
-                            {% if vk_login %}
-                                <p>
-                                    <i class="fab fa-vk text-primary"></i>
-                                    <a href="https://vk.com/id{{ vk_login.uid }}" target="_blank">
-                                        {% if vk_login.extra_data.screen_name %}
-                                            {{ vk_login.extra_data.screen_name }}
-                                        {% else %}
-                                            id{{ vk_login.uid }}
-                                        {% endif %}
-                                    </a>
-                                    {% if can_disconnect %}
-                                        <form class="form-inline" method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
-                                            {% csrf_token %}
-                                            <button class="btn btn-link" type="submit">Открепить профиль</button>
-                                        </form>
+                        <h2 class="mb-2">Социальные сети</h2>
+                        {% if vk_login %}
+                            <i class="fab fa-vk text-primary"></i>
+                            <a href="https://vk.com/id{{ vk_login.uid }}" target="_blank">
+                                {% if vk_login.extra_data.screen_name %}
+                                    {{ vk_login.extra_data.screen_name }}
+                                {% else %}
+                                    id{{ vk_login.uid }}
+                                {% endif %}
+                            </a>
+                            {% if can_disconnect %}
+                                <form method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Открепить профиль</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <p class="mt-3"><a href="{% url 'social:begin' 'vk-oauth2' %}">+ связать свой аккаунт с <i class="fab fa-vk text-primary"></i></a></p>
+                        {% endif %}
+                        {% if fb_login %}
+                            <p>
+                                <i class="fab fa-vk text-primary"></i>
+                                <a href="https://facebook.com/profile.php?id={{ fb_login.uid }}" target="_blank">
+                                    {% if fb_login.extra_data.screen_name %}
+                                        {{ fb_login.extra_data.screen_name }}
+                                    {% else %}
+                                        id{{ fb_login.uid }}
                                     {% endif %}
-                                </p>
-                            {% else %}
-                                <p><a href="{% url 'social:begin' 'vk-oauth2' %}">+ связать свой аккаунт с вконтакте</a></p>
-                            {% endif %}
-                            {% if fb_login %}
-                                <p>
-                                    <i class="fab fa-vk text-primary"></i>
-                                    <a href="https://facebook.com/profile.php?id={{ fb_login.uid }}" target="_blank">
-                                        {% if fb_login.extra_data.screen_name %}
-                                            {{ fb_login.extra_data.screen_name }}
-                                        {% else %}
-                                            id{{ fb_login.uid }}
-                                        {% endif %}
-                                    </a>
-                                    {% if can_disconnect %}
-                                        <form class="form-inline" method="post" action="{% url 'social:disconnect' 'facebook' %}">
-                                            {% csrf_token %}
-                                            <a class="btn btn-link" type="submit">Открепить профиль</a>
-                                        </form>
-                                    {% endif %}
-                                </p>
-                            {% else %}
-                                <p><a href="{% url 'social:begin' 'facebook' %}">+ связать свой аккаунт с Facebook</a></p>
-                            {% endif %}
-                            {% if not can_disconnect %}
-                                <br><span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
-                                    для своего аккаунта прежде чем отключиться от VK</span>
-                            {% endif %}
-                        </p>
+                                </a>
+                                {% if can_disconnect %}
+                                    <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+                                        {% csrf_token %}
+                                        <button type="submit">Открепить профиль</button>
+                                    </form>
+                                {% endif %}
+                            </p>
+                        {% else %}
+                            <p class="mt-3"><a href="{% url 'social:begin' 'facebook' %}">+ связать свой аккаунт с <i class="fab fa-facebook-f text-primary"></i></a></p>
+                        {% endif %}
+                        {% if not can_disconnect %}
+                            <p><span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
+                                для своего аккаунта прежде чем отключиться от VK</span></p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
