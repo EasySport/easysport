@@ -5,7 +5,7 @@ import os
 
 if os.getenv('DJANGO_ENV') == 'production':
     DEBUG = False
-    ALLOWED_HOSTS = ['.snakeoil.com']
+    ALLOWED_HOSTS = ['dev.easysport.online', 'easysport.online']
     # ...
 else:
     DEBUG = True
