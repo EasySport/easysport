@@ -41,6 +41,19 @@
                         </p>
                     {% endif %}
 
+                    {% if current_user.get_vk_login %}
+                        <p>
+                            <a href="https://vk.com/id{{ current_user.get_vk_login.uid }}" target="_blank">
+                                <i class="fab fa-vk"></i>
+                                {% if current_user.get_vk_login.extra_data.screen_name %}
+                                    {{ current_user.get_vk_login.extra_data.screen_name }}
+                                {% else %}
+                                    id{{ current_user.get_vk_login.uid }}
+                                {% endif %}
+                            </a>
+                        </p>
+                    {% endif %}
+
                     <p>
                         {% if current_user.bdate %}
                             {{ current_user.bdate|beauty_age }}
@@ -58,32 +71,22 @@
                         <p>Телефон: скрыт</p>
                     {% endif %}
 
-                    {% if current_user.get_vk_login %}
-                        <p>
-                            <a href="https://vk.com/id{{ current_user.get_vk_login.uid }}" target="_blank">
-                                <i class="fab fa-vk"></i>
-                                {% if current_user.get_vk_login.extra_data.screen_name %}
-                                    {{ current_user.get_vk_login.extra_data.screen_name }}
-                                {% else %}
-                                    id{{ current_user.get_vk_login.uid }}
-                                {% endif %}
-                            </a>
-                        </p>
-                    {% endif %}
-
                     {% if current_user.sport_types.all %}
-                        <b>Виды спорта:</b> <br>
+                        <p class="mb-0">Виды спорта:</p>
+                        <ul>
                         {% for type in current_user.sport_types.all %}
-                            {{ type }}<br>
+                            <li>{{ type }}</li>
                         {% endfor %}
-                        <br>
+                        </ul>
                     {% endif %}
 
                     {% if current_user.amplua.all %}
-                        <b>Амплуа:</b> <br>
+                        <p class="mb-0">Амплуа:</p>
+                        <ul>
                         {% for amplua in current_user.amplua.all %}
-                            {{ amplua }}<br>
+                            <li>{{ amplua }}</li>
                         {% endfor %}
+                        </ul>
                     {% endif %}
                 </div>
             </div>
