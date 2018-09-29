@@ -15,7 +15,6 @@ services:
     command: /start
     volumes:
       - ./:/code
-      - production_web_logs:/code/logs
 
   postgres:
     build:
@@ -49,7 +48,6 @@ services:
 
 volumes:
   static:
-  production_web_logs:
   production_postgres_data: {}
   production_postgres_data_backups: {}
   production_caddy: {}
