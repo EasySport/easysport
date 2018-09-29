@@ -9,20 +9,36 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h2>Вход</h2>
-                        <form method="post">
-                            {% csrf_token %}
-                            {% bootstrap_form form %}
-                            {% buttons %}
-                                <input type="submit" value="Войти" class="btn btn-outline-primary">
-                            {% endbuttons %}
-                            <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
-                            <br>
-                            <a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через VK</a>
-                            <br>
-                            <a href="{% url 'social:begin' 'facebook' %}">Войти через Facebook</a>
-                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {% bootstrap_form form show_label=False %}
+                                        {% buttons %}
+                                            <input type="submit" value="Войти" class="btn btn-outline-primary">
+                                        {% endbuttons %}
+                                        <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <a href="{% url 'social:begin' 'vk-oauth2' %}" class="btn btn-primary btn-block">
+                                            <i class="fab fa-vk text-white"></i>&nbsp;&nbsp;Войти через ВКонтакте
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-block">
+                                            <i class="fab fa-facebook-f text-white"></i>&nbsp;&nbsp;Войти через Facebook
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

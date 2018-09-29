@@ -125,7 +125,9 @@ class ProfileUpdate(UpdateView):
 
             fb_login = user.get_fb_login()
             if fb_login:
-                user.first_name = 'Facebook'
+                pass
+                # TODO: add facebook data to user
+                # user.first_name = 'Facebook'
         return user
 
     def get_context_data(self, **kwargs):
