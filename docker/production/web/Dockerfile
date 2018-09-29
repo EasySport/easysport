@@ -11,9 +11,6 @@ RUN apk update \
   # CFFI dependencies
   && apk add libffi-dev py-cffi
 
-RUN addgroup -S django \
-    && adduser -S -G django django
-
 
 # - add code folder inside
 # - set the working directory for all further commands
@@ -27,19 +24,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./docker/production/web/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
-RUN chown django /entrypoint
 
 COPY ./docker/production/web/start /start
 RUN sed -i 's/\r//' /start
 RUN chmod +x /start
-RUN chown django /start
 
 # - copy all other files to /code/ directory
 COPY ./web/ /code/
-
-RUN chown -R django /code
-
-USER django
 
 RUN chmod 777 -R /code/logs
 
