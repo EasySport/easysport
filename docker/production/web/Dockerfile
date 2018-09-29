@@ -37,6 +37,9 @@ RUN chown django /start
 RUN chmod +x /code
 RUN chown django /code
 
+RUN chmod 777 /code/logs
+RUN chown django /code/logs
+
 USER django
 
 # WORKDIR /app
