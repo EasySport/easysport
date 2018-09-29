@@ -40,7 +40,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '9d22ec108abfaff23f47a4c0fb77c095'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'name', 'email', 'age_range', 'gender', 'location', 'profile_pic', 'sports', 'birthday']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   'locale': 'ru_RU',
-  'fields': 'id, name, email, first_name, last_name, picture, email'
+  'fields': 'id, email, first_name, last_name, picture, email'
 }
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '6449434'
