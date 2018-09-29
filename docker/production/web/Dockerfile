@@ -37,6 +37,7 @@ RUN chown django /start
 RUN chmod +x /code
 RUN chown django /code
 
+COPY web/logs /code/logs
 RUN chmod 777 /code/logs
 RUN chown django /code/logs
 
