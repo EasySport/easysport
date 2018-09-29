@@ -34,6 +34,8 @@ RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 RUN chown django /start
 
+RUN chown -R django /code
+
 USER django
 
 # WORKDIR /app
