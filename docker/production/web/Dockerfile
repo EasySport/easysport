@@ -34,11 +34,6 @@ RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 RUN chown django /start
 
-# - copy all other files to /code/ directory
-ADD ./web/ /code/
-
-RUN chown -R django /code
-
 USER django
 
 # WORKDIR /app
