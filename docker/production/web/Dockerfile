@@ -34,7 +34,8 @@ RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 RUN chown django /start
 
-RUN chown -R django /code
+RUN chmod +x /code
+RUN chown django /code
 
 USER django
 
