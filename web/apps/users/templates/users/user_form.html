@@ -44,7 +44,7 @@
                                     {% if can_disconnect %}
                                         <form class="form-inline" method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
                                             {% csrf_token %}
-                                            <a class="btn btn-link" type="submit">Открепить профиль</a>
+                                            <button class="btn btn-link" type="submit">Открепить профиль</button>
                                         </form>
                                     {% endif %}
                                 </p>
