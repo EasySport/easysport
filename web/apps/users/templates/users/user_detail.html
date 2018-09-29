@@ -54,6 +54,19 @@
                         </p>
                     {% endif %}
 
+                    {% if current_user.get_fb_login %}
+                        <p>
+                            <a href="https://facebook.com/profile.php?id={{ current_user.get_fb_login.uid }}" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                                {% if current_user.get_fb_login.extra_data.screen_name %}
+                                    {{ current_user.get_fb_login.extra_data.screen_name }}
+                                {% else %}
+                                    id{{ current_user.get_fb_login.uid }}
+                                {% endif %}
+                            </a>
+                        </p>
+                    {% endif %}
+
                     <p>
                         {% if current_user.bdate %}
                             {{ current_user.bdate|beauty_age }}

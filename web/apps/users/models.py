@@ -162,5 +162,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             vk_login = None
         return vk_login
 
+    def get_fb_login(self):
+        try:
+            fb_login = self.social_auth.get(provider='facebook')
+        except UserSocialAuth.DoesNotExist:
+            fb_login = None
+        return fb_login
+
     def get_absolute_url(self):
         return reverse('users:detail', args=[str(self.pk)])

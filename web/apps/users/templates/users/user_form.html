@@ -32,25 +32,48 @@
 
                         <p class="card-text">
                             {% if vk_login %}
-                                <i class="fab fa-vk text-primary"></i>
-                                <a href="https://vk.com/id{{ vk_login.uid }}" target="_blank">
-                                    {% if vk_login.extra_data.screen_name %}
-                                        {{ vk_login.extra_data.screen_name }}
-                                    {% else %}
-                                        id{{ vk_login.uid }}
+                                <p>
+                                    <i class="fab fa-vk text-primary"></i>
+                                    <a href="https://vk.com/id{{ vk_login.uid }}" target="_blank">
+                                        {% if vk_login.extra_data.screen_name %}
+                                            {{ vk_login.extra_data.screen_name }}
+                                        {% else %}
+                                            id{{ vk_login.uid }}
+                                        {% endif %}
+                                    </a>
+                                    {% if can_disconnect %}
+                                        <form class="form-inline" method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
+                                            {% csrf_token %}
+                                            <a class="btn btn-link" type="submit">Открепить профиль</a>
+                                        </form>
                                     {% endif %}
-                                </a>
-                                {% if can_disconnect %}
-                                    <form class="form-inline" method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
-                                        {% csrf_token %}
-                                        <button class="btn btn-outline-primary" type="submit">Открепить профиль</button>
-                                    </form>
-                                {% else %}
-                                    <br><span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
-                                        для своего аккаунта прежде чем отключиться от VK</span>
-                                {% endif %}
+                                </p>
                             {% else %}
-                                <a class="btn btn-outline-secondary btn-sm" href="{% url 'social:begin' 'vk-oauth2' %}">+ связать свой аккаунт с вконтакте</a>
+                                <p><a href="{% url 'social:begin' 'vk-oauth2' %}">+ связать свой аккаунт с вконтакте</a></p>
+                            {% endif %}
+                            {% if fb_login %}
+                                <p>
+                                    <i class="fab fa-vk text-primary"></i>
+                                    <a href="https://facebook.com/profile.php?id={{ fb_login.uid }}" target="_blank">
+                                        {% if fb_login.extra_data.screen_name %}
+                                            {{ fb_login.extra_data.screen_name }}
+                                        {% else %}
+                                            id{{ fb_login.uid }}
+                                        {% endif %}
+                                    </a>
+                                    {% if can_disconnect %}
+                                        <form class="form-inline" method="post" action="{% url 'social:disconnect' 'facebook' %}">
+                                            {% csrf_token %}
+                                            <a class="btn btn-link" type="submit">Открепить профиль</a>
+                                        </form>
+                                    {% endif %}
+                                </p>
+                            {% else %}
+                                <p><a href="{% url 'social:begin' 'facebook' %}">+ связать свой аккаунт с Facebook</a></p>
+                            {% endif %}
+                            {% if not can_disconnect %}
+                                <br><span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
+                                    для своего аккаунта прежде чем отключиться от VK</span>
                             {% endif %}
                         </p>
                     </div>

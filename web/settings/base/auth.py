@@ -35,8 +35,13 @@ LOGIN_REDIRECT_URL = 'lp:index'
 
 # Social auth http://python-social-auth.readthedocs.io/en/latest/backends/vk.html
 
-SOCIAL_AUTH_FACEBOOK_KEY = '566580510366604'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '9d22ec108abfaff23f47a4c0fb77c095'  # App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = '566580510366604'
+SOCIAL_AUTH_FACEBOOK_SECRET = '9d22ec108abfaff23f47a4c0fb77c095'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range, gender, gender, location, profile_pic, sports, birthday'
+}
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '6449434'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'YEB21MbBeWL2y6hqp5Gd'
@@ -64,3 +69,5 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/profile/update/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/games'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile/update/?next=/games&new_user=1'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = False

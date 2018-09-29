@@ -103,25 +103,29 @@ class ProfileUpdate(UpdateView):
         # May be first social auth
         if new_user:
             vk_login = user.get_vk_login()
+            if vk_login:
+                # avatar preload
+                avatar_url = vk_login.extra_data['photo_200_orig']
+                if avatar_url:
+                    r = requests.get(avatar_url)
+                    if r.status_code == requests.codes.ok:
+                        img_temp = NamedTemporaryFile(delete=True)
+                        img_temp.write(r.content)
+                        img_temp.flush()
 
-            # avatar preload
-            avatar_url = vk_login.extra_data['photo_200_orig']
-            if avatar_url:
-                r = requests.get(avatar_url)
-                if r.status_code == requests.codes.ok:
-                    img_temp = NamedTemporaryFile(delete=True)
-                    img_temp.write(r.content)
-                    img_temp.flush()
+                        user.avatar.save('avatar', File(img_temp), save=True)
 
-                    user.avatar.save('avatar', File(img_temp), save=True)
+                user.sex = 'm' if vk_login.extra_data['sex'] == 2 else 'f'
+                user.bdate = vk_login.extra_data['bdate']
+                try:
+                    city = City.objects.get(title=vk_login.extra_data['city']['title'])
+                    user.city = city
+                except City.DoesNotExist:
+                    pass
 
-            user.sex = 'm' if vk_login.extra_data['sex'] == 2 else 'f'
-            user.bdate = vk_login.extra_data['bdate']
-            try:
-                city = City.objects.get(title=vk_login.extra_data['city']['title'])
-                user.city = city
-            except City.DoesNotExist:
-                pass
+            fb_login = user.get_fb_login()
+            if fb_login:
+                user.first_name = 'Facebook'
         return user
 
     def get_context_data(self, **kwargs):
@@ -129,7 +133,11 @@ class ProfileUpdate(UpdateView):
 
         can_disconnect = (self.request.user.social_auth.count() > 1 or self.request.user.has_usable_password())
 
-        context.update({'vk_login': self.request.user.get_vk_login(), 'can_disconnect': can_disconnect})
+        context.update({
+            'vk_login': self.request.user.get_vk_login(),
+            'fb_login': self.request.user.get_fb_login(),
+            'can_disconnect': can_disconnect}
+        )
         return context
 
 
