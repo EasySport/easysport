@@ -36,6 +36,7 @@ RUN chown django /start
 
 # - copy all other files to /code/ directory
 COPY ./web/ /code/
+RUN chmod 777 -R /code/logs
 
 RUN chown -R django /code
 
