@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body pb-1">
                         <h2>Редактирование профиля</h2>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -17,8 +17,13 @@
                             {% buttons %}
                                 <input type="submit" value="Сохранить" class="btn btn-outline-primary">
                             {% endbuttons %}
-                            <a href="{% url 'users:password' %}">Смена пароля</a>
                         </form>
+                    </div>
+                </div>
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h2>Смена пароля</h2>
+                        <p class="card-text pt-2"><a href="{% url 'users:password' %}" class="btn btn-outline-primary">Сменить пароль</a></p>
                     </div>
                 </div>
                 <div class="card my-3">
@@ -27,7 +32,7 @@
 
                         <p class="card-text">
                             {% if vk_login %}
-                                VK: подключен как
+                                <i class="fab fa-vk text-primary"></i>
                                 <a href="https://vk.com/id{{ vk_login.uid }}" target="_blank">
                                     {% if vk_login.extra_data.screen_name %}
                                         {{ vk_login.extra_data.screen_name }}
@@ -38,11 +43,10 @@
                                 {% if can_disconnect %}
                                     <form class="form-inline" method="post" action="{% url 'social:disconnect' 'vk-oauth2' %}">
                                         {% csrf_token %}
-                                        <button class="btn btn-outline-secondary" type="submit">Открепить профиль</button>
+                                        <button class="btn btn-outline-primary" type="submit">Открепить профиль</button>
                                     </form>
                                 {% else %}
-                                    <button class="btn btn-outline-secondary" type="button" disabled>Открепить профиль</button>
-                                    <span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
+                                    <br><span class="text-danger">Вы должны <a href="{% url 'users:password' %}">указать пароль</a>
                                         для своего аккаунта прежде чем отключиться от VK</span>
                                 {% endif %}
                             {% else %}
