@@ -118,8 +118,10 @@ class ProfileUpdate(UpdateView):
                 user.sex = 'm' if vk_login.extra_data['sex'] == 2 else 'f'
                 user.bdate = vk_login.extra_data['bdate']
                 try:
-                    city = City.objects.get(title=vk_login.extra_data['city']['title'])
-                    user.city = city
+                    city_str = vk_login.extra_data['city']['title']
+                    if city_str:
+                        city = City.objects.get(title=vk_login.extra_data['city']['title'])
+                        user.city = city
                 except City.DoesNotExist:
                     pass
 

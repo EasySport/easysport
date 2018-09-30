@@ -116,7 +116,7 @@
         <div class="row py-5">
             <div class="col-12 text-center py-5">
                 <h1 class="display-4 pb-5">Будь в игре!</h1>
-                {% if not loggedin %}
+                {% if not user.is_authenticated %}
                     <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
                 {% endif %}
             </div>
