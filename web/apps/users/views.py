@@ -117,12 +117,17 @@ class ProfileUpdate(UpdateView):
 
                 user.sex = 'm' if vk_login.extra_data['sex'] == 2 else 'f'
                 user.bdate = vk_login.extra_data['bdate']
+
                 try:
-                    city_str = vk_login.extra_data['city']['title']
-                    if city_str:
-                        city = City.objects.get(title=vk_login.extra_data['city']['title'])
-                        user.city = city
-                except City.DoesNotExist or AttributeError:
+                    city_obj = vk_login.extra_data['city']
+                    if city_obj:
+                        city_str = city_obj['title']
+                        try:
+                            city = City.objects.get(title=city_str)
+                            user.city = city
+                        except City.DoesNotExist:
+                            pass
+                except AttributeError:
                     pass
 
             fb_login = user.get_fb_login()
