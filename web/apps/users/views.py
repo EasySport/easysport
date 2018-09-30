@@ -122,7 +122,7 @@ class ProfileUpdate(UpdateView):
                     if city_str:
                         city = City.objects.get(title=vk_login.extra_data['city']['title'])
                         user.city = city
-                except City.DoesNotExist:
+                except City.DoesNotExist or AttributeError:
                     pass
 
             fb_login = user.get_fb_login()
