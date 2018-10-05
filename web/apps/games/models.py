@@ -23,14 +23,6 @@ class Game(models.Model):
         related_name=u'responsible_user',
         on_delete=models.CASCADE
     )
-    responsible = models.ForeignKey(
-        'users.User',
-        verbose_name=u'Ответственный',
-        related_name=u'responsible',
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE
-    )
 
     coach = models.ForeignKey(
         'users.User',
