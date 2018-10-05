@@ -39,7 +39,8 @@ class Game(models.Model):
         default=0
     )
 
-    reserved = models.PositiveIntegerField(
+    # TODO: rename to reserved after migration
+    reserved_count = models.PositiveIntegerField(
         verbose_name='Резервных мест',
         default=0
     )
@@ -151,8 +152,9 @@ class Game(models.Model):
     def subscribed_list(self):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.SUBSCRIBED)
 
-    def reserved_count(self):
-        return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED).count()
+    # TODO: uncomment after migration
+    # def reserved_count(self):
+    #     return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED).count()
 
     def reserved_list(self):
         return UserGameAction.objects.filter(game=self).filter(status=UserGameAction.RESERVED)
