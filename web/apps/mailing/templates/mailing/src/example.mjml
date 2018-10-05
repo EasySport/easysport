@@ -13,11 +13,69 @@
         </mj-section>
         <mj-section background-color="#FAF6F3">
             <mj-column>
+                <mj-text align="center" font-size="20px">Сообщаем тебе о том, что игра №213 отменяется</mj-text>
+                <mj-button background-color="#DB2F16" color="white">
+                    Don't click me!
+                </mj-button>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-divider border-color="#DB2F16"></mj-divider>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-column>
                 <mj-text align="center" font-size="20px">
-                    {% autoescape off %}
-                    Для восстановления пароля от аккаунта {{ user.get_username }} на сайте Easysport.online нажмите на ссылку:
-                    <a href="{{ protocol }}://{{ domain }}{% url 'users:password_reset_confirm' uidb64=uid token=token %}">Ссылка на восстановление пароля</a>
-                    {% endautoescape %}
+                    Приглашаем тебя на игру, которая состоится на этой неделе:
+                </mj-text>
+                <mj-text font-size="16px">
+                    {{ game.datetime }}
+                </mj-text>
+                <mj-text font-size="16px">
+                    Тип игры: {{ game.gametype }}
+                </mj-text>
+                <mj-text font-size="16px">
+                    Площадка:&nbsp;<a href="{{ game.court.get_absolute_url }}">{{ game.court }}<a>
+                </mj-text>
+                <mj-text font-size="16px">
+                    Цена: {{ game.cost }} RUB за {{ game.duration_beauty }}
+                </mj-text>
+                <mj-button background-color="#DB2F16" color="white" font-size="20px">
+                    Записаться на игру
+                </mj-button>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-divider border-color="#DB2F16"></mj-divider>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-column>
+                <mj-text align="center" font-size="20px">
+                    Освободилось место в основном составе на игру:
+                </mj-text>
+                <mj-text font-size="16px">
+                    {{ game.datetime }}
+                </mj-text>
+                <mj-text font-size="16px">
+                    Тип игры: {{ game.gametype }}
+                </mj-text>
+                <mj-text font-size="16px">
+                    Площадка:&nbsp;<a href="{{ game.court.get_absolute_url }}">{{ game.court }}<a>
+                </mj-text>
+                <mj-text font-size="16px">
+                    Цена: {{ game.cost }} RUB за {{ game.duration_beauty }}
+                </mj-text>
+                <mj-button background-color="#DB2F16" color="white" font-size="20px">
+                    Запнять место
+                </mj-button>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-divider border-color="#DB2F16"></mj-divider>
+        </mj-section>
+        <mj-section background-color="#FAF6F3">
+            <mj-column>
+                <mj-text align="center" font-size="20px">
+                    Освободилось место в основном составе на игру:
                 </mj-text>
             </mj-column>
         </mj-section>

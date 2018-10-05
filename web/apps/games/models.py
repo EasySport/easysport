@@ -1,6 +1,10 @@
 # Core django
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Our apps
 from apps.courts.models import Court
@@ -88,7 +92,23 @@ class Game(models.Model):
         return reverse('games:detail', args=[str(self.pk)])
 
     def delete(self, *args, **kwargs):
-        # TODO: send notifications to users and unsubscribe them
+        # TODO: change to mass_mailing
+        for usergameaction in self.subscribed_list():
+            usergameaction.action = UserGameAction.UNSUBSCRIBED
+            html_message = render_to_string(
+                'mailing/build/delete_game_notification.html',
+                {'game': self, 'user': usergameaction.user}
+            )
+            plain_message = strip_tags(html_message)
+
+            send_mail(
+                'Subject here',
+                plain_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [usergameaction.user.email],
+                fail_silently=True,
+                html_message=html_message
+            )
         super().delete(*args, **kwargs)
 
     def time_status(self):
