@@ -124,7 +124,10 @@ class Game(models.Model):
     def time_status(self):
         datetime = timezone.localtime(self.datetime)
         now = timezone.localtime(timezone.now())
-        duration = timezone.timedelta(minutes=self.duration.seconds)
+        if self.duration:
+            duration = timezone.timedelta(minutes=self.duration.seconds)
+        else:
+            return 'Was'
 
         # Возвращаем list из флага, указывающего на то, что игра еще не прошла и статуса
         if now < datetime - duration:
