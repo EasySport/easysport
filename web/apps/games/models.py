@@ -121,7 +121,12 @@ class Game(models.Model):
         try:
             duration = timezone.timedelta(minutes=self.duration.seconds)
         except AttributeError:
-            return 'Was'
+            print(now)
+            print(self.datetime)
+            if now <= self.datetime:
+                return 'Will be'
+            else:
+                return 'Was'
 
         # Возвращаем list из флага, указывающего на то, что игра еще не прошла и статуса
         if now < datetime - duration:
