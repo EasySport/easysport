@@ -16,7 +16,6 @@ class Game(models.Model):
     visibility = models.BooleanField(verbose_name='Публичная игра', default=True)
     is_reported = models.BooleanField(verbose_name='Создан отчет', default=False)
 
-    # TODO: rename to responsible after migration
     responsible = models.ForeignKey(
         'users.User',
         verbose_name=u'Ответственный',
@@ -39,8 +38,7 @@ class Game(models.Model):
         default=0
     )
 
-    # TODO: rename to reserved after migration
-    reserved_count = models.PositiveIntegerField(
+    reserved = models.PositiveIntegerField(
         verbose_name='Резервных мест',
         default=0
     )

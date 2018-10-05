@@ -14,6 +14,7 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [
         ActionsInline,
     ]
+    list_filter = ('is_reported', 'datetime')
 
 
 # Core django admin site register
