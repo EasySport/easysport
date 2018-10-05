@@ -124,7 +124,7 @@ class Game(models.Model):
     def time_status(self):
         datetime = timezone.localtime(self.datetime)
         now = timezone.localtime(timezone.now())
-        if self.duration:
+        if self.duration and self.datetime:
             duration = timezone.timedelta(minutes=self.duration.seconds)
         else:
             return 'Was'
