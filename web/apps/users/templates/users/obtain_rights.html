@@ -80,8 +80,7 @@
 
             {% if user.first_name and user.city and user.phone and not user.phone_privacy and user.avatar %}
                 <p><b>3. Отправляйте заявку на модерацию</b></p>
-                <a href="#" class="btn btn-success btn-lg">Отправить заявку</a>
-                <p class="text-muted">Ожидате, когда с вами свяжется администратор</p>
+                <a href="{% url 'users:obtain_wait' %}" class="btn btn-success btn-lg">Отправить заявку</a>
             {% else %}
                 <a href="{% url 'users:update' %}" class="btn btn-warning btn-lg">Отредактируй свой профиль</a>
             {% endif %}

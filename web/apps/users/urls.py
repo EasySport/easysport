@@ -23,4 +23,5 @@ urlpatterns = [
     path('profile/password/', views.password, name='password'),
 
     path('organizers/obtain/', views.ObtainView.as_view(), name='obtain'),
+    path('organizers/wait/', views.obtain_wait, name='obtain_wait'),
 ]

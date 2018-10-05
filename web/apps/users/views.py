@@ -8,8 +8,10 @@ from django.contrib.auth.forms import (AdminPasswordChangeForm,
                                        PasswordChangeForm)
 from django.contrib.auth.views import (PasswordResetConfirmView,
                                        PasswordResetView)
+from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -173,3 +175,16 @@ def password(request):
 
 class ObtainView(TemplateView):
     template_name = 'users/obtain_rights.html'
+
+
+@login_required
+def obtain_wait(request):
+    message = 'Заявка на права администратора от пользователя: <a href="https://easysport.online/users/{}">{}</a>'.format(request.user.id, request.user)
+    send_mail(
+        'Запрос на права организатора',
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        ['harchenko.grape@gmail.com'],
+        html_message=message
+    )
+    return render(request, 'users/obtain_wait.html')
