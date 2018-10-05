@@ -1,7 +1,9 @@
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'info@quant.zone'
-EMAIL_HOST_PASSWORD = 'physicum123456'
-EMAIL_SUBJECT_PREFIX = '[QUANT] '
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'info@easysport.online'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = 'easysport123456'
+EMAIL_SUBJECT_PREFIX = '[EASYSPORT] '
+EMAIL_USE_TLS = True

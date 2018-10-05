@@ -16,7 +16,8 @@
                             {% bootstrap_form form %}
                             {% buttons %}
                                 <div id="recommended_price"></div><br>
-                                <input type="submit" value="Сохранить" class="btn btn-outline-primary">
+                                <input type="submit" value="Сохранить" class="btn btn-primary">
+                                <a href="{% url 'games:delete' object.id %}" class="btn btn-outline-danger ml-2">Удалить игру</a>
                             {% endbuttons %}
                         </form>
                     </div>

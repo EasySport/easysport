@@ -24,6 +24,7 @@
     "gulp-cache": "^1.0.2",
     "gulp-clean-css": "^3.9.3",
     "gulp-imagemin": "^4.1.0",
+    "gulp-mjml": "^3.0.0",
     "gulp-plumber": "^1.2.0",
     "gulp-rigger": "^0.5.8",
     "gulp-sass": "^3.1.0",

@@ -40,12 +40,16 @@
                 {% endif %}
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="row bg-red text-white py-5">
             <div class="col-md-10 offset-md-1 text-center py-5">
                 <h2 class="display-4 pb-5">От желания до игры <br> за 5 минут!</h2>
                 <p class="lead">Хочешь поиграть, но не знаешь где и с кем? Ты нашел то, что искал!</p>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12 py-5">
                 <div class="row align-items-center">
@@ -73,11 +77,15 @@
                 </div>
             </div>
         </div>
-        <div class="row py-5 bg-red text-white justify-content-center">
+    </div>
+    <div class="container-fluid">
+        <div class="row py-5 bg-dark-blue text-white justify-content-center">
             <div class="col-10 text-center">
                 <h4 class="py-5">Вы уже играете и вам не хватает игроков? Подключайтесь к нам! Проблем с составом больше не будет. <br><br>Мы провели уже более 600 игр!</h4>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="row py-5">
             <div class="col-12 text-center">
                 <img src="{% static 'img/index/1.png' %}" style="width:100px;"/>
@@ -106,18 +114,23 @@
                 <img src="{% static 'img/index/18.png' %}" style="width:100px;"/>
             </div>
         </div>
-        <div class="row py-5 bg-red text-white">
-            <div class="col-12 text-center py-5">
-                <p class="lead">Не можешь играть каждую неделю? Отвлекает семья и работа?</p>
-                <img class="py-5" src="{% static 'img/index/main_4.png' %}" alt="" height="300"/>
+    </div>
+    <div class="container-fluid">
+        <div class="row pt-5 bg-red text-white">
+            <div class="col-12 text-center pt-5">
+                <p class="lead">Не можешь играть каждую неделю?</p>
+                <p class="lead">Пропускаешь тренировки из-за болезней и работы?</p>
                 <p class="lead">С EasySport это не помеха. Планируй свое время удобным образом!</p>
+                <img class="pt-2" src="{% static 'img/index/team.png' %}" alt="" height="400"/>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="row py-5">
             <div class="col-12 text-center py-5">
-                <h1 class="display-4 pb-5">Будь в игре!</h1>
+                <h1 class="display-4">Будь в игре!</h1>
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success">Зарегистрироваться</a>
+                    <a href="{% url 'users:signup' %}" class="btn btn-main btn-lg btn-success pt-5">Зарегистрироваться</a>
                 {% endif %}
             </div>
         </div>

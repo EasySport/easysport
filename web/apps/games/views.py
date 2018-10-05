@@ -8,14 +8,14 @@ from django.contrib import messages
 
 from django.db.models import F, Q
 from django.shortcuts import HttpResponse, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from dal import autocomplete
 from extra_views import ModelFormSetView
@@ -123,6 +123,12 @@ class GameUpdate(UpdateView):
         form.fields['court'].widget = autocomplete.ModelSelect2(url='courts:autocomplete')
         form.fields['court'].widget.choices = form.fields['court'].choices
         return form
+
+
+class GameDelete(DeleteView):
+    model = Game
+    permission_required = 'games.can_edit'
+    success_url = reverse_lazy('games:list')
 
 
 @method_decorator(permission_required('games.can_edit'), 'dispatch')

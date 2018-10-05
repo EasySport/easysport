@@ -88,6 +88,10 @@ class Game(models.Model):
         from django.urls import reverse
         return reverse('games:detail', args=[str(self.pk)])
 
+    def delete(self, *args, **kwargs):
+        # TODO: send notifications to users and unsubscribe them
+        super().delete(*args, **kwargs)
+
     def time_status(self):
         datetime = timezone.localtime(self.datetime)
         now = timezone.localtime(timezone.now())

@@ -8,6 +8,7 @@ var path = {
         css:   'build/css/',
         img:   'build/img/',
         docs:  'build/docs/',
+        mjml:  '../apps/mailing/templates/mailing/build/',
         fonts: 'build/fonts/'
     },
     src: {
@@ -17,6 +18,7 @@ var path = {
         img:   'src/img/**/*.*',
         docs:  'src/docs/**/*.*',
         fonts: 'src/fonts/**/*.*',
+        mjml:  '../apps/mailing/templates/mailing/src/**/*.mjml',
         fa:    'node_modules/@fortawesome/fontawesome-free/webfonts/*.*'
     },
     watch: {
@@ -25,6 +27,7 @@ var path = {
         js:    'src/js/**/*.js',
         css:   'src/style/**/*.scss',
         img:   'src/img/**/*.*',
+        mjml:  '../apps/mailing/templates/mailing/src/**/*.mjml',
         fonts: 'src/fonts/**/*.*'
     },
     clean:     './build'
@@ -52,6 +55,7 @@ var gulp = require('gulp'),  // подключаем Gulp
     jpegrecompress = require('imagemin-jpeg-recompress'), // плагин для сжатия jpeg
     pngquant = require('imagemin-pngquant'), // плагин для сжатия png
     del = require('del'), // плагин для удаления файлов и каталогов
+    mjml = require('gulp-mjml'), // плагин для сборки mjml файлов
     browserSync = require('browser-sync').create();; // сервер для работы и автоматического обновления страниц
 
 /* задачи */
@@ -131,6 +135,13 @@ gulp.task('fonts:build', function() {
         .pipe(gulp.dest(path.build.fonts));
 });
 
+// сборка писем
+gulp.task('mjml:build', function () {
+    gulp.src(path.src.mjml)
+        .pipe(mjml())
+        .pipe(gulp.dest(path.build.mjml));
+});
+
 // обработка картинок
 gulp.task('image:build', function () {
     gulp.src(path.src.img) // путь с исходниками картинок
@@ -165,6 +176,7 @@ gulp.task('build', [
     'js:build',
     'fonts:build',
     'docs:build',
+    'mjml:build',
     'image:build'
 ]);
 
@@ -174,6 +186,7 @@ gulp.task('watch', function() {
     gulp.watch(path.watch.css, ['css:build']);
     gulp.watch(path.watch.js, ['js:build']);
     gulp.watch(path.watch.img, ['image:build']);
+    gulp.watch(path.watch.mjml, ['mjml:build']);
     gulp.watch(path.watch.fonts, ['fonts:build']);
 });
 

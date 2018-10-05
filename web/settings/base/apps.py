@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'apps.courts',
     'apps.games',
     'apps.lp',
+    'apps.mailing',
     'apps.sports',
     'apps.users',
 

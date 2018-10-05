@@ -32,3 +32,19 @@
 .select2-selection {
     height: calc(2.25rem + 5px) !important;
 }
+
+// Footer
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 140px; /* Margin bottom by footer height */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
