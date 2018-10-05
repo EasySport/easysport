@@ -42,6 +42,10 @@ class Game(models.Model):
         verbose_name='Резервных мест',
         default=0
     )
+    reserved_count = models.PositiveIntegerField(
+        verbose_name='Резервных мест',
+        default=0
+    )
 
     cost = models.SmallIntegerField(
         verbose_name='Цена',
