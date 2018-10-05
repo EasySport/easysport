@@ -41,12 +41,12 @@
                 </div>
             </form>
             {% if not perms.games.add_game %}
-                <a href="{% url 'users:obtain' %}" class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнайте, как добавить сюда свою
+                <a href="{% url 'users:obtain' %}" class="btn btn-info btn-block mb-4" style="white-space: normal;">Узнай, как добавить сюда свою
                     игру
                 </a>
             {% endif %}
             <div class="card card-body mb-4 d-none d-sm-block">
-                <p class="lead">Расскажите о нас</p>
+                <p class="lead">Расскажи о нас</p>
                 <div class="likely likely-big" data-title="Easysport - сообщество для любителей игровых видов спорта!">
                     <div class="facebook">Share</div>
                     <div class="twitter">Tweet</div>
@@ -55,6 +55,11 @@
                     <div class="telegram" data-text="Easysport - сообщество для любителей игровых видов спорта!">Send</div>
                     <div class="whatsapp">Send</div>
                 </div>
+            </div>
+            <div class="card card-body mb-4 d-none d-sm-block">
+                <p class="lead">Поддержи проект</p>
+                <iframe src="https://money.yandex.ru/quickpay/button-widget?targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B8%20EasySport!%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%B4%D0%BE%D0%BC%D0%B5%D0%BD%D0%B0)&default-sum=100&button-text=11&yamoney-payment-type=on&button-size=m&button-color=orange&successURL=https%3A%2F%2Feasysport.online%2Fdonate%2Fthanks&quickpay=small&account=41001691643870&" width="227" height="48" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+                <p class="small text-muted mb-0">EasySport - некоммерческий проект. С вашей поддержкой мы сможем предоставлять новый функционал и расширять выбор игр на портале быстрее!</p>
             </div>
         </div>
         <div class="col-lg-9">
@@ -76,7 +81,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Список пуст.</h5>
                         <p class="card-text">
-                            Создайте свою, если уже получили право создания игр или пройдите по
+                            Создай свою, если уже получил право создания игр или пройди по
                             <a href="{% url 'users:obtain' %}">ссылке</a>, чтобы узнать, как стать организатором
                         </p>
                     </div>

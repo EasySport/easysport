@@ -8,3 +8,7 @@ class IndexView(TemplateView):
 
 class ContactsView(TemplateView):
     template_name = 'lp/contacts.html'
+
+
+class DonateThanksView(TemplateView):
+    template_name = 'lp/donate_thanks.html'
