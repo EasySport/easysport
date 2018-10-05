@@ -27,6 +27,8 @@ class Game(models.Model):
         'users.User',
         verbose_name=u'Ответственный',
         related_name=u'responsible',
+        null=True,
+        blank=True,
         on_delete=models.CASCADE
     )
 
