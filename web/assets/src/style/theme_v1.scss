@@ -5,10 +5,11 @@
 //$brand-warning:         #D3833F !default;
 //$brand-danger:          #D3443C !default;
 //
-$body-bg:               #eae2db !default;
+$body-bg:               #FAF6F3 !default;
 
 $theme-colors: (
-  "red": #c23429
+  "red":        #DB2F16,
+  "dark-blue":  #312F3C
 );
 
 // Variables
@@ -21,11 +22,11 @@ $theme-colors: (
 // Color system
 //
 
-$primary: #006bd6 !default;
-//$success:       #1d872e !default;
-//$info:          #42B4C4 !default;
-//$warning:       #D3833F !default;
-//$danger:        #D3443C !default;
+$primary:       #428BCA !default;
+$success:       #5CB85C !default;
+$info:          #5BC0DE !default;
+$warning:       #F0AD4E !default;
+$danger:        #D9534F !default;
 
 $font-family-sans-serif: 'Rubik', sans-serif, !default;
 
