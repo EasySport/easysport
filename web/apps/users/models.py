@@ -11,6 +11,7 @@ from social_django.models import UserSocialAuth
 # Our apps
 from apps.courts.models import City
 from apps.sports.models import Amplua, SportType
+from apps.games.models import UserGameAction
 
 
 class UserManager(BaseUserManager):
@@ -171,3 +172,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return reverse('users:detail', args=[str(self.pk)])
+
+    def visited_list(self):
+        return UserGameAction.objects.filter(user=self).filter(status=UserGameAction.VISITED)

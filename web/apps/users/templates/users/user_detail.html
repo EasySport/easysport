@@ -103,6 +103,33 @@
                     {% endif %}
                 </div>
             </div>
+            {% if current_user.visited_list.count > 0 %}
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p class="lead">Последние посещенные игры:</p>
+                        <table class="table table-hover table-responsive table-striped">
+                            <tr class="active">
+                                <td>№ игры</td>
+                                <td>Дата</td>
+                                <td>Название</td>
+                                <td>Тип игры</td>
+                                <td>Площадка</td>
+                                <td>Время на площадке</td>
+                            </tr>
+                            {% for usergameaction in current_user.visited_list %}
+                                <tr>
+                                    <td><a href="{% url 'games:detail' usergameaction.game.pk %}" target="_blank"># {{ usergameaction.game.pk }}</a></td>
+                                    <td>{{ usergameaction.game.datetime }}</td>
+                                    <td>{{ usergameaction.game.title }}</td>
+                                    <td>{{ usergameaction.game.gametype.sport_type }}</td>
+                                    <td><a href="{% url 'courts:detail' usergameaction.game.court.pk %}" target="_blank">{{ usergameaction.game.court }}</a></td>
+                                    <td>{{ usergameaction.game.duration }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

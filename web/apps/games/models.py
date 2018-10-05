@@ -5,7 +5,6 @@ from django.utils import timezone
 # Our apps
 from apps.courts.models import Court
 from apps.sports.models import GameType
-from apps.users.models import User
 
 
 class Game(models.Model):
@@ -14,14 +13,14 @@ class Game(models.Model):
     is_reported = models.BooleanField(verbose_name='Создан отчет', default=False)
 
     responsible = models.ForeignKey(
-        User,
+        'users.User',
         verbose_name=u'Ответственный',
         related_name=u'responsible',
         on_delete=models.CASCADE
     )
 
     coach = models.ForeignKey(
-        User,
+        'users.User',
         null=True,
         blank=True,
         verbose_name=u'Тренер',
@@ -71,7 +70,7 @@ class Game(models.Model):
     description = models.CharField(max_length=300, verbose_name='Описание', blank=True, null=True)
     is_public = models.BooleanField('Публичный статус', default=True,
                                     help_text="Делает видимым в потоке")
-    created_by = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
+    created_by = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE, related_name=u'created_by',)
     sporttype = models.ForeignKey('sports.SportType', verbose_name='Вид спорта', blank=True, null=True,
                                   on_delete=models.CASCADE)
     datetime_to = models.DateTimeField(verbose_name='Дата окончания', blank=True, auto_now=True)
@@ -181,8 +180,9 @@ class UserGameAction(models.Model):
     )
 
     user = models.ForeignKey(
-        User,
+        'users.User',
         verbose_name='Пользователь',
+        related_name=u'usergameaction',
         on_delete=models.CASCADE
     )
 
