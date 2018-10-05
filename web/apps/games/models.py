@@ -121,8 +121,6 @@ class Game(models.Model):
         try:
             duration = timezone.timedelta(minutes=self.duration.seconds)
         except AttributeError:
-            print(now)
-            print(self.datetime)
             if now <= self.datetime:
                 return 'Will be'
             else:
