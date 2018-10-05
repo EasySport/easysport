@@ -71,13 +71,13 @@ python manage.py dumpdata users -o fixtures/users.json
 2. Load locally
 
 ```angular2html
-scp -r root@easysport.online:/opt/sportcourts2/fixtures ~/Dev
+ new.json
 ```
 
 3. Loaddata
 
-Zero - new? 
-First - users. 
+Zero - new?
+First - delete useractivation from users and load users
 Second - places
 Third - courts
 Fourth - games
