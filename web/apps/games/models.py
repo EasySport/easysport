@@ -16,7 +16,8 @@ class Game(models.Model):
     visibility = models.BooleanField(verbose_name='Публичная игра', default=True)
     is_reported = models.BooleanField(verbose_name='Создан отчет', default=False)
 
-    responsible = models.ForeignKey(
+    # TODO: rename to responsible after migration
+    responsible_user = models.ForeignKey(
         'users.User',
         verbose_name=u'Ответственный',
         related_name=u'responsible',
