@@ -17,7 +17,7 @@ class Game(models.Model):
     is_reported = models.BooleanField(verbose_name='Создан отчет', default=False)
 
     # TODO: rename to responsible after migration
-    responsible_user = models.ForeignKey(
+    responsible = models.ForeignKey(
         'users.User',
         verbose_name=u'Ответственный',
         related_name=u'responsible_user',
