@@ -20,6 +20,12 @@ class Game(models.Model):
     responsible_user = models.ForeignKey(
         'users.User',
         verbose_name=u'Ответственный',
+        related_name=u'responsible_user',
+        on_delete=models.CASCADE
+    )
+    responsible = models.ForeignKey(
+        'users.User',
+        verbose_name=u'Ответственный',
         related_name=u'responsible',
         on_delete=models.CASCADE
     )
