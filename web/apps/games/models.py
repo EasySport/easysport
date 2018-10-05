@@ -124,9 +124,9 @@ class Game(models.Model):
     def time_status(self):
         datetime = timezone.localtime(self.datetime)
         now = timezone.localtime(timezone.now())
-        if self.duration and self.datetime:
+        try:
             duration = timezone.timedelta(minutes=self.duration.seconds)
-        else:
+        except AttributeError:
             return 'Was'
 
         # Возвращаем list из флага, указывающего на то, что игра еще не прошла и статуса
