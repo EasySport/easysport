@@ -71,7 +71,7 @@ python manage.py dumpdata users -o fixtures/users.json
 2. Load locally
 
 ```angular2html
- new.json
+scp -r root@easysport.online:/opt/sportcourts2/fixtures ~/Dev
 ```
 
 3. Loaddata
