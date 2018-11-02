@@ -1,4 +1,4 @@
-FROM abiosoft/caddy:0.11.0
+FROM abiosoft/caddy
 
 COPY ./docker/production/caddy/Caddyfile /etc/Caddyfile
 
