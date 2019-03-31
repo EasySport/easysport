@@ -22,14 +22,14 @@ VPS-хостинг на smartape.ru
 ```
 IP-адрес: 188.127.231.216
 Пользователь: root
-Пароль: 9jFLO8w9oSW4
+Пароль: ***********
 ```
 
 ### Initial setup for Ubuntu
 
 1. Create non-root user:
 ```
-adduser easysport (pass:easysport)
+adduser easysport (pass:*******)
 ```
 
 2. Give root priveleges
